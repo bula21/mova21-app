@@ -24,7 +24,11 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "ch.mova21.app",
       "supportsTablet": true
+    },
+    "android": {
+      "package": "ch.mova21.app"
     }
   }
 }

@@ -3,6 +3,7 @@
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
+    "build-android": "expo build:android -t apk",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject"
