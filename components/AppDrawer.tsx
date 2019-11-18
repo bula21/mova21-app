@@ -41,6 +41,13 @@ export default class AppDrawer extends React.Component<DrawerContentComponentPro
 							navigation={this.props.navigation}
 						>
 						</AppDrawerItem>
+						<AppDrawerItem
+							navigateTo={'Map'}
+							title={'Karte'}
+							icon={'ios-map'}
+							navigation={this.props.navigation}
+						>
+						</AppDrawerItem>
 					</DrawerView>
 				</SafeAreaView>
 			</ScrollView>

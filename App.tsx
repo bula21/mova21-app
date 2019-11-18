@@ -5,6 +5,7 @@ import HomeScreen from "./screens/HomeScreen";
 import NewsScreen from "./screens/NewsScreen";
 import {createDrawerNavigator} from "react-navigation-drawer";
 import AppDrawer from "./components/AppDrawer";
+import MapScreen from "./screens/MapScreen";
 
 const AppNavigator = createStackNavigator(
 	{
@@ -13,6 +14,9 @@ const AppNavigator = createStackNavigator(
 		},
 		News: {
 			screen: NewsScreen,
+		},
+		Map: {
+			screen: MapScreen,
 		}
 	},
 	{
