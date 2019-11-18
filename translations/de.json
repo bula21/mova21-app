@@ -1,4 +1,6 @@
 {
-  "News": "Neuigkeiten",
-  "Home": "Startseite"
+  "news": "Neuigkeiten",
+  "home": "Startseite",
+  "map": "Karte",
+  "radio": "Radio"
 }

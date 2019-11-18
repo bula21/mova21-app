@@ -31,21 +31,21 @@ class AppDrawer extends React.Component<IAppDrawerProps> {
 						<AppTitleText>MOVA</AppTitleText>
 						<AppDrawerItem
 							navigateTo={'home'}
-							title={t('Home')}
+							title={t('home')}
 							icon={'ios-home'}
 							navigation={this.props.navigation}
 						>
 						</AppDrawerItem>
 						<AppDrawerItem
 							navigateTo={'news'}
-							title={t('News')}
+							title={t('news')}
 							icon={'ios-paper'}
 							navigation={this.props.navigation}
 						>
 						</AppDrawerItem>
 						<AppDrawerItem
 							navigateTo={'map'}
-							title={t('Karte')}
+							title={t('map')}
 							icon={'ios-map'}
 							navigation={this.props.navigation}
 						>

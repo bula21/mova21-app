@@ -22,13 +22,6 @@ const HomeMenu = styled.View`
 `;
 
 class HomeScreen extends React.Component<IDefaultScreenProps> {
-
-	static navigationOptions = ({navigation}: any) => {
-		return {
-			title: 'Home'
-		};
-	};
-
 	render() {
 		const t = this.props.t;
 		return (
@@ -37,14 +30,20 @@ class HomeScreen extends React.Component<IDefaultScreenProps> {
 				<HomeMenu>
 					<HomeMenuItem
 						navigateTo={'news'}
-						title={t('News')}
+						title={t('news')}
 						icon={'ios-paper'}
 						navigation={this.props.navigation}
 					/>
 					<HomeMenuItem
 						navigateTo={'map'}
-						title={t('Karte')}
+						title={t('map')}
 						icon={'ios-map'}
+						navigation={this.props.navigation}
+					/>
+					<HomeMenuItem
+						navigateTo={'map'}
+						title={t('radio')}
+						icon={'ios-play'}
 						navigation={this.props.navigation}
 					/>
 				</HomeMenu>

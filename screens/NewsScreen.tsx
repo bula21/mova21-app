@@ -11,13 +11,6 @@ const NewsContainer = styled.View`
 `;
 
 class NewsScreen extends React.Component<IDefaultScreenProps> {
-
-	static navigationOptions = ({navigation}: any) => {
-		return {
-			title: 'News'
-		};
-	};
-
 	render() {
 		const t = this.props.t;
 		return (

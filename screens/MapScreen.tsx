@@ -11,13 +11,6 @@ const MapContainer = styled.View`
 `;
 
 class MapScreen extends React.Component<IDefaultScreenProps> {
-
-	static navigationOptions = ({navigation}: any) => {
-		return {
-			title: 'Karte'
-		};
-	};
-
 	render() {
 		const t = this.props.t;
 		return (

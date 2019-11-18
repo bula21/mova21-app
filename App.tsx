@@ -6,19 +6,27 @@ import NewsScreen from "./screens/NewsScreen";
 import {createDrawerNavigator} from "react-navigation-drawer";
 import AppDrawer from "./components/AppDrawer";
 import MapScreen from "./screens/MapScreen";
-import './i18n';
-import {withTranslation, WithTranslation} from 'react-i18next';
+import i18n from './i18n';
 
 const AppNavigator = createStackNavigator(
 	{
 		home: {
 			screen: HomeScreen,
+			navigationOptions: {
+				title: 'Café21 - Bula21 - Cafe21'
+			}
 		},
 		news: {
 			screen: NewsScreen,
+			navigationOptions: {
+				title: i18n.t('news')
+			}
 		},
 		map: {
 			screen: MapScreen,
+			navigationOptions: {
+				title: i18n.t('map')
+			}
 		}
 	},
 	{
@@ -40,7 +48,7 @@ const NavigationDrawer = createDrawerNavigator(
 
 const AppNavigatorContainer = createAppContainer(NavigationDrawer);
 
-class App extends React.Component<WithTranslation> {
+export default class App extends React.Component {
 	render() {
 		return (
 			<AppNavigatorContainer>
@@ -48,5 +56,3 @@ class App extends React.Component<WithTranslation> {
 		);
 	}
 }
-
-export default withTranslation()(App)
