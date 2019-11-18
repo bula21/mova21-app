@@ -8,6 +8,7 @@ const MenuText = styled.Text`
 	font-weight: bold;
 	font-size: 16px;
 	text-align: center;
+	margin-top: 5px;
 `;
 
 const MenuIcon = styled.View`
@@ -17,7 +18,7 @@ const MenuIcon = styled.View`
 const HomeMenuItemTouchable = styled.TouchableOpacity`
 	padding: 10px 5px;
 	background: ${MovaTheme.colorYellow};
-	width: 30%;
+	width: 28%;
 	height: 100px;
 	border-radius: 5px;
 	margin: 10px 0;

@@ -18,7 +18,11 @@ const HomeMenu = styled.View`
 	padding-top: 10px;
 	flex-wrap: wrap;
 	flex-direction: row;
-	justify-content: space-around;
+	justify-content: space-evenly;
+`;
+
+const EmptyHomeMenuItem = styled.View`
+	width: 28%;
 `;
 
 class HomeScreen extends React.Component<IDefaultScreenProps> {
@@ -46,6 +50,37 @@ class HomeScreen extends React.Component<IDefaultScreenProps> {
 						icon={'ios-play'}
 						navigation={this.props.navigation}
 					/>
+					<HomeMenuItem
+						navigateTo={'map'}
+						title={t('info')}
+						icon={'ios-information-circle'}
+						navigation={this.props.navigation}
+					/>
+					<HomeMenuItem
+						navigateTo={'map'}
+						title={t('weather')}
+						icon={'ios-sunny'}
+						navigation={this.props.navigation}
+					/>
+					<HomeMenuItem
+						navigateTo={'map'}
+						title={t('help')}
+						icon={'ios-help-buoy'}
+						navigation={this.props.navigation}
+					/>
+					<HomeMenuItem
+						navigateTo={'map'}
+						title={t('timetable')}
+						icon={'ios-calendar'}
+						navigation={this.props.navigation}
+					/>
+					<HomeMenuItem
+						navigateTo={'map'}
+						title={t('emergency')}
+						icon={'ios-notifications'}
+						navigation={this.props.navigation}
+					/>
+					<EmptyHomeMenuItem/>
 				</HomeMenu>
 			</HomeContainer>
 		);
