@@ -1,7 +1,8 @@
 import React from 'react';
 import {Text} from 'react-native';
-import {NavigationParams, NavigationScreenProp, NavigationState} from "react-navigation";
 import styled from 'styled-components/native';
+import {withTranslation} from "react-i18next";
+import IDefaultScreenProps from "./IDefaultScreenProps";
 
 const MapContainer = styled.View`
 	flex: 1;
@@ -9,11 +10,7 @@ const MapContainer = styled.View`
 	padding: 20px;
 `;
 
-interface IMapScreenProps {
-	navigation: NavigationScreenProp<NavigationState, NavigationParams>;
-}
-
-export default class MapScreen extends React.Component<IMapScreenProps> {
+class MapScreen extends React.Component<IDefaultScreenProps> {
 
 	static navigationOptions = ({navigation}: any) => {
 		return {
@@ -22,10 +19,13 @@ export default class MapScreen extends React.Component<IMapScreenProps> {
 	};
 
 	render() {
+		const t = this.props.t;
 		return (
 			<MapContainer>
-				<Text>Hier kommt die Karte hin</Text>
+				<Text>{t('Hier kommt die Karte hin')}</Text>
 			</MapContainer>
 		);
 	}
 }
+
+export default withTranslation()(MapScreen);

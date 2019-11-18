@@ -6,7 +6,7 @@ import MovaTheme from "../constants/MovaTheme";
 
 const MenuText = styled.Text`
 	font-weight: bold;
-	font-size: 18px;
+	font-size: 16px;
 	text-align: center;
 `;
 
@@ -15,7 +15,7 @@ const MenuIcon = styled.View`
 `;
 
 const HomeMenuItemTouchable = styled.TouchableOpacity`
-	padding: 10px 20px;
+	padding: 10px 5px;
 	background: ${MovaTheme.colorYellow};
 	width: 30%;
 	height: 100px;

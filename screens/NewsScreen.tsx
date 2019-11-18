@@ -1,7 +1,8 @@
 import React from 'react';
 import {Text} from 'react-native';
-import {NavigationParams, NavigationScreenProp, NavigationState} from "react-navigation";
 import styled from 'styled-components/native';
+import {withTranslation} from "react-i18next";
+import IDefaultScreenProps from "./IDefaultScreenProps";
 
 const NewsContainer = styled.View`
 	flex: 1;
@@ -9,11 +10,7 @@ const NewsContainer = styled.View`
 	padding: 20px;
 `;
 
-interface INewsScreenProps {
-	navigation: NavigationScreenProp<NavigationState, NavigationParams>;
-}
-
-export default class NewsScreen extends React.Component<INewsScreenProps> {
+class NewsScreen extends React.Component<IDefaultScreenProps> {
 
 	static navigationOptions = ({navigation}: any) => {
 		return {
@@ -22,10 +19,13 @@ export default class NewsScreen extends React.Component<INewsScreenProps> {
 	};
 
 	render() {
+		const t = this.props.t;
 		return (
 			<NewsContainer>
-				<Text>Here are the News</Text>
+				<Text>{t('Here are the News')}</Text>
 			</NewsContainer>
 		);
 	}
 }
+
+export default withTranslation()(NewsScreen);
