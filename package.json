@@ -12,6 +12,7 @@
     "@react-navigation/bottom-tabs": "^5.2.5",
     "@react-navigation/native": "^5.1.4",
     "@types/styled-components": "^5.0.1",
+    "@use-expo/font": "^2.0.0",
     "expo": "~37.0.3",
     "expo-localization": "^8.1.0",
     "i18next": "^19.3.4",

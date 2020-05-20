@@ -1,6 +1,6 @@
 import React from 'react';
-import {Text} from 'react-native';
 import styled from "styled-components/native";
+import MovaHeadingText from "../generic/MovaHeadingText";
 
 const MainContainer = styled.View`
 	flex: 1;
@@ -12,7 +12,7 @@ const MainContainer = styled.View`
 export default function RadioMain() {
 	return (
 		<MainContainer>
-			<Text>Radio</Text>
+			<MovaHeadingText>Radio</MovaHeadingText>
 		</MainContainer>
 	);
 }

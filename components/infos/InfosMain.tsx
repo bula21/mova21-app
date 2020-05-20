@@ -1,6 +1,6 @@
 import React from 'react';
-import {Text} from 'react-native';
 import styled from "styled-components/native";
+import MovaHeadingText from "../generic/MovaHeadingText";
 
 const MainContainer = styled.View`
 	flex: 1;
@@ -12,7 +12,7 @@ const MainContainer = styled.View`
 export default function InfosMain() {
 	return (
 		<MainContainer>
-			<Text>Infos</Text>
+			<MovaHeadingText>Info</MovaHeadingText>
 		</MainContainer>
 	);
 }

@@ -1,15 +1,24 @@
 import React from 'react';
-import {Text} from 'react-native';
 import {useTranslation} from "react-i18next";
 import styled from "styled-components/native";
+import MovaText from "../generic/MovaText";
+import MovaTheme from "../../constants/MovaTheme";
 
 const NewsItemContainer = styled.View`
-	background-color: #eee;
-	margin: 10px;
+	padding-bottom: 20px;
 `;
 
 const NewsItemTitle = styled.View`
 	padding: 10px;
+	padding-bottom: 0;
+`;
+
+const NewsItemDate = styled.View`
+	padding: 10px;
+	padding-top: 0;
+`;
+const NewsItemDateText = styled.Text`
+	color: ${MovaTheme.colorGrey};
 `;
 
 const NewsImage = styled.Image`
@@ -23,8 +32,15 @@ export default function NewsItem({ data }) {
 		<NewsItemContainer>
 			<NewsImage source={require('../../assets/home_placeholder.jpg')}/>
 			<NewsItemTitle>
-				<Text>{data.title}</Text>
+				<MovaText style={{ fontSize: 24}}>{data.title}</MovaText>
 			</NewsItemTitle>
+			<NewsItemDate>
+				<MovaText>
+					<NewsItemDateText>
+						vor 3 Tagen
+					</NewsItemDateText>
+				</MovaText>
+			</NewsItemDate>
 		</NewsItemContainer>
 	);
 }
