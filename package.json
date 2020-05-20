@@ -23,7 +23,7 @@
     "react-i18next": "^11.3.4",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.0.tar.gz",
     "react-native-maps": "0.26.1",
-    "react-native-safe-area-context": "^0.7.3",
+    "react-native-safe-area-context": "^1.0.2",
     "react-native-screens": "~2.2.0",
     "react-native-web": "~0.11.7",
     "react-navigation": "^4.3.7",
