@@ -20,8 +20,8 @@ const NewsHeader = styled.View`
 
 export default function NewsMain() {
 	const {t} = useTranslation();
-	return (
 
+	return (
 		<MainContainer>
 			<FlatList
 				data={DATA}
