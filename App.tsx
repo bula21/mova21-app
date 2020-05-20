@@ -1,7 +1,6 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Ionicons} from '@expo/vector-icons';
 import NewsMain from './components/news/NewsMain'
 import InfosMain from './components/infos/InfosMain'
 import RadioMain from "./components/radio/RadioMain";
@@ -11,6 +10,7 @@ import MovaTheme from "./constants/MovaTheme";
 import {useTranslation} from "react-i18next";
 import { useFonts } from '@use-expo/font';
 import {AppLoading} from "expo";
+import MovaIcon from "./components/generic/MovaIcon";
 
 const customFonts = {
 	'MS-Bold': require('./assets/fonts/MS-Bold.otf'),
@@ -35,7 +35,11 @@ export default function App() {
 					inactiveTintColor: MovaTheme.colorGrey,
 					labelStyle: {
 						fontFamily: 'MS-Bold',
-						fontSize: 18
+						fontSize: 16
+					},
+					style: {
+						height: 100,
+						borderTopColor: '#fff'
 					}
 				}}
 			>
@@ -45,7 +49,7 @@ export default function App() {
 					options={{
 						tabBarLabel: t('news'),
 						tabBarIcon: ({focused, color, size}) => (
-							<Ionicons name="md-bonfire" size={size} color={color}/>
+							<MovaIcon name={focused ? 'news': 'news-outline'} size={size * 1.5} color={color}/>
 						),
 					}}
 				/>
@@ -55,7 +59,7 @@ export default function App() {
 					options={{
 						tabBarLabel: t('info'),
 						tabBarIcon: ({focused, color, size}) => (
-							<Ionicons name="ios-information-circle-outline" size={size} color={color}/>
+							<MovaIcon name={focused ? 'info': 'info-outline'} size={size * 1.5} color={color}/>
 						),
 					}}
 				/>
@@ -65,7 +69,7 @@ export default function App() {
 					options={{
 						tabBarLabel: t('radio'),
 						tabBarIcon: ({focused, color, size}) => (
-							<Ionicons name="ios-musical-notes" size={size} color={color}/>
+							<MovaIcon name={focused ? 'radio': 'radio-outline'} size={size * 1.5} color={color}/>
 						),
 					}}
 				/>
@@ -75,7 +79,7 @@ export default function App() {
 					options={{
 						tabBarLabel: t('map'),
 						tabBarIcon: ({focused, color, size}) => (
-							<Ionicons name="ios-map" size={size} color={color}/>
+							<MovaIcon name={focused ? 'map': 'map-outline'} size={size * 1.5} color={color}/>
 						),
 					}}
 				/>
