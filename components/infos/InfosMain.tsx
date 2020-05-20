@@ -1,34 +1,17 @@
 import React from 'react';
-import styled from "styled-components/native";
-import MovaHeadingText from "../generic/MovaHeadingText";
-import {FlatList} from "react-native";
-import Constants from 'expo-constants';
-import {useTranslation} from "react-i18next";
-import DATA from './example_pages.json';
-import InfosItem from "./InfosItem";
+import {createStackNavigator} from "@react-navigation/stack";
+import InfosList from "./InfosList";
+import InfosPage from "./InfosPage";
 
-const MainContainer = styled.View`
-	background-color: #fff;
-	flex: 1;
-	margin-top: ${Constants.statusBarHeight}px;
-`;
-
-const InfosHeader = styled.View`
-	padding: 10px;
-	margin-top: 10px;
-`;
+const Stack = createStackNavigator();
 
 export default function InfosMain() {
-	const {t} = useTranslation();
-
 	return (
-		<MainContainer>
-			<FlatList
-				data={DATA}
-				renderItem={({item, index}) => <InfosItem data={item} alternate={!!(index % 2)}/>}
-				keyExtractor={item => item.id}
-				ListHeaderComponent={<InfosHeader><MovaHeadingText>{t('info')}</MovaHeadingText></InfosHeader>}
-			/>
-		</MainContainer>
+		<Stack.Navigator screenOptions={{
+			headerShown: false
+		}}>
+			<Stack.Screen name="infomain" component={InfosList} />
+			<Stack.Screen name="infopage" component={InfosPage} />
+		</Stack.Navigator>
 	);
 }

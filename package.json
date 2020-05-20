@@ -9,8 +9,10 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/masked-view": "0.1.6",
     "@react-navigation/bottom-tabs": "^5.2.5",
     "@react-navigation/native": "^5.1.4",
+    "@react-navigation/stack": "^5.3.9",
     "@types/styled-components": "^5.0.1",
     "@use-expo/font": "^2.0.0",
     "expo": "~37.0.3",
@@ -22,6 +24,7 @@
     "react-dom": "~16.9.0",
     "react-i18next": "^11.3.4",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.0.tar.gz",
+    "react-native-gesture-handler": "^1.6.1",
     "react-native-maps": "0.26.1",
     "react-native-safe-area-context": "^1.0.2",
     "react-native-screens": "~2.2.0",
