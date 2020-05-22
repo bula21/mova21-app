@@ -7,6 +7,8 @@ import {useTranslation} from "react-i18next";
 import DATA from './example_pages.json';
 import MovaTheme from "../../constants/MovaTheme";
 import MovaText from "../generic/MovaText";
+import {StackNavigationProp} from "@react-navigation/stack";
+import {IPage} from "./IPage";
 
 const MainContainer = styled.View`
 	background-color: #fff;
@@ -23,7 +25,12 @@ const InfosHeader = styled.View`
 	margin-top: 10px;
 `;
 
-export default function InfosList({ navigation }) {
+type NavigationProp = StackNavigationProp<
+	{ infopage: { page: IPage } },
+	'infopage'
+>;
+
+export default function InfosList({ navigation }: { navigation: NavigationProp}) {
 	const {t} = useTranslation();
 
 	return (
@@ -37,7 +44,7 @@ export default function InfosList({ navigation }) {
 						</InfosItem>
 					</TouchableOpacity>
 				}
-				keyExtractor={item => item.id}
+				keyExtractor={item => String(item.id)}
 				ListHeaderComponent={<InfosHeader><MovaHeadingText>{t('info')}</MovaHeadingText></InfosHeader>}
 			/>
 		</MainContainer>

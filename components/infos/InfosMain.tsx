@@ -10,7 +10,7 @@ export default function InfosMain() {
 		<Stack.Navigator screenOptions={{
 			headerShown: false
 		}}>
-			<Stack.Screen name="infomain" component={InfosList} />
+			<Stack.Screen name="infolist" component={InfosList} />
 			<Stack.Screen name="infopage" component={InfosPage} />
 		</Stack.Navigator>
 	);

@@ -2,8 +2,13 @@ import React from 'react';
 import styled from "styled-components/native";
 import Constants from 'expo-constants';
 import MovaHeadingText from "../generic/MovaHeadingText";
-import {TouchableOpacity} from "react-native";
+import {ScrollView, TouchableOpacity} from "react-native";
 import MovaText from "../generic/MovaText";
+import IconBack from "../generic/IconBack";
+import { StackScreenProps } from '@react-navigation/stack';
+import {IPage} from "./IPage";
+
+
 
 const PageContainer = styled.View`
 	background-color: #fff;
@@ -19,19 +24,24 @@ const PageContent = styled.View`
 	padding: 10px;
 `;
 
-export default function InfosPage({ route, navigation }) {
+type RootStackParamList = { infospage: { page: IPage }; };
+type Props = StackScreenProps<RootStackParamList, 'infospage'>;
+
+export default function InfosPage({ route, navigation }: Props) {
 	const { page } = route.params;
 	return (
-		<PageContainer>
-			<TouchableOpacity onPress={() => navigation.goBack()}>
-				<PageHeader>
-					<MovaHeadingText>&lt; {page.title}</MovaHeadingText>
-				</PageHeader>
-			</TouchableOpacity>
-			<PageContent>
-				<MovaText>{page.content}</MovaText>
-			</PageContent>
-		</PageContainer>
+		<ScrollView>
+			<PageContainer>
+				<TouchableOpacity onPress={() => navigation.goBack()}>
+					<PageHeader>
+						<MovaHeadingText><IconBack/> {page.title}</MovaHeadingText>
+					</PageHeader>
+				</TouchableOpacity>
+				<PageContent>
+					<MovaText>{page.content}</MovaText>
+				</PageContent>
+			</PageContainer>
+		</ScrollView>
 	);
 }
 
