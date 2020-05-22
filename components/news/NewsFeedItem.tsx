@@ -35,7 +35,7 @@ type NavigationProp = StackNavigationProp<
 	'newspage'
 >;
 
-export default function NewsItem({ news, navigation }: { news: INews; navigation: NavigationProp }) {
+export default function NewsFeedItem({ news, navigation }: { news: INews; navigation: NavigationProp }) {
 	return (
 		<TouchableOpacity onPress={() => navigation.navigate('newspage', { news: news})}>
 			<NewsItemContainer color={news.color}>

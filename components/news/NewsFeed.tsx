@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, RefreshControl} from 'react-native';
 import styled from "styled-components/native";
-import NewsItem from "./NewsItem";
+import NewsFeedItem from "./NewsFeedItem";
 import Constants from 'expo-constants';
 import MovaHeadingText from "../generic/MovaHeadingText";
 import {StackNavigationProp} from "@react-navigation/stack";
@@ -41,7 +41,7 @@ export default function NewsMain({ navigation }: { navigation: NavigationProp })
 
 	// load on mount
 	useEffect(() => {
-		onRefresh();
+		loadNews().then(response => setNews(response));
 	}, []);
 
 	function onRefresh() {
@@ -56,7 +56,7 @@ export default function NewsMain({ navigation }: { navigation: NavigationProp })
 		<MainContainer>
 			<FlatList
 				data={news}
-				renderItem={({item}) => <NewsItem news={item} navigation={navigation}/>}
+				renderItem={({item}) => <NewsFeedItem news={item} navigation={navigation}/>}
 				keyExtractor={item => String(item.id)}
 				ListHeaderComponent={
 					<NewsHeader>
