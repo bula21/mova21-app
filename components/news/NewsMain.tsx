@@ -1,35 +1,18 @@
 import React from 'react';
-import {FlatList} from 'react-native';
-import {useTranslation} from "react-i18next";
-import styled from "styled-components/native";
-import NewsItem from "./NewsItem";
-import Constants from 'expo-constants';
-import DATA from './example_news.json';
-import MovaHeadingText from "../generic/MovaHeadingText";
+import NewsFeed from "./NewsFeed";
+import NewsPage from "./NewsPage";
+import {createStackNavigator} from "@react-navigation/stack";
 
-const MainContainer = styled.SafeAreaView`
-	background-color: #fff;
-	flex: 1;
-	margin-top: ${Constants.statusBarHeight}px;
-`;
-
-const NewsHeader = styled.View`
-	padding: 10px;
-	margin-top: 10px;
-`;
+const Stack = createStackNavigator();
 
 export default function NewsMain() {
-	const {t} = useTranslation();
-
 	return (
-		<MainContainer>
-			<FlatList
-				data={DATA}
-				renderItem={({item}) => <NewsItem data={item}/>}
-				keyExtractor={item => item.id}
-				ListHeaderComponent={<NewsHeader><MovaHeadingText>mova-News</MovaHeadingText></NewsHeader>}
-			/>
-		</MainContainer>
+		<Stack.Navigator screenOptions={{
+			headerShown: false
+		}}>
+			<Stack.Screen name="newsfeed" component={NewsFeed} />
+			<Stack.Screen name="newspage" component={NewsPage} />
+		</Stack.Navigator>
 	);
 }
 

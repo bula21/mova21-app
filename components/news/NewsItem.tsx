@@ -1,11 +1,15 @@
 import React from 'react';
-import {useTranslation} from "react-i18next";
 import styled from "styled-components/native";
 import MovaText from "../generic/MovaText";
 import MovaTheme from "../../constants/MovaTheme";
+import {TouchableOpacity} from "react-native";
+import {INews} from "./INews";
+import {StackNavigationProp} from "@react-navigation/stack";
 
-const NewsItemContainer = styled.View`
+const NewsItemContainer = styled.View<{ color: string }>`
 	padding-bottom: 20px;
+	background-color: ${props => MovaTheme.getColorByName(props.color)};
+	margin-bottom: 10px;
 `;
 
 const NewsItemTitle = styled.View`
@@ -26,22 +30,28 @@ const NewsImage = styled.Image`
 	height: 240px;
 `;
 
-export default function NewsItem({ data }) {
-	const { t } = useTranslation();
+type NavigationProp = StackNavigationProp<
+	{ newspage: { news: INews } },
+	'newspage'
+>;
+
+export default function NewsItem({ news, navigation }: { news: INews; navigation: NavigationProp }) {
 	return (
-		<NewsItemContainer>
-			<NewsImage source={require('../../assets/home_placeholder.jpg')}/>
-			<NewsItemTitle>
-				<MovaText style={{ fontSize: 24}}>{data.title}</MovaText>
-			</NewsItemTitle>
-			<NewsItemDate>
-				<MovaText>
-					<NewsItemDateText>
-						vor 3 Tagen
-					</NewsItemDateText>
-				</MovaText>
-			</NewsItemDate>
-		</NewsItemContainer>
+		<TouchableOpacity onPress={() => navigation.navigate('newspage', { news: news})}>
+			<NewsItemContainer color={news.color}>
+				<NewsImage source={require('../../assets/home_placeholder.jpg')}/>
+				<NewsItemTitle>
+					<MovaText style={{ fontSize: 24}}>{news.title}</MovaText>
+				</NewsItemTitle>
+				<NewsItemDate>
+					<MovaText>
+						<NewsItemDateText>
+							vor 3 Tagen
+						</NewsItemDateText>
+					</MovaText>
+				</NewsItemDate>
+			</NewsItemContainer>
+		</TouchableOpacity>
 	);
 }
 

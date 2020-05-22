@@ -1,0 +1,64 @@
+import React from 'react';
+import styled from "styled-components/native";
+import Constants from 'expo-constants';
+import MovaHeadingText from "../generic/MovaHeadingText";
+import {ScrollView, TouchableOpacity} from "react-native";
+import MovaText from "../generic/MovaText";
+import {useTranslation} from "react-i18next";
+import MovaTheme from "../../constants/MovaTheme";
+import IconBack from "../generic/IconBack";
+import {INews} from "./INews";
+import {StackScreenProps} from "@react-navigation/stack";
+
+const PageContainer = styled.View`
+	flex: 1;
+	margin-top: ${Constants.statusBarHeight}px;
+`;
+
+const PageHeader = styled.View<{ color: string }>`
+	padding: 10px;
+	padding-top: 20px;
+	background-color: ${props => MovaTheme.getColorByName(props.color)};
+`;
+
+const NewsTitle = styled.View`
+	padding-top: 10px;
+	padding-bottom: 10px;
+`;
+
+const PageContent = styled.View`
+	padding: 10px;
+`;
+
+const NewsImage = styled.Image`
+	width: 100%;
+	height: 240px;
+`;
+
+type RootStackParamList = { newspage: { news: INews }; };
+type Props = StackScreenProps<RootStackParamList, 'newspage'>;
+
+export default function NewsPage({ route, navigation }: Props) {
+	const { news } = route.params;
+	const { t } = useTranslation();
+
+	return (
+		<ScrollView>
+			<PageContainer>
+				<TouchableOpacity onPress={() => navigation.goBack()}>
+					<PageHeader color={news.color}>
+						<MovaHeadingText><IconBack/> {t('news')}</MovaHeadingText>
+					</PageHeader>
+				</TouchableOpacity>
+				<NewsImage source={require('../../assets/home_placeholder.jpg')}/>
+				<PageContent>
+					<NewsTitle>
+						<MovaText style={{ fontSize: 24}}>{news.title}</MovaText>
+					</NewsTitle>
+					<MovaText>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. {"\n"}At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</MovaText>
+				</PageContent>
+			</PageContainer>
+		</ScrollView>
+	);
+}
+
