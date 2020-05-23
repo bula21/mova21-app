@@ -8,7 +8,8 @@ const Stack = createStackNavigator();
 export default function NewsMain() {
 	return (
 		<Stack.Navigator screenOptions={{
-			headerShown: false
+			headerShown: false,
+			cardStyle: { backgroundColor: '#fff' }
 		}}>
 			<Stack.Screen name="newsfeed" component={NewsFeed} />
 			<Stack.Screen name="newspage" component={NewsPage} />
