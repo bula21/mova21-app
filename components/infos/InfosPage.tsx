@@ -3,11 +3,10 @@ import styled from "styled-components/native";
 import Constants from 'expo-constants';
 import MovaHeadingText from "../generic/MovaHeadingText";
 import {ScrollView, TouchableOpacity} from "react-native";
-import MovaText from "../generic/MovaText";
 import IconBack from "../generic/IconBack";
 import { StackScreenProps } from '@react-navigation/stack';
 import {IPage} from "./IPage";
-
+import MovaWebView from "../generic/MovaWebView";
 
 
 const PageContainer = styled.View`
@@ -38,7 +37,9 @@ export default function InfosPage({ route, navigation }: Props) {
 					</PageHeader>
 				</TouchableOpacity>
 				<PageContent>
-					<MovaText>{page.content}</MovaText>
+					<MovaWebView
+						html={page.content}
+					/>
 				</PageContent>
 			</PageContainer>
 		</ScrollView>
