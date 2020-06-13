@@ -19,7 +19,7 @@ const NewsHeader = styled.View`
 `;
 
 async function loadNews(): Promise<INews[]> {
-	return fetch('https://directus.bula21.ch/data/items/news')
+	return fetch('https://directus.bula21.ch/data/items/news?fields=*.*')
 		.then((response) => response.json())
 		.then((json) => {
 			return json.data;

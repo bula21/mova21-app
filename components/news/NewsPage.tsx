@@ -46,16 +46,20 @@ export default function NewsPage({ route, navigation }: Props) {
 		<ScrollView>
 			<PageContainer>
 				<TouchableOpacity onPress={() => navigation.goBack()}>
-					<PageHeader color={news.color}>
+					<PageHeader color="blue">
 						<MovaHeadingText><IconBack/> {t('news')}</MovaHeadingText>
 					</PageHeader>
 				</TouchableOpacity>
-				<NewsImage source={require('../../assets/home_placeholder.jpg')}/>
+				{
+					news.image !== null && news.image.data && news.image.data.full_url
+					? <NewsImage source={{uri: news.image.data.full_url}}/>
+					: null
+				}
 				<PageContent>
 					<NewsTitle>
 						<MovaText style={{ fontSize: 24}}>{news.title}</MovaText>
 					</NewsTitle>
-					<MovaText>{news.text}</MovaText>
+					<MovaText>{news.content}</MovaText>
 				</PageContent>
 			</PageContainer>
 		</ScrollView>

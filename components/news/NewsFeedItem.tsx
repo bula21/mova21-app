@@ -38,15 +38,19 @@ type NavigationProp = StackNavigationProp<
 export default function NewsFeedItem({ news, navigation }: { news: INews; navigation: NavigationProp }) {
 	return (
 		<TouchableOpacity onPress={() => navigation.navigate('newspage', { news: news})}>
-			<NewsItemContainer color={news.color}>
-				<NewsImage source={require('../../assets/home_placeholder.jpg')}/>
+			<NewsItemContainer color="blue">
+				{
+					news.image !== null && news.image.data && news.image.data.full_url
+					? <NewsImage source={{uri: news.image.data.full_url}}/>
+					: null
+				}
 				<NewsItemTitle>
 					<MovaText style={{ fontSize: 24}}>{news.title}</MovaText>
 				</NewsItemTitle>
 				<NewsItemDate>
 					<MovaText>
 						<NewsItemDateText>
-							vor 3 Tagen
+							vor 3 Tagen {news.date}
 						</NewsItemDateText>
 					</MovaText>
 				</NewsItemDate>
