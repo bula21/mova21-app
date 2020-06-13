@@ -9,6 +9,8 @@ import MovaTheme from "../../constants/MovaTheme";
 import IconBack from "../generic/IconBack";
 import {INews} from "./INews";
 import {StackScreenProps} from "@react-navigation/stack";
+import moment from "moment";
+import DateObjectFromDatetime from "../../helpers/DateObjectFromDatetime";
 
 const PageContainer = styled.View`
 	flex: 1;
@@ -35,6 +37,14 @@ const NewsImage = styled.Image`
 	height: 240px;
 `;
 
+const NewsDate = styled.View`
+	padding: 0;
+	padding-bottom: 20px;
+`;
+const NewsDateText = styled.Text`
+	color: ${MovaTheme.colorGrey};
+`;
+
 type RootStackParamList = { newspage: { news: INews }; };
 type Props = StackScreenProps<RootStackParamList, 'newspage'>;
 
@@ -59,6 +69,13 @@ export default function NewsPage({ route, navigation }: Props) {
 					<NewsTitle>
 						<MovaText style={{ fontSize: 24}}>{news.title}</MovaText>
 					</NewsTitle>
+					<NewsDate>
+						<MovaText>
+							<NewsDateText>
+								{moment(DateObjectFromDatetime(news.date)).fromNow()}
+							</NewsDateText>
+						</MovaText>
+					</NewsDate>
 					<MovaText>{news.content}</MovaText>
 				</PageContent>
 			</PageContainer>

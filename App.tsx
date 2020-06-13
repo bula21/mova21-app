@@ -12,6 +12,8 @@ import { useFonts } from '@use-expo/font';
 import {AppLoading} from "expo";
 import MovaIcon from "./components/generic/MovaIcon";
 import { SafeAreaProvider, SafeAreaInsetsContext } from 'react-native-safe-area-context';
+import moment from "moment";
+import 'moment/locale/de';
 
 const customFonts = {
 	'MS-Bold': require('./assets/fonts/MS-Bold.otf'),
@@ -19,6 +21,9 @@ const customFonts = {
 };
 
 const Tab = createBottomTabNavigator();
+
+// set moment language
+moment.locale('de');
 
 export default function App() {
 	const [isLoaded] = useFonts(customFonts);

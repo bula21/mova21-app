@@ -5,6 +5,8 @@ import MovaTheme from "../../constants/MovaTheme";
 import {TouchableOpacity} from "react-native";
 import {INews} from "./INews";
 import {StackNavigationProp} from "@react-navigation/stack";
+import moment from "moment";
+import DateObjectFromDatetime from "../../helpers/DateObjectFromDatetime";
 
 const NewsItemContainer = styled.View<{ color: string }>`
 	padding-bottom: 20px;
@@ -50,7 +52,7 @@ export default function NewsFeedItem({ news, navigation }: { news: INews; naviga
 				<NewsItemDate>
 					<MovaText>
 						<NewsItemDateText>
-							vor 3 Tagen {news.date}
+							{moment(DateObjectFromDatetime(news.date)).fromNow()}
 						</NewsItemDateText>
 					</MovaText>
 				</NewsItemDate>
