@@ -1,6 +1,7 @@
 {
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
+    "serve": "expo start",
     "start": "expo start",
     "android": "expo start --android",
     "build-android": "expo build:android -t apk",
