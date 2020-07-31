@@ -1,37 +1,35 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * Generated with the TypeScript template
+ * https://github.com/react-native-community/react-native-template-typescript
+ *
+ * @format
+ */
+
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import NewsMain from './components/news/NewsMain'
-import InfosMain from './components/infos/InfosMain'
-import RadioMain from "./components/radio/RadioMain";
-import MapMain from "./components/map/MapMain";
-import './i18n';
-import MovaTheme from "./constants/MovaTheme";
+import { Platform } from 'react-native';
+import {SafeAreaProvider, SafeAreaInsetsContext} from 'react-native-safe-area-context';
+import {NavigationContainer} from "@react-navigation/native";
+import MovaTheme from "./src/constants/MovaTheme";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {useTranslation} from "react-i18next";
-import { useFonts } from '@use-expo/font';
-import {AppLoading} from "expo";
-import MovaIcon from "./components/generic/MovaIcon";
-import { SafeAreaProvider, SafeAreaInsetsContext } from 'react-native-safe-area-context';
+import RadioMain from "./src/components/radio/RadioMain";
+import NewsMain from "./src/components/news/NewsMain";
+import './src/i18n';
+import MovaIcon from "./src/components/generic/MovaIcon";
 import moment from "moment";
 import 'moment/locale/de';
-
-const customFonts = {
-	'MS-Bold': require('./assets/fonts/MS-Bold.otf'),
-	'MS-BoldItalic': require('./assets/fonts/MS-BoldItalic.otf'),
-};
+import InfosMain from "./src/components/infos/InfosMain";
 
 const Tab = createBottomTabNavigator();
 
 // set moment language
 moment.locale('de');
 
-export default function App() {
-	const [isLoaded] = useFonts(customFonts);
-	const { t } = useTranslation();
-
-	if (!isLoaded) {
-		return <SafeAreaProvider><AppLoading /></SafeAreaProvider>;
-	}
+const App = () => {
+	const {t} = useTranslation();
 
 	return (
 		<SafeAreaProvider>
@@ -43,13 +41,13 @@ export default function App() {
 								activeTintColor: MovaTheme.colorBlack,
 								inactiveTintColor: MovaTheme.colorGrey,
 								labelStyle: {
-									fontFamily: 'MS-Bold',
+									fontFamily: Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold',
 									fontSize: 16
 								},
 								style: {
 									paddingTop: 5,
 									height: 70,
-									marginBottom: insets? insets.bottom : 0,
+									marginBottom: insets ? insets.bottom : 0,
 									borderTopColor: '#fff'
 								},
 								tabStyle: {
@@ -89,7 +87,7 @@ export default function App() {
 							/>
 							<Tab.Screen
 								name="map"
-								component={MapMain}
+								component={NewsMain}
 								options={{
 									tabBarLabel: t('map'),
 									tabBarIcon: ({focused, color, size}) => (
@@ -103,4 +101,6 @@ export default function App() {
 			</SafeAreaInsetsContext.Consumer>
 		</SafeAreaProvider>
 	);
-}
+};
+
+export default App;

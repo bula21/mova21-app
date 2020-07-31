@@ -1,4 +1,4 @@
-# Mova21 App
+# mova21 App
 
 Android und iOS App für das Bundeslager 2021 der Pfadibewegung Schweiz.
 
@@ -7,9 +7,7 @@ Android und iOS App für das Bundeslager 2021 der Pfadibewegung Schweiz.
 ### Installation
 
 - Node & Yarn installieren
-- Expo CLI installieren: `yarn global add expo-cli`
 - Dependencies installieren `yarn install`
-
 
 ### Commands
 
@@ -29,8 +27,17 @@ React Dev Tools starten:
 
     react-devtools
 
-### Build
+## Build
+
+
+### Android
+
+Für Android wird das Secrets File `android/app/signing.gradle` benötigt
 
 Android APK builden:
 
-    expo build:android -t apk
+    ./build_android.sh
+
+### iOS
+
+Build muss via XCode gemacht werden.
