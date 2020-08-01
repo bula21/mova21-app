@@ -16,8 +16,11 @@ const NewsHeader = styled.View`
 	margin-top: 10px;
 `;
 
+//const backendUrl: string = 'https://directus.bula21.ch';
+const backendUrl: string = 'http://backend.pio-x.ch:8885';
+
 async function loadNews(): Promise<INews[]> {
-	return fetch('https://directus.bula21.ch/data/items/news?fields=*.*')
+	return fetch(backendUrl + '/data/items/news?fields=*.*&filter[language]=de')
 		.then((response) => response.json())
 		.then((json) => {
 			return json.data;
