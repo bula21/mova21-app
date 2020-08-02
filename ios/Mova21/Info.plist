@@ -38,7 +38,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MS-BoldItalic.otf</string>
@@ -61,6 +61,8 @@
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
 		<string>icomoon.woff</string>
+		<string>MS-Regular.otf</string>
+		<string>MS-RegularItalic.otf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

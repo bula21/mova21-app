@@ -11,6 +11,7 @@ import {INews} from './INews';
 import {StackScreenProps} from '@react-navigation/stack';
 import moment from 'moment';
 import DateObjectFromDatetime from '../../helpers/DateObjectFromDatetime';
+import MovaMarkdown from '../generic/MovaMarkdown';
 
 const PageContainer = styled.View`
   flex: 1;
@@ -76,7 +77,7 @@ export default function NewsPage({route, navigation}: Props) {
               </NewsDateText>
             </MovaText>
           </NewsDate>
-          <MovaText>{news.content}</MovaText>
+          <MovaMarkdown>{news.content}</MovaMarkdown>
         </PageContent>
       </PageContainer>
     </ScrollView>
