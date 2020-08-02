@@ -22,6 +22,7 @@ import MovaIcon from "./src/components/generic/MovaIcon";
 import moment from "moment";
 import 'moment/locale/de';
 import InfosMain from "./src/components/infos/InfosMain";
+import MapMain from "./src/components/map/MapMain";
 
 const Tab = createBottomTabNavigator();
 
@@ -87,7 +88,7 @@ const App = () => {
 							/>
 							<Tab.Screen
 								name="map"
-								component={NewsMain}
+								component={MapMain}
 								options={{
 									tabBarLabel: t('map'),
 									tabBarIcon: ({focused, color, size}) => (
