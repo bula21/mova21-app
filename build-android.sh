@@ -7,11 +7,15 @@ if [[ -f "$APK_PATH" ]]; then
   rm $APK_PATH
 fi
 
-react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+yarn react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+
+echo -e 'react-native bundle finished'
 
 # weird workaround for build errors
 rm -rf android/app/src/main/res/drawable-*
 rm -rf android/app/src/main/res/raw/*
+
+echo -e 'weird workaround applied'
 
 cd android
 ./gradlew assembleRelease
