@@ -61,7 +61,7 @@ export default function RadioMain() {
       <SafeAreaView>
         <MovaHeadingText>Radio</MovaHeadingText>
         <TouchableOpacity onPress={() => togglePlayback()}>
-          {playbackState == TrackPlayer.STATE_PLAYING ||
+          {playbackState === TrackPlayer.STATE_PLAYING ||
           playbackState === TrackPlayer.STATE_BUFFERING ? (
             <MovaIcon name={'pause'} size={100} />
           ) : (
