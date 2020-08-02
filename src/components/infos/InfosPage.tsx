@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "styled-components/native";
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import MovaHeadingText from "../generic/MovaHeadingText";
-import {ScrollView, StyleSheet, TouchableOpacity} from "react-native";
+import {Platform, ScrollView, StyleSheet, TouchableOpacity} from "react-native";
 import IconBack from "../generic/IconBack";
 import { StackScreenProps } from '@react-navigation/stack';
 import {IPage} from "./IPage";
@@ -28,7 +28,7 @@ type Props = StackScreenProps<RootStackParamList, 'infospage'>;
 const styles = StyleSheet.create({
 	text: {
 		fontSize: 16,
-		fontFamily: 'MessinaSans-Bold'
+		fontFamily: Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold'
 	}
 });
 
