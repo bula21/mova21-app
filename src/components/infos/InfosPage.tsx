@@ -2,12 +2,11 @@ import React from 'react';
 import styled from "styled-components/native";
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import MovaHeadingText from "../generic/MovaHeadingText";
-import {ScrollView, TouchableOpacity} from "react-native";
+import {ScrollView, StyleSheet, TouchableOpacity} from "react-native";
 import IconBack from "../generic/IconBack";
 import { StackScreenProps } from '@react-navigation/stack';
 import {IPage} from "./IPage";
-import MovaText from "../generic/MovaText";
-
+import Markdown from 'react-native-markdown-renderer';
 
 const PageContainer = styled.View`
 	background-color: #fff;
@@ -26,6 +25,13 @@ const PageContent = styled.View`
 type RootStackParamList = { infospage: { page: IPage }; };
 type Props = StackScreenProps<RootStackParamList, 'infospage'>;
 
+const styles = StyleSheet.create({
+	text: {
+		fontSize: 16,
+		fontFamily: 'MessinaSans-Bold'
+	}
+});
+
 export default function InfosPage({ route, navigation }: Props) {
 	const { page } = route.params;
 	return (
@@ -37,7 +43,7 @@ export default function InfosPage({ route, navigation }: Props) {
 					</PageHeader>
 				</TouchableOpacity>
 				<PageContent>
-					<MovaText>{page.content}</MovaText>
+					<Markdown style={styles}>{page.content}</Markdown>
 				</PageContent>
 			</PageContainer>
 		</ScrollView>
