@@ -5,6 +5,7 @@ import NewsFeedItem from "./NewsFeedItem";
 import MovaHeadingText from "../generic/MovaHeadingText";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {INews} from "./INews";
+import appConfig from "../../appConfig";
 
 const MainContainer = styled.SafeAreaView`
 	background-color: #fff;
@@ -16,11 +17,8 @@ const NewsHeader = styled.View`
 	margin-top: 10px;
 `;
 
-//const backendUrl: string = 'https://directus.bula21.ch';
-const backendUrl: string = 'http://backend.pio-x.ch:8885';
-
 async function loadNews(): Promise<INews[]> {
-	return fetch(backendUrl + '/data/items/news?fields=*.*&filter[language]=de')
+	return fetch(appConfig.backendUrl + '/data/items/news?fields=*.*&filter[language]=de')
 		.then((response) => response.json())
 		.then((json) => {
 			return json.data;
@@ -55,22 +53,22 @@ export default function NewsMain({ navigation }: { navigation: NavigationProp })
 
 	return (
 		<MainContainer>
-				<FlatList
-					data={news}
-					renderItem={({item}) => <NewsFeedItem news={item} navigation={navigation}/>}
-					keyExtractor={item => String(item.id)}
-					ListHeaderComponent={
-						<NewsHeader>
-							<MovaHeadingText>mova-News</MovaHeadingText>
-						</NewsHeader>
-					}
-					refreshControl={
-						<RefreshControl
-							refreshing={isRefreshing}
-							onRefresh={onRefresh}
-						/>
-				  }
-				/>
+			<FlatList
+				data={news}
+				renderItem={({item}) => <NewsFeedItem news={item} navigation={navigation}/>}
+				keyExtractor={item => String(item.id)}
+				ListHeaderComponent={
+					<NewsHeader>
+						<MovaHeadingText>mova-News</MovaHeadingText>
+					</NewsHeader>
+				}
+				refreshControl={
+					<RefreshControl
+						refreshing={isRefreshing}
+						onRefresh={onRefresh}
+					/>
+			  }
+			/>
 		</MainContainer>
 	);
 }
