@@ -87,6 +87,10 @@ apply from: "../../node_modules/react-native/react.gradle"
 // Secrets are stored here
 if (file('signing.gradle').exists()) {
     apply from: 'signing.gradle'
+    logger.info('secrets from signing.gradle applied')
+}
+else {
+    logger.warn('signing.gradle not found. This is only critical in release mode')
 }
 
 /**
