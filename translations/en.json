@@ -2,5 +2,9 @@
   "news": "News",
   "info": "Info",
   "map": "Map",
-  "radio": "Radio"
+  "radio": "Radio",
+  "language_german": "German",
+  "language_french": "French",
+  "language_italian": "Italian",
+  "language_english": "English"
 }

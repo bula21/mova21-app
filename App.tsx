@@ -9,7 +9,7 @@
  */
 
 import React from 'react';
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 import {
   SafeAreaProvider,
   SafeAreaInsetsContext,
@@ -26,15 +26,17 @@ import moment from 'moment';
 import 'moment/locale/de';
 import InfosMain from './src/components/infos/InfosMain';
 import MapMain from './src/components/map/MapMain';
+import languageManager from './src/helpers/LanguageManager';
 
 const Tab = createBottomTabNavigator();
 
 // set moment language
 moment.locale('de');
 
-const App = () => {
-  const {t} = useTranslation();
+languageManager.applyLanguageFromStorageOrDevice();
 
+const App = () => {	
+  const {t} = useTranslation();  
   return (
     <SafeAreaProvider>
       <SafeAreaInsetsContext.Consumer>
