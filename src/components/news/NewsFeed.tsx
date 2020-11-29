@@ -62,7 +62,9 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
         keyExtractor={(item) => String(item.id)}
         ListHeaderComponent={
           <NewsHeader>
-            <MovaHeadingText>mova-News</MovaHeadingText>
+            <MovaHeadingText onPress={() => navigation.navigate('settings')}>
+              mova-News
+            </MovaHeadingText>
           </NewsHeader>
         }
         refreshControl={
