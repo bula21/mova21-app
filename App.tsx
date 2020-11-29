@@ -21,6 +21,7 @@ import MovaIcon from "./src/components/generic/MovaIcon";
 import moment from "moment";
 import 'moment/locale/de';
 import InfosMain from "./src/components/infos/InfosMain";
+import { useTranslation } from 'react-i18next';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,6 +29,7 @@ const Tab = createBottomTabNavigator();
 moment.locale('de');
 
 const App = () => {
+	const { t, i18n } = useTranslation();
 	return (
 		<SafeAreaProvider>
 			<SafeAreaInsetsContext.Consumer>
@@ -56,7 +58,7 @@ const App = () => {
 								name="news"
 								component={NewsMain}
 								options={{
-									tabBarLabel: 'news',
+									tabBarLabel: t('news'),
 									tabBarIcon: ({focused, color, size}) => (
 										<MovaIcon name={focused ? 'news' : 'news-outline'} size={40} color={color}/>
 									),
@@ -66,7 +68,7 @@ const App = () => {
 								name="infos"
 								component={InfosMain}
 								options={{
-									tabBarLabel: 'info',
+									tabBarLabel: t('info'),
 									tabBarIcon: ({focused, color, size}) => (
 										<MovaIcon name={focused ? 'info' : 'info-outline'} size={40} color={color}/>
 									),
@@ -76,7 +78,7 @@ const App = () => {
 								name="radio"
 								component={RadioMain}
 								options={{
-									tabBarLabel: 'radio',
+									tabBarLabel: t('radio'),
 									tabBarIcon: ({focused, color, size}) => (
 										<MovaIcon name={focused ? 'radio' : 'radio-outline'} size={40} color={color}/>
 									),
@@ -86,7 +88,7 @@ const App = () => {
 								name="map"
 								component={NewsMain}
 								options={{
-									tabBarLabel: 'map',
+									tabBarLabel: t('map'),
 									tabBarIcon: ({focused, color, size}) => (
 										<MovaIcon name={focused ? 'map' : 'map-outline'} size={40} color={color}/>
 									),

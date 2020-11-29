@@ -10,6 +10,7 @@ import {INews} from "./INews";
 import {StackScreenProps} from "@react-navigation/stack";
 import moment from "moment";
 import DateObjectFromDatetime from "../../helpers/DateObjectFromDatetime";
+import { useTranslation } from 'react-i18next';
 
 const PageContainer = styled.View`
 	flex: 1;
@@ -49,13 +50,14 @@ type Props = StackScreenProps<RootStackParamList, 'newspage'>;
 
 export default function NewsPage({ route, navigation }: Props) {
 	const { news } = route.params;
-
+	
+	const { t, i18n } = useTranslation();
 	return (
 		<ScrollView>
 			<PageContainer>
 				<TouchableOpacity onPress={() => navigation.goBack()}>
 					<PageHeader color="blue">
-						<MovaHeadingText><IconBack/> {'news'}</MovaHeadingText>
+						<MovaHeadingText><IconBack/> {t('news')}</MovaHeadingText>
 					</PageHeader>
 				</TouchableOpacity>
 				{

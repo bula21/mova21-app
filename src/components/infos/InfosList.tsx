@@ -8,6 +8,7 @@ import MovaText from "../generic/MovaText";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {IPage} from "./IPage";
 import {SafeAreaView} from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next"
 
 const MainContainer = styled.View`
 	background-color: #fff;
@@ -30,7 +31,7 @@ type NavigationProp = StackNavigationProp<
 >;
 
 export default function InfosList({ navigation }: { navigation: NavigationProp}) {
-
+	const { t, i18n } = useTranslation();
 	return (
 		<MainContainer>
 			<SafeAreaView>
@@ -44,7 +45,7 @@ export default function InfosList({ navigation }: { navigation: NavigationProp})
 						</TouchableOpacity>
 					}
 					keyExtractor={item => String(item.id)}
-					ListHeaderComponent={<InfosHeader><MovaHeadingText>{'info'}</MovaHeadingText></InfosHeader>}
+					ListHeaderComponent={<InfosHeader><MovaHeadingText>{t('info')}</MovaHeadingText></InfosHeader>}
 				/>
 			</SafeAreaView>
 		</MainContainer>
