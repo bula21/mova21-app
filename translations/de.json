@@ -6,5 +6,9 @@
   "weather": "Wetter",
   "help": "Hilfe",
   "timetable": "Programm",
-  "emergency": "Notfall"
+  "emergency": "Notfall",
+  "language_german": "Deutsch",
+  "language_french": "Französisch",
+  "language_italian": "Italienisch",
+  "language_english": "Englisch"
 }

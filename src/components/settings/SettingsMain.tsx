@@ -8,6 +8,7 @@ import {Button, ScrollView, TextInput, TouchableOpacity} from 'react-native';
 import IconBack from '../generic/IconBack';
 import MovaText from '../generic/MovaText';
 import appConfig from '../../appConfig';
+import languageManager from '../../helpers/LanguageManager';
 
 const PageContainer = styled.View`
   flex: 1;
@@ -52,7 +53,10 @@ export default function SettingsMain({route, navigation}: Props) {
             <MovaText style={{fontSize: 24, marginBottom: 10}}>
               {t('language')}
             </MovaText>
-            <MovaText>Sprachwechsler hier einfügen</MovaText>
+            <Button onPress={(e) => languageManager.changeLanguageTo("de")} title={t('language_german')} />
+            <Button onPress={(e) => languageManager.changeLanguageTo("fr")} title={t('language_french')} />
+            <Button onPress={(e) => languageManager.changeLanguageTo("it")} title={t('language_italian')} />
+            <Button onPress={(e) => languageManager.changeLanguageTo("en")} title={t('language_english')} />
           </SettingsSection>
           <SettingsSection>
             <MovaText style={{fontSize: 24, marginBottom: 10}}>
