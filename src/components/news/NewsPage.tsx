@@ -4,7 +4,6 @@ import { getStatusBarHeight } from 'react-native-status-bar-height';
 import MovaHeadingText from "../generic/MovaHeadingText";
 import {ScrollView, TouchableOpacity} from "react-native";
 import MovaText from "../generic/MovaText";
-import {useTranslation} from "react-i18next";
 import MovaTheme from "../../constants/MovaTheme";
 import IconBack from "../generic/IconBack";
 import {INews} from "./INews";
@@ -50,14 +49,13 @@ type Props = StackScreenProps<RootStackParamList, 'newspage'>;
 
 export default function NewsPage({ route, navigation }: Props) {
 	const { news } = route.params;
-	const { t } = useTranslation();
 
 	return (
 		<ScrollView>
 			<PageContainer>
 				<TouchableOpacity onPress={() => navigation.goBack()}>
 					<PageHeader color="blue">
-						<MovaHeadingText><IconBack/> {t('news')}</MovaHeadingText>
+						<MovaHeadingText><IconBack/> {'news'}</MovaHeadingText>
 					</PageHeader>
 				</TouchableOpacity>
 				{

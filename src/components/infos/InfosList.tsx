@@ -2,7 +2,6 @@ import React from 'react';
 import styled from "styled-components/native";
 import MovaHeadingText from "../generic/MovaHeadingText";
 import {FlatList, TouchableOpacity} from "react-native";
-import {useTranslation} from "react-i18next";
 import DATA from './example_pages.json';
 import MovaTheme from "../../constants/MovaTheme";
 import MovaText from "../generic/MovaText";
@@ -31,7 +30,6 @@ type NavigationProp = StackNavigationProp<
 >;
 
 export default function InfosList({ navigation }: { navigation: NavigationProp}) {
-	const {t} = useTranslation();
 
 	return (
 		<MainContainer>
@@ -46,7 +44,7 @@ export default function InfosList({ navigation }: { navigation: NavigationProp})
 						</TouchableOpacity>
 					}
 					keyExtractor={item => String(item.id)}
-					ListHeaderComponent={<InfosHeader><MovaHeadingText>{t('info')}</MovaHeadingText></InfosHeader>}
+					ListHeaderComponent={<InfosHeader><MovaHeadingText>{'info'}</MovaHeadingText></InfosHeader>}
 				/>
 			</SafeAreaView>
 		</MainContainer>
