@@ -1,14 +1,13 @@
 import React, {ReactNode} from 'react';
-import Markdown from 'react-native-markdown-renderer';
+import Markdown from 'react-native-markdown-display';
 import {Platform, StyleSheet} from 'react-native';
 
+const fontFamily = Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold';
+
 const styles = StyleSheet.create({
-  text: {
+  body: {
     fontSize: 16,
-    fontFamily: Platform.OS === 'ios' ? 'MessinaSans-Regular' : 'MS-Regular',
-  },
-  heading: {
-    fontFamily: Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold',
+    fontFamily: fontFamily,
   },
   heading1: {
     fontSize: 40,
