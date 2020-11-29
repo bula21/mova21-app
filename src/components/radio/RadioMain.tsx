@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import styled from 'styled-components/native';
 import MovaHeadingText from '../generic/MovaHeadingText';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import TrackPlayer, {usePlaybackState} from 'react-native-track-player';
+//import TrackPlayer, {usePlaybackState} from 'react-native-track-player';
 import {Text, TouchableOpacity} from 'react-native';
 import MovaIcon from '../generic/MovaIcon';
 
@@ -16,6 +16,8 @@ const MainContainer = styled.View`
 `;
 
 export default function RadioMain() {
+  /*
+  // removed react-native-track-player for now because it does not build with the newest XCode version
   const playbackState = usePlaybackState();
 
   useEffect(() => {
@@ -67,6 +69,17 @@ export default function RadioMain() {
           ) : (
             <MovaIcon name={'play'} size={100} />
           )}
+        </TouchableOpacity>
+      </SafeAreaView>
+    </MainContainer>
+  );
+  */
+  return (
+    <MainContainer>
+      <SafeAreaView>
+        <MovaHeadingText>Radio</MovaHeadingText>
+        <TouchableOpacity>
+          <MovaIcon name={'play'} size={100} />
         </TouchableOpacity>
       </SafeAreaView>
     </MainContainer>
