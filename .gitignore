@@ -28,6 +28,7 @@ local.properties
 # Visual Studio Code
 #
 .vscode/
+.vs/
 
 # node.js
 #
