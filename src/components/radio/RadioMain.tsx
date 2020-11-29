@@ -5,6 +5,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 //import TrackPlayer, {usePlaybackState} from 'react-native-track-player';
 import {Text, TouchableOpacity} from 'react-native';
 import MovaIcon from '../generic/MovaIcon';
+import MovaText from '../generic/MovaText';
 
 const radioImage = require('../../../assets/radio_cover.png');
 
