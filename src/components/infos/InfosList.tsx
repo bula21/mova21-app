@@ -8,6 +8,7 @@ import MovaText from '../generic/MovaText';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from './IPage';
 import appConfig from '../../appConfig';
+import languageManager from 'src/helpers/LanguageManager';
 
 const MainContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -29,7 +30,7 @@ type NavigationProp = StackNavigationProp<
 >;
 
 async function loadPages(): Promise<IPage[]> {
-  return fetch(appConfig.backendUrl + '/data/items/pages?filter[language]=de')
+  return fetch(appConfig.backendUrl + '/data/items/pages?filter[language]=' + (await languageManager.getCurrentLanguage()))
     .then((response) => response.json())
     .then((json) => {
       return json.data;
