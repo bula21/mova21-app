@@ -6,6 +6,7 @@ import MovaHeadingText from '../generic/MovaHeadingText';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {INews} from './INews';
 import appConfig from '../../appConfig';
+import languageManager from '../../helpers/LanguageManager';
 
 const MainContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -19,7 +20,7 @@ const NewsHeader = styled.View`
 
 async function loadNews(): Promise<INews[]> {
   return fetch(
-    appConfig.backendUrl + '/data/items/news?fields=*.*&filter[language]=de',
+    appConfig.backendUrl + '/data/items/news?fields=*.*&filter[language]=' + (await languageManager.getCurrentLanguage()),
   )
     .then((response) => response.json())
     .then((json) => {

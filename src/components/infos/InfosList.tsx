@@ -8,7 +8,7 @@ import MovaText from '../generic/MovaText';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from './IPage';
 import appConfig from '../../appConfig';
-import languageManager from 'src/helpers/LanguageManager';
+import languageManager from '../../helpers/LanguageManager';
 
 const MainContainer = styled.SafeAreaView`
   background-color: #fff;
