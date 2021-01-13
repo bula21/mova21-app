@@ -29,6 +29,7 @@
     "react-native-status-bar-height": "^2.5.0",
     "react-native-swift": "^1.2.3",
     "react-native-vector-icons": "^7.0.0",
+    "rxemitter": "^0.2.8",
     "styled-components": "^5.1.1"
   },
   "devDependencies": {
