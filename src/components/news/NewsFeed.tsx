@@ -44,6 +44,7 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
   // load on mount
   useEffect(() => {
     loadNews().then((response) => setNews(response));
+    RxEmitter.on('Language_Changed').subscribe(() => onRefresh());
   }, []);
 
   function onRefresh() {
@@ -53,8 +54,6 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
       setRefreshing(false);
     });
   }
-
-  RxEmitter.on('Language_Changed').subscribe(() => onRefresh());
 
   return (
     <MainContainer>

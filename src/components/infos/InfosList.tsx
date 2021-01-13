@@ -50,6 +50,7 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
   // load on mount
   useEffect(() => {
     loadPages().then((response) => setPages(response));
+    RxEmitter.on('Language_Changed').subscribe(() => onRefresh());
   }, []);
 
   function onRefresh() {
@@ -59,8 +60,6 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
       setRefreshing(false);
     });
   }
-
-  RxEmitter.on('Language_Changed').subscribe(() => onRefresh());
 
   return (
     <MainContainer>
