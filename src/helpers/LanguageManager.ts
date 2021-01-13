@@ -1,11 +1,13 @@
 import i18n from 'i18next';
 import {Platform, NativeModules} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {RxEmitter} from 'rxemitter';
 
 class LanguageManager {
   public async changeLanguageTo(language: string): Promise<void> {
     await AsyncStorage.setItem('language', language);
     this.applyLanguage(language);
+    RxEmitter.emit('Language_Changed');
     console.log('set langauge to ' + language);
   }
 

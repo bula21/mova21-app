@@ -6582,6 +6582,11 @@ rx-lite@*, rx-lite@^4.0.8:
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-4.0.8.tgz#0b1e11af8bc44836f04a6407e92da42467b79444"
   integrity sha1-Cx4Rr4vESDbwSmQH6S2kJGe3lEQ=
 
+rxemitter@^0.2.8:
+  version "0.2.8"
+  resolved "https://registry.yarnpkg.com/rxemitter/-/rxemitter-0.2.8.tgz#af79f67b7f1baa0547a4371ddee31008b9909212"
+  integrity sha1-r3n2e38bqgVHpDcd3uMQCLmQkhI=
+
 rxjs@^5.4.3:
   version "5.5.12"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.5.12.tgz#6fa61b8a77c3d793dbaf270bee2f43f652d741cc"

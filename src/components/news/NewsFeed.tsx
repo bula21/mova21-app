@@ -7,6 +7,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {INews} from './INews';
 import appConfig from '../../appConfig';
 import languageManager from '../../helpers/LanguageManager';
+import {RxEmitter} from 'rxemitter';
 
 const MainContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -43,6 +44,7 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
   // load on mount
   useEffect(() => {
     loadNews().then((response) => setNews(response));
+    RxEmitter.on('Language_Changed').subscribe(() => onRefresh());
   }, []);
 
   function onRefresh() {

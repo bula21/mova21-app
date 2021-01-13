@@ -9,6 +9,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from './IPage';
 import appConfig from '../../appConfig';
 import languageManager from '../../helpers/LanguageManager';
+import {RxEmitter} from 'rxemitter';
 
 const MainContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -49,6 +50,7 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
   // load on mount
   useEffect(() => {
     loadPages().then((response) => setPages(response));
+    RxEmitter.on('Language_Changed').subscribe(() => onRefresh());
   }, []);
 
   function onRefresh() {
