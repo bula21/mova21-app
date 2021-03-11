@@ -1,7 +1,7 @@
 export default {
   colorYellow: '#FFEB00',
   colorOrange: '#E6500F',
-  colorBlue: '#55BEFF',
+  colorBlue: '#55C0FF',
   colorGrey: '#0000008C',
   colorBlack: '#000',
   colorWhite: '#FFF',
