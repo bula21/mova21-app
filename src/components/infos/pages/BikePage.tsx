@@ -31,6 +31,18 @@ const StatusContent = styled.View`
 
 const AvailabilityView = styled.View`
   padding: 5px 0;
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+`;
+const AvailabilityLabel = styled.View`
+  width: 90%;
+`;
+const AvailabilityCount = styled.View`
+  width: 10%;
+  text-align: right;
+  border-radius: 5px;
 `;
 
 type RootStackParamList = {infospage: {page: IPage}};
@@ -39,6 +51,22 @@ type Props = StackScreenProps<RootStackParamList, 'infospage'>;
 export default function BikePage({route, navigation}: Props) {
   const {t} = useTranslation();
   const {page} = route.params;
+
+  let availabilityRow = (label: string, count: number) => {
+    return (
+      <AvailabilityView>
+        <AvailabilityLabel>
+          <MovaText>{label}</MovaText>
+        </AvailabilityLabel>
+        <AvailabilityCount style={{'backgroundColor': count <= 0 ? MovaTheme.colorOrange : 'white' }}>
+          <MovaText style={{textAlign: 'center'}}>
+            {count}
+          </MovaText>
+        </AvailabilityCount>
+      </AvailabilityView>
+    )
+  }
+
   return (
     <ScrollView>
       <PageContainer>
@@ -52,25 +80,13 @@ export default function BikePage({route, navigation}: Props) {
         {page.data.open ? (
           <StatusContent>
             <MovaText style={{fontSize: 24, marginBottom: 5}}>{t('Aktuell verfügbar')}</MovaText>
-            <AvailabilityView>
-              <MovaText>
-                {t('Velos')}: {page.data.bikes_available ? page.data.bikes_available : 0}
-              </MovaText>
-            </AvailabilityView>
-            <AvailabilityView>
-              <MovaText>
-                {t('Cargobikes')}: {page.data.cargobikes_available ? page.data.cargobikes_available : 0}
-              </MovaText>
-            </AvailabilityView>
-            <AvailabilityView>
-              <MovaText>
-                {t('Veloanhänger')}: {page.data.trailers_available ? page.data.trailers_available : 0}
-              </MovaText>
-            </AvailabilityView>
+            {availabilityRow(t('Velos'), page.data.bikes_available ? page.data.bikes_available : 0)}
+            {availabilityRow(t('Cargobikes'), page.data.cargobikes_available ? page.data.cargobikes_available : 0)}
+            {availabilityRow(t('Veloanhänger'), page.data.trailers_available ? page.data.trailers_available : 0)}
           </StatusContent>
         ) : (
           <StatusContent>
-            <MovaText>{t('Der Veloverleih ist derzeit geschlossen')}</MovaText>
+            <MovaText>{t('Der Veloverleih ist derzeit geschlossen.')}</MovaText>
           </StatusContent>
         )}
         <PageContent>
