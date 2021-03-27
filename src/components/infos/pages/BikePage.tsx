@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components/native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import MovaHeadingText from '../../generic/MovaHeadingText';
 import {ScrollView, TouchableOpacity} from 'react-native';
 import IconBack from '../../generic/IconBack';
-import {StackScreenProps} from '@react-navigation/stack';
+import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from '../IPage';
 import MovaMarkdown from '../../generic/MovaMarkdown';
 import MovaText from '../../generic/MovaText';
 import {useTranslation} from 'react-i18next';
 import MovaTheme from '../../../constants/MovaTheme';
+import {InfopagesStore} from "../../../stores/InfopagesStore";
 
 const PageContainer = styled.View`
   background-color: #fff;
@@ -46,11 +47,15 @@ const AvailabilityCount = styled.View`
 `;
 
 type RootStackParamList = {infospage: {page: IPage}};
-type Props = StackScreenProps<RootStackParamList, 'infospage'>;
+type Props = { navigation: StackNavigationProp<RootStackParamList, 'infospage'>; page: IPage; };
 
-export default function BikePage({route, navigation}: Props) {
+export default function BikePage({navigation, page}: Props) {
   const {t} = useTranslation();
-  const {page} = route.params;
+
+  // refresh on mount because live numbers might have changed
+  useEffect(() => {
+    InfopagesStore.reload();
+  }, []);
 
   let availabilityRow = (label: string, count: number) => {
     return (

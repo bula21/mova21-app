@@ -4,7 +4,7 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 import MovaHeadingText from '../../generic/MovaHeadingText';
 import {ScrollView, TouchableOpacity} from 'react-native';
 import IconBack from '../../generic/IconBack';
-import {StackScreenProps} from '@react-navigation/stack';
+import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from '../IPage';
 import MovaMarkdown from '../../generic/MovaMarkdown';
 
@@ -23,10 +23,9 @@ const PageContent = styled.View`
 `;
 
 type RootStackParamList = {infospage: {page: IPage}};
-type Props = StackScreenProps<RootStackParamList, 'infospage'>;
+type Props = { navigation: StackNavigationProp<RootStackParamList, 'infospage'>; page: IPage; };
 
-export default function GenericPage({route, navigation}: Props) {
-  const {page} = route.params;
+export default function GenericPage({navigation, page}: Props) {
   return (
     <ScrollView>
       <PageContainer>
