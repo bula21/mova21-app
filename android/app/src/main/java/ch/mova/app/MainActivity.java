@@ -1,4 +1,4 @@
-package com.mova21;
+package ch.mova.app;
 
 import com.facebook.react.ReactActivity;
 
