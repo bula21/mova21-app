@@ -7,9 +7,7 @@ import MovaTheme from '../../constants/MovaTheme';
 import MovaText from '../generic/MovaText';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from './IPage';
-import appConfig from '../../appConfig';
-import languageManager from '../../helpers/LanguageManager';
-import {RxEmitter} from 'rxemitter';
+import {InfopagesStore} from "../../stores/InfopagesStore";
 
 const MainContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -30,17 +28,6 @@ type NavigationProp = StackNavigationProp<
   'infopage'
 >;
 
-async function loadPages(): Promise<IPage[]> {
-  return fetch(appConfig.backendUrl + '/data/items/pages?filter[language]=' + (await languageManager.getCurrentLanguage()))
-    .then((response) => response.json())
-    .then((json) => {
-      return json.data;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
-
 export default function InfosList({navigation}: {navigation: NavigationProp}) {
   const {t} = useTranslation();
 
@@ -49,14 +36,20 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
 
   // load on mount
   useEffect(() => {
-    loadPages().then((response) => setPages(response));
-    RxEmitter.on('Language_Changed').subscribe(() => onRefresh());
+    setPages(InfopagesStore.get());
+    const subscription = InfopagesStore.subscribe((pages: IPage[]) => {
+      setPages(pages);
+    })
+    InfopagesStore.reload();
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   function onRefresh() {
     setRefreshing(true);
-    loadPages().then((response) => {
-      setPages(response);
+    InfopagesStore.reload().then(() => {
+      setPages(InfopagesStore.get());
       setRefreshing(false);
     });
   }

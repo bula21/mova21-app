@@ -1,46 +1,39 @@
-import React from 'react';
-import styled from 'styled-components/native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import MovaHeadingText from '../generic/MovaHeadingText';
-import {ScrollView, TouchableOpacity} from 'react-native';
-import IconBack from '../generic/IconBack';
+import React, {useEffect, useState} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {IPage} from './IPage';
-import MovaMarkdown from '../generic/MovaMarkdown';
-
-const PageContainer = styled.View`
-  background-color: #fff;
-  flex: 1;
-  margin-top: ${getStatusBarHeight()}px;
-`;
-
-const PageHeader = styled.View`
-  padding: 10px;
-  margin-top: 10px;
-`;
-const PageContent = styled.View`
-  padding: 10px;
-`;
+import GenericPage from './pages/GenericPage';
+import BikePage from './pages/BikePage';
+import {InfopagesStore} from "../../stores/InfopagesStore";
 
 type RootStackParamList = {infospage: {page: IPage}};
 type Props = StackScreenProps<RootStackParamList, 'infospage'>;
 
 export default function InfosPage({route, navigation}: Props) {
-  const {page} = route.params;
-  return (
-    <ScrollView>
-      <PageContainer>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <PageHeader>
-            <MovaHeadingText>
-              <IconBack /> {page.title}
-            </MovaHeadingText>
-          </PageHeader>
-        </TouchableOpacity>
-        <PageContent>
-          <MovaMarkdown>{page.content}</MovaMarkdown>
-        </PageContent>
-      </PageContainer>
-    </ScrollView>
-  );
+
+  const [page, setPage] = useState<IPage|null>(null); // integer state
+
+  // load from store on mount
+  useEffect(() => {
+    setPage(getPage(route.params.page.id));
+    // make sure the page updates, when the store changes
+    const subscription = InfopagesStore.subscribe(() => {
+      setPage(getPage(route.params.page.id));
+    })
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  function getPage(id: number): IPage|null {
+      let pages = InfopagesStore.get().filter(page => page.id === id);
+      return pages.length > 0 ? pages[0] : null;
+  }
+  if (!page) {
+    return null;
+  }
+
+  if (page.renderer === 'bike') {
+    return <BikePage navigation={navigation} page={page} />;
+  }
+  return <GenericPage navigation={navigation} page={page} />;
 }
