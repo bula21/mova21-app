@@ -7,8 +7,10 @@ import IconBack from '../../generic/IconBack';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from '../IPage';
 import MovaMarkdown from '../../generic/MovaMarkdown';
-import MovaIcon from '../../generic/MovaIcon';
 import {Linking} from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome';
+import MovaTheme from "../../../constants/MovaTheme";
+import MovaText from "../../generic/MovaText";
 
 const PageContainer = styled.View`
   background-color: #fff;
@@ -25,6 +27,16 @@ const PageContent = styled.View`
 `;
 
 const CallContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  background: ${MovaTheme.colorOrange};
+  height: 80px;
+`;
+
+const CallButtonContent = styled.View`
+  flex: 1;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 `;
@@ -47,7 +59,10 @@ export default function GenericPage({navigation, page}: Props) {
           <MovaMarkdown>{page.content}</MovaMarkdown>
           <CallContainer>
             <TouchableOpacity onPress={() => Linking.openURL(`tel:${page.data.phone_number}`)}>
-              <MovaIcon name={'info'} size={100} />
+              <CallButtonContent>
+                <Icon name="phone" size={40} color="black" />
+                <MovaText style={{fontSize: 24, paddingLeft: 20}}>{page.data.phone_number}</MovaText>
+              </CallButtonContent>
             </TouchableOpacity>
           </CallContainer>
         </PageContent>
