@@ -3,14 +3,15 @@ import {StackScreenProps} from '@react-navigation/stack';
 import {IPage} from './IPage';
 import GenericPage from './pages/GenericPage';
 import BikePage from './pages/BikePage';
-import {InfopagesStore} from "../../stores/InfopagesStore";
+import EmergencyPage from './pages/EmergencyPage';
+import {InfopagesStore} from '../../stores/InfopagesStore';
 
 type RootStackParamList = {infospage: {page: IPage}};
 type Props = StackScreenProps<RootStackParamList, 'infospage'>;
 
 export default function InfosPage({route, navigation}: Props) {
 
-  const [page, setPage] = useState<IPage|null>(null); // integer state
+  const [page, setPage] = useState<IPage | null>(null); // integer state
 
   // load from store on mount
   useEffect(() => {
@@ -32,8 +33,9 @@ export default function InfosPage({route, navigation}: Props) {
     return null;
   }
 
-  if (page.renderer === 'bike') {
-    return <BikePage navigation={navigation} page={page} />;
+  switch(page.renderer) {
+    case 'bike': return <BikePage navigation={navigation} page={page} />;
+    case 'emergency': return <EmergencyPage navigation={navigation} page={page} />;
+    default: return <GenericPage navigation={navigation} page={page} />;
   }
-  return <GenericPage navigation={navigation} page={page} />;
 }
