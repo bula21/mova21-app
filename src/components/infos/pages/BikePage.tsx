@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components/native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import MovaHeadingText from '../../generic/MovaHeadingText';
 import {ScrollView, TouchableOpacity} from 'react-native';
 import IconBack from '../../generic/IconBack';
@@ -12,10 +11,9 @@ import {useTranslation} from 'react-i18next';
 import MovaTheme from '../../../constants/MovaTheme';
 import {InfopagesStore} from "../../../stores/InfopagesStore";
 
-const PageContainer = styled.View`
+const PageContainer = styled.SafeAreaView`
   background-color: #fff;
   flex: 1;
-  margin-top: ${getStatusBarHeight()}px;
 `;
 
 const PageHeader = styled.View`
@@ -73,7 +71,7 @@ export default function BikePage({navigation, page}: Props) {
   }
 
   return (
-    <ScrollView>
+    <ScrollView scrollIndicatorInsets={{ right: 1 }}>
       <PageContainer>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <PageHeader>

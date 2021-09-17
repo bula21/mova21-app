@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import MovaHeadingText from '../../generic/MovaHeadingText';
 import {ScrollView, TouchableOpacity} from 'react-native';
 import IconBack from '../../generic/IconBack';
@@ -8,10 +7,9 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from '../IPage';
 import MovaMarkdown from '../../generic/MovaMarkdown';
 
-const PageContainer = styled.View`
+const PageContainer = styled.SafeAreaView`
   background-color: #fff;
   flex: 1;
-  margin-top: ${getStatusBarHeight()}px;
 `;
 
 const PageHeader = styled.View`
@@ -27,7 +25,7 @@ type Props = { navigation: StackNavigationProp<RootStackParamList, 'infospage'>;
 
 export default function GenericPage({navigation, page}: Props) {
   return (
-    <ScrollView>
+    <ScrollView scrollIndicatorInsets={{ right: 1 }}>
       <PageContainer>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <PageHeader>
