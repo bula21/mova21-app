@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import MovaHeadingText from '../generic/MovaHeadingText';
 import {ScrollView, TouchableOpacity} from 'react-native';
 import MovaText from '../generic/MovaText';
@@ -13,9 +12,8 @@ import moment from 'moment';
 import DateObjectFromDatetime from '../../helpers/DateObjectFromDatetime';
 import MovaMarkdown from '../generic/MovaMarkdown';
 
-const PageContainer = styled.View`
+const PageContainer = styled.SafeAreaView`
   flex: 1;
-  margin-top: ${getStatusBarHeight()}px;
 `;
 
 const PageHeader = styled.View<{color: string}>`

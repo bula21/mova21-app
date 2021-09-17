@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components/native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
 import MovaHeadingText from '../generic/MovaHeadingText';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useTranslation} from 'react-i18next';
@@ -10,9 +9,8 @@ import MovaText from '../generic/MovaText';
 import appConfig from '../../appConfig';
 import languageManager from '../../helpers/LanguageManager';
 
-const PageContainer = styled.View`
+const PageContainer = styled.SafeAreaView`
   flex: 1;
-  margin-top: ${getStatusBarHeight()}px;
 `;
 
 const PageHeader = styled.View`
