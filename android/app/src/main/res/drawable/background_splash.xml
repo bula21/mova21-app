@@ -1,0 +1,20 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@color/splashscreen_bg"/>
+
+    <item
+        android:width="300dp"
+        android:height="300dp"
+        android:gravity="center">
+        <bitmap android:src="@mipmap/splash_logo"
+            android:gravity="center" />
+    </item>
+
+    <item
+        android:gravity="bottom" >
+        <bitmap
+            android:src="@mipmap/splash_bottom"
+            android:gravity="fill_horizontal" />
+    </item>
+</layer-list>
