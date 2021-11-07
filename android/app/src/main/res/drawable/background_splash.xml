@@ -10,11 +10,4 @@
         <bitmap android:src="@mipmap/splash_logo"
             android:gravity="center" />
     </item>
-
-    <item
-        android:gravity="bottom" >
-        <bitmap
-            android:src="@mipmap/splash_bottom"
-            android:gravity="fill_horizontal" />
-    </item>
 </layer-list>
