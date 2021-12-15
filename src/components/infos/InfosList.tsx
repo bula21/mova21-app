@@ -8,6 +8,7 @@ import MovaText from '../generic/MovaText';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from './IPage';
 import {InfopagesStore} from "../../stores/InfopagesStore";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const MainContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -75,6 +76,9 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
           <InfosHeader>
             <MovaHeadingText>{t('info')}</MovaHeadingText>
           </InfosHeader>
+        }
+        ListFooterComponent={
+          <LanguageSwitcher />
         }
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
