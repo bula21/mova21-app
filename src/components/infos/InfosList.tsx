@@ -54,6 +54,13 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
     });
   }
 
+  function getColor(item: IPage, index: number): string {
+    if (item.list_color && item.list_color.length === 7 && item.list_color[0] === '#') {
+      return item.list_color;
+    }
+    return index % 2 ? MovaTheme.colorBlue : MovaTheme.colorYellow;
+  }
+
   return (
     <MainContainer>
       <FlatList
@@ -63,8 +70,7 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
             onPress={() => navigation.navigate('infopage', {page: item})}>
             <InfosItem
               style={{
-                backgroundColor:
-                  index % 2 ? MovaTheme.colorBlue : MovaTheme.colorYellow,
+                backgroundColor: getColor(item, index)
               }}>
               <MovaText style={{fontSize: 40}}>{item.title}</MovaText>
             </InfosItem>
