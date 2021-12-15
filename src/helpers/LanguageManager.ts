@@ -4,20 +4,28 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {RxEmitter} from 'rxemitter';
 
 class LanguageManager {
+  private _currentLanguage: string = 'de';
+
   public async changeLanguageTo(language: string): Promise<void> {
+    this._currentLanguage = language;
     await AsyncStorage.setItem('language', language);
     this.applyLanguage(language);
     RxEmitter.emit('Language_Changed');
     console.log('set langauge to ' + language);
   }
 
-  public async getCurrentLanguage(): Promise<string> {
-    var storedLanguage = await AsyncStorage.getItem('language');
+  get currentLanguage(): string {
+    return this._currentLanguage;
+  }
+
+  public async getCurrentLanguageAsync(): Promise<string> {
+    let storedLanguage = await AsyncStorage.getItem('language');
+    this._currentLanguage = storedLanguage || 'de';
     return storedLanguage == null ? this.getDeviceLanguage() : storedLanguage;
   }
 
   public async applyLanguageFromStorageOrDevice(): Promise<void> {
-    var currentLanguage = await this.getCurrentLanguage();
+    let currentLanguage = await this.getCurrentLanguageAsync();
     this.applyLanguage(currentLanguage);
   }
 

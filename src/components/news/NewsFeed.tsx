@@ -21,7 +21,7 @@ const NewsHeader = styled.View`
 
 async function loadNews(): Promise<INews[]> {
   return fetch(
-    appConfig.backendUrl + '/data/items/news?fields=*.*&sort=-date&filter[language]=' + (await languageManager.getCurrentLanguage()),
+    appConfig.backendUrl + '/data/items/news?fields=*.*&sort=-date&filter[language]=' + (await languageManager.getCurrentLanguageAsync()),
   )
     .then((response) => response.json())
     .then((json) => {
