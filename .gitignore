@@ -58,6 +58,7 @@ keystore.properties
 *.jsbundle
 android/app/signing.gradle
 android/app/src/main/assets/index.android.bundle
+*.hprof
 
 # CocoaPods
 /ios/Pods/
