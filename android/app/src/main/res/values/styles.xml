@@ -2,7 +2,6 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="android:navigationBarColor">#ffffff</item>
         <item name="android:statusBarColor">#ffffff</item>
         <item name="android:windowLightStatusBar">true</item>
@@ -10,8 +9,8 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/splashscreen_bg</item>
-        <item name="android:navigationBarColor">@color/splashscreen_bg</item>
+        <item name="android:navigationBarColor">#ffec00</item>
+        <item name="android:statusBarColor">#ffec00</item>
         <item name="android:background">@drawable/background_splash</item>
     </style>
 
