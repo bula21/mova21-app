@@ -5,6 +5,7 @@ import {FlatList, RefreshControl, TouchableOpacity} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import MovaTheme from '../../constants/MovaTheme';
 import MovaText from '../generic/MovaText';
+import MovaIcon from '../generic/MovaIcon';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from './IPage';
 import {InfopagesStore} from "../../stores/InfopagesStore";
@@ -22,6 +23,19 @@ const InfosItem = styled.View`
 const InfosHeader = styled.View`
   padding: 10px;
   margin-top: 10px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const SearchBar = styled.View`
+  flexGrow: 1
+`;
+
+const SearchInput = styled.TextInput`
+  font-size: 32px;
+  borderBottomWidth: 1px;
+  borderColor: gray;
 `;
 
 type NavigationProp = StackNavigationProp<
@@ -34,6 +48,9 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
 
   const [pages, setPages] = useState<IPage[]>([]);
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
+
+  const [isSearchActive, setSearching] = useState<boolean>(false);
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   // load on mount
   useEffect(() => {
@@ -62,6 +79,19 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
     return index % 2 ? MovaTheme.colorBlue : MovaTheme.colorYellow;
   }
 
+  function onNewSearchKeyword(keyword: string) {
+    setSearchKeyword(keyword);
+    let pages = InfopagesStore.get();
+    if (isSearchActive && typeof keyword != 'undefined' && keyword) {
+      const sanitized = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regexp = new RegExp(sanitized, 'i');
+      pages = pages.filter((page) =>
+        regexp.test(page.title) || regexp.test(page.content)
+      );
+    }
+    setPages(pages);
+  }
+
   return (
     <MainContainer>
       <FlatList
@@ -80,8 +110,26 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
         keyExtractor={(item) => String(item.id)}
         ListHeaderComponent={
           <InfosHeader>
-            <MovaHeadingText>{t('info')}</MovaHeadingText>
+            {!isSearchActive &&
+              <MovaHeadingText>{t('info')}</MovaHeadingText>
+            }
+            <MovaIcon
+              name='search-outline'
+              size={50}
+              color='black'
+              onPress={() => setSearching(!isSearchActive)}
+            />
+            {isSearchActive &&
+              <SearchBar>
+                <SearchInput
+                  onChangeText={onNewSearchKeyword}
+                  value={searchKeyword}
+                  placeholder={t('search_keyword')}
+                />
+              </SearchBar>
+            }
           </InfosHeader>
+
         }
         ListFooterComponent={
           <LanguageSwitcher />
