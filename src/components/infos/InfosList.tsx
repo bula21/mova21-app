@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components/native';
 import MovaHeadingText from '../generic/MovaHeadingText';
-import {FlatList, RefreshControl, TouchableOpacity} from 'react-native';
+import {Animated, Easing, FlatList, RefreshControl, TouchableOpacity} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import MovaTheme from '../../constants/MovaTheme';
 import MovaText from '../generic/MovaText';
@@ -24,19 +24,23 @@ const InfosHeader = styled.View`
   padding: 10px;
   margin-top: 10px;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 `;
 
 const SearchBar = styled.View`
-  flexGrow: 1
+  flex-direction: row;
+  height: 56px;
+  align-content: center;
 `;
 
 const SearchInput = styled.TextInput`
   font-size: 32px;
   borderBottomWidth: 1px;
   borderColor: gray;
+  margin-top: -10px;
+  height: 60px;
 `;
+
+const MovaAnimatedHeadingText = Animated.createAnimatedComponent(MovaHeadingText);
 
 type NavigationProp = StackNavigationProp<
   {infopage: {page: IPage}},
@@ -51,6 +55,8 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
 
   const [isSearchActive, setSearching] = useState<boolean>(false);
   const [searchKeyword, setSearchKeyword] = useState("");
+
+  const animationProgress = useRef(new Animated.Value(0)).current;
 
   // load on mount
   useEffect(() => {
@@ -78,6 +84,31 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
     }
     return index % 2 ? MovaTheme.colorBlue : MovaTheme.colorYellow;
   }
+
+  function enterSearch() {
+    Animated.timing(animationProgress, {
+      toValue: 1,
+      duration: 400,
+      useNativeDriver: false,
+      easing: Easing.out(Easing.circle),
+    }).start(
+      () => {
+        setSearching(true);
+        animationProgress.setValue(0);
+      }
+    );
+  };
+
+  function leaveSearch() {
+    setSearching(false);
+    animationProgress.setValue(1);
+    Animated.timing(animationProgress, {
+      toValue: 0,
+      duration: 400,
+      useNativeDriver: false,
+      easing: Easing.out(Easing.circle),
+    }).start();
+  };
 
   function onNewSearchKeyword(keyword: string) {
     setSearchKeyword(keyword);
@@ -111,25 +142,41 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
         ListHeaderComponent={
           <InfosHeader>
             {!isSearchActive &&
-              <MovaHeadingText>{t('info')}</MovaHeadingText>
+              <MovaAnimatedHeadingText
+                style={[MovaHeadingText.style, {
+                  flex: animationProgress.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [1, 0.00001]
+                  }),
+                  opacity: animationProgress.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [1, 0.5]
+                  }),
+                  fontSize: animationProgress.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [40, 1]
+                  }),
+                }]}
+              >
+                {t('info')}
+              </MovaAnimatedHeadingText>
             }
-            <MovaIcon
-              name='search-outline'
-              size={50}
-              color='black'
-              onPress={() => setSearching(!isSearchActive)}
-            />
-            {isSearchActive &&
-              <SearchBar>
+            <SearchBar>
+              <MovaIcon
+                name='search-outline'
+                size={50}
+                color='black'
+                onPress={() => isSearchActive ? leaveSearch() : enterSearch()}
+              />
+              {isSearchActive &&
                 <SearchInput
                   onChangeText={onNewSearchKeyword}
                   value={searchKeyword}
                   placeholder={t('search_keyword')}
                 />
-              </SearchBar>
-            }
+              }
+            </SearchBar>
           </InfosHeader>
-
         }
         ListFooterComponent={
           <LanguageSwitcher />
