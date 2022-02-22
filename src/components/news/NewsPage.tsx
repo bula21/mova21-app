@@ -11,6 +11,7 @@ import {StackScreenProps} from '@react-navigation/stack';
 import moment from 'moment';
 import DateObjectFromDatetime from '../../helpers/DateObjectFromDatetime';
 import MovaMarkdown from '../generic/MovaMarkdown';
+import appConfig from '../../appConfig';
 
 const PageContainer = styled.SafeAreaView`
   flex: 1;
@@ -61,8 +62,8 @@ export default function NewsPage({route, navigation}: Props) {
             </MovaHeadingText>
           </PageHeader>
         </TouchableOpacity>
-        {news.image !== null && news.image.data && news.image.data.full_url ? (
-          <NewsImage source={{uri: news.image.data.full_url}} />
+        {news.image !== null && news.image.filename_disk ? (
+          <NewsImage source={{uri: appConfig.backendUrl + '/assets/' + news.image.filename_disk}} />
         ) : null}
         <PageContent>
           <NewsTitle>

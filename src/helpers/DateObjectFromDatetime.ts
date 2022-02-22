@@ -1,7 +1,7 @@
 export default function DateObjectFromDatetime(datetime: string | null) {
   if (typeof datetime === 'string') {
     // Split timestamp into [ Y, M, D, h, m, s ]
-    let t = datetime.split(/[- :]/);
+    let t = datetime.split(/[- :T]/);
 
     // Apply each element to the Date function
     if (t.length >= 6) {
