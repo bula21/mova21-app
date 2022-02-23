@@ -12,7 +12,7 @@ class LanguageManager {
     await AsyncStorage.setItem('language', language);
     this.applyLanguage(language);
     this.onChange.next(language);
-    console.log('set langauge to ' + language);
+    console.log('set language to ' + language);
   }
 
   get currentLanguage(): string {

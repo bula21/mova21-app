@@ -8,8 +8,15 @@ const subject = new Subject();
 
 let pages: IPage[] = [];
 
+const abrToLanguage: {[name: string]: string} = {
+	'de' : 'de',
+	'en' : 'Englisch',
+	'fr' : 'Französisch',
+	'it' : 'Italienisch',
+}
+
 async function loadPages(): Promise<void> {
-	fetch(appConfig.backendUrl + '/items/pages?filter[language]=' + (await languageManager.getCurrentLanguageAsync()))
+	fetch(appConfig.backendUrl + '/items/pages?filter[language]=' + (abrToLanguage[await languageManager.getCurrentLanguageAsync()]))
 		.then((response) => response.json())
 		.then((json) => {
 			pages = json.data;
