@@ -37,7 +37,7 @@ export default function InfosPage({route, navigation}: Props) {
   switch(page.renderer) {
     case 'bike': return <BikePage navigation={navigation} page={page} />;
     case 'emergency': return <EmergencyPage navigation={navigation} page={page} />;
-	  case 'sponsors': return <SponsorsPage navigation={navigation} page={page} />;
+    case 'sponsors': return <SponsorsPage navigation={navigation} page={page} />;
     default: return <GenericPage navigation={navigation} page={page} />;
   }
 }

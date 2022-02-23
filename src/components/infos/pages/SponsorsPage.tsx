@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 import MovaHeadingText from '../../generic/MovaHeadingText';
 import MovaTheme from "../../../constants/MovaTheme";
@@ -52,7 +52,8 @@ const CoPartnerinnenLabel = styled(MovaHeadingText)`
 
 const UnterstutzerLabel = styled(MovaHeadingText)`
   padding: 10px;
-  background-color: ${MovaTheme.colorGrey}
+  background-color: ${MovaTheme.colorBlack}
+  color: white;
   font-size: 30px;
 `;
 
