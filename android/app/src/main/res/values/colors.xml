@@ -1,0 +1,5 @@
+<resources>
+    <color name="splashscreen_bg">#ffec00</color>
+    <!-- Needed due to a bug in react-native-splash-screen -->
+    <color name="primary_dark">#ffec00</color> 
+</resources>

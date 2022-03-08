@@ -27,6 +27,7 @@ import 'moment/locale/de';
 import InfosMain from './src/components/infos/InfosMain';
 import MapMain from './src/components/map/MapMain';
 import languageManager from './src/helpers/LanguageManager';
+import SplashScreen from 'react-native-splash-screen';
 
 const Tab = createBottomTabNavigator();
 
@@ -37,6 +38,10 @@ languageManager.applyLanguageFromStorageOrDevice();
 
 const App = () => {	
   const {t} = useTranslation();  
+  React.useEffect(() => {
+    SplashScreen.hide();
+  });
+
   return (
     <SafeAreaProvider>
       <SafeAreaInsetsContext.Consumer>
