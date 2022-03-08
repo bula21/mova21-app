@@ -7,7 +7,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {INews} from './INews';
 import appConfig from '../../appConfig';
 import languageManager from '../../helpers/LanguageManager';
-import {RxEmitter} from 'rxemitter';
+import LanguageManager from '../../helpers/LanguageManager';
 
 const MainContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -21,7 +21,7 @@ const NewsHeader = styled.View`
 
 async function loadNews(): Promise<INews[]> {
   return fetch(
-    appConfig.backendUrl + '/data/items/news?fields=*.*&sort=-date&filter[language]=' + (await languageManager.getCurrentLanguage()),
+    appConfig.backendUrl + '/items/news?fields=*.*&sort=-date&filter[language]=' + (await languageManager.getCurrentLanguageAsync()),
   )
     .then((response) => response.json())
     .then((json) => {
@@ -44,7 +44,7 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
   // load on mount
   useEffect(() => {
     loadNews().then((response) => setNews(response));
-    RxEmitter.on('Language_Changed').subscribe(() => onRefresh());
+    LanguageManager.onChange.subscribe(() => onRefresh());
   }, []);
 
   function onRefresh() {

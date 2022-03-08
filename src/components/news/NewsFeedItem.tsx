@@ -7,6 +7,7 @@ import {INews} from './INews';
 import {StackNavigationProp} from '@react-navigation/stack';
 import moment from 'moment';
 import DateObjectFromDatetime from '../../helpers/DateObjectFromDatetime';
+import appConfig from '../../appConfig';
 
 const NewsItemContainer = styled.View<{color: string}>`
   padding-bottom: 20px;
@@ -48,8 +49,8 @@ export default function NewsFeedItem({
     <TouchableOpacity
       onPress={() => navigation.navigate('newspage', {news: news})}>
       <NewsItemContainer color="blue">
-        {news.image !== null && news.image.data && news.image.data.full_url ? (
-          <NewsImage source={{uri: news.image.data.full_url}} />
+        {news.image !== null && news.image.filename_disk ? (
+          <NewsImage source={{uri: appConfig.backendUrl + '/assets/' + news.image.filename_disk}} />
         ) : null}
         <NewsItemTitle>
           <MovaText style={{fontSize: 24}}>{news.title}</MovaText>

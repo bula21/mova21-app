@@ -1,15 +1,15 @@
-import {IPage} from "../components/infos/IPage";
-import appConfig from "../appConfig";
-import languageManager from "../helpers/LanguageManager";
-import { Subject } from 'rxjs'
-import {RxEmitter} from "rxemitter";
+import {IPage} from '../components/infos/IPage';
+import appConfig from '../appConfig';
+import languageManager from '../helpers/LanguageManager';
+import {Subject} from 'rxjs';
+import LanguageManager from '../helpers/LanguageManager';
 
 const subject = new Subject();
 
 let pages: IPage[] = [];
 
 async function loadPages(): Promise<void> {
-	fetch(appConfig.backendUrl + '/data/items/pages?filter[language]=' + (await languageManager.getCurrentLanguage()))
+	fetch(appConfig.backendUrl + '/items/pages?filter[language]=' + (await languageManager.getCurrentLanguageAsync()))
 		.then((response) => response.json())
 		.then((json) => {
 			pages = json.data;
@@ -20,7 +20,7 @@ async function loadPages(): Promise<void> {
 		});
 }
 
-RxEmitter.on('Language_Changed').subscribe(() => loadPages());
+LanguageManager.onChange.subscribe(() => loadPages());
 
 export const InfopagesStore = {
 	get: () => pages,
