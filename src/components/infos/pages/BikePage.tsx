@@ -9,7 +9,7 @@ import MovaMarkdown from '../../generic/MovaMarkdown';
 import MovaText from '../../generic/MovaText';
 import {useTranslation} from 'react-i18next';
 import MovaTheme from '../../../constants/MovaTheme';
-import {InfopagesStore} from "../../../stores/InfopagesStore";
+import {InfopagesStore} from '../../../stores/InfopagesStore';
 
 const PageContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -19,6 +19,7 @@ const PageContainer = styled.SafeAreaView`
 const PageHeader = styled.View`
   padding: 10px;
   margin-top: 10px;
+  background: ${MovaTheme.colorYellow};
 `;
 const PageContent = styled.View`
   padding: 10px;

@@ -19,6 +19,7 @@ const PageContainer = styled.SafeAreaView`
 const PageHeader = styled.View`
   padding: 10px;
   margin-top: 10px;
+  background: ${MovaTheme.colorYellow};
 `;
 const PageContent = styled.View`
   padding: 10px;

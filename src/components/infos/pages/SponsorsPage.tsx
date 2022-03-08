@@ -30,6 +30,7 @@ const ImageContainer = styled.View`
 const PageHeader = styled.View`
   padding: 10px;
   margin-top: 10px;
+  background: ${MovaTheme.colorYellow};
 `;
 
 const HauptPartnerinnenLabel = styled(MovaHeadingText)`

@@ -6,6 +6,7 @@ import IconBack from '../../generic/IconBack';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from '../IPage';
 import MovaMarkdown from '../../generic/MovaMarkdown';
+import MovaTheme from '../../../constants/MovaTheme';
 
 const PageContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -15,6 +16,7 @@ const PageContainer = styled.SafeAreaView`
 const PageHeader = styled.View`
   padding: 10px;
   margin-top: 10px;
+  background: ${MovaTheme.colorYellow};
 `;
 const PageContent = styled.View`
   padding: 10px;
