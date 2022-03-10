@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 import MovaHeadingText from '../../generic/MovaHeadingText';
 import {TouchableOpacity} from 'react-native';
@@ -8,7 +8,6 @@ import {IPage} from '../IPage';
 import MovaText from '../../generic/MovaText';
 import {useTranslation} from 'react-i18next';
 import MovaTheme from '../../../constants/MovaTheme';
-import {InfopagesStore} from '../../../stores/InfopagesStore';
 import PageRefreshScrollView from "../PageRefreshScrollView";
 import IconDetailView from "../../generic/IconDetailView";
 
@@ -60,34 +59,34 @@ const DayIcon = styled.View`
   align-self: flex-end;
 `;
 
-type RootStackParamList = {infospage: {page: IPage}};
+type RootStackParamList = {
+    walkindetails?: {label: string},
+    infospage: {page: IPage}
+};
 type Props = { navigation: StackNavigationProp<RootStackParamList, 'infospage'>; page: IPage; };
 
 export default function WalkInPage({navigation, page}: Props) {
   const {t} = useTranslation();
 
-  // refresh on mount because data might have changed
-  useEffect(() => {
-    InfopagesStore.reload();
-  }, []);
-
   let dayRow = (label: string, pillText: string = '') => {
     return (
-      <DayView>
-        <DayLabel>
-          <MovaText style={{fontSize: 20}}>{label}</MovaText>
-        </DayLabel>
-        {pillText ?
-            <DayPill>
-              <MovaText style={{color: 'white'}}>{pillText}</MovaText>
-            </DayPill>
-          : []
-        }
-        <DaySpacer/>
-        <DayIcon>
-          <IconDetailView/>
-        </DayIcon>
-      </DayView>
+        <TouchableOpacity onPress={() => navigation.navigate('walkindetails', {label: label})}>
+          <DayView>
+            <DayLabel>
+              <MovaText style={{fontSize: 20}}>{label}</MovaText>
+            </DayLabel>
+            {pillText ?
+                <DayPill>
+                  <MovaText style={{color: 'white'}}>{pillText}</MovaText>
+                </DayPill>
+              : []
+            }
+            <DaySpacer/>
+            <DayIcon>
+              <IconDetailView/>
+            </DayIcon>
+          </DayView>
+        </TouchableOpacity>
     )
   }
 
