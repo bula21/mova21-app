@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import MovaHeadingText from '../../generic/MovaHeadingText';
-import {ScrollView, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import IconBack from '../../generic/IconBack';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from '../IPage';
 import MovaMarkdown from '../../generic/MovaMarkdown';
 import MovaTheme from '../../../constants/MovaTheme';
+import PageRefreshScrollView from "../PageRefreshScrollView";
 
 const PageContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -27,7 +28,7 @@ type Props = { navigation: StackNavigationProp<RootStackParamList, 'infospage'>;
 
 export default function GenericPage({navigation, page}: Props) {
   return (
-    <ScrollView scrollIndicatorInsets={{ right: 1 }}>
+    <PageRefreshScrollView>
       <PageContainer>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <PageHeader>
@@ -40,6 +41,6 @@ export default function GenericPage({navigation, page}: Props) {
           <MovaMarkdown>{page.content}</MovaMarkdown>
         </PageContent>
       </PageContainer>
-    </ScrollView>
+    </PageRefreshScrollView>
   );
 }

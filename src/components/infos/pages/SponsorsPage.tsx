@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components/native';
 import MovaHeadingText from '../../generic/MovaHeadingText';
 import MovaTheme from "../../../constants/MovaTheme";
-import {ScrollView, TouchableOpacity, Image, Linking} from 'react-native';
+import {TouchableOpacity, Image, Linking} from 'react-native';
 import IconBack from '../../generic/IconBack';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from '../IPage';
 import {useTranslation} from 'react-i18next';
 import languageManager from '../../../helpers/LanguageManager';
+import PageRefreshScrollView from "../PageRefreshScrollView";
 
 
 interface ISponsor {
@@ -207,7 +208,7 @@ export default function SponsorsPage({navigation, page}: Props) {
   }
 
   return (
-    <ScrollView scrollIndicatorInsets={{ right: 1 }}>
+    <PageRefreshScrollView>
       <PageContainer>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <PageHeader>
@@ -225,6 +226,6 @@ export default function SponsorsPage({navigation, page}: Props) {
         <UnterstutzerLabel>{t('Unterstutzer')}</UnterstutzerLabel>
         { partnerList(Partners['Unterstutzer']) }
       </PageContainer>
-    </ScrollView>
+    </PageRefreshScrollView>
   );
 }
