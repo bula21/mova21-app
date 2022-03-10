@@ -29,6 +29,7 @@ const CallContainer = styled.View`
   align-items: center;
   justify-content: center;
   margin-top: 10px;
+  margin-bottom: 30px;
   background: ${MovaTheme.colorOrange};
   height: 80px;
 `;
@@ -64,6 +65,7 @@ export default function GenericPage({navigation, page}: Props) {
               </CallButtonContent>
             </TouchableOpacity>
           </CallContainer>
+          <MovaMarkdown>{page.data && page.data.textAfterButton ? page.data.textAfterButton : ''}</MovaMarkdown>
         </PageContent>
       </PageContainer>
     </ScrollView>
