@@ -11,6 +11,7 @@ import {IPage} from './IPage';
 import {InfopagesStore} from "../../stores/InfopagesStore";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useIsFocused } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const MainContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -31,6 +32,8 @@ const SearchBar = styled.View`
   flex-direction: row;
   height: 56px;
   align-content: center;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const SearchInput = styled.TextInput`
@@ -39,6 +42,7 @@ const SearchInput = styled.TextInput`
   borderColor: gray;
   margin-top: -10px;
   height: 60px;
+  flex-grow: 1;
 `;
 
 const MovaAnimatedHeadingText = Animated.createAnimatedComponent(MovaHeadingText);
@@ -72,9 +76,9 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
   }, []);
 
   const isFocused = useIsFocused();
-  
+
   if (isSearchActive && !isFocused) {
-    setSearching(false);
+    leaveSearch();
   }
 
   function onRefresh() {
@@ -107,6 +111,7 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
   };
 
   function leaveSearch() {
+    onNewSearchKeyword("");
     setSearching(false);
     animationProgress.setValue(1);
     Animated.timing(animationProgress, {
@@ -134,14 +139,14 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
     <MainContainer>
       <FlatList
         data={pages}
-        renderItem={({item, index}) => (
+        renderItem={({ item, index }) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate('infopage', {page: item})}>
+            onPress={() => navigation.navigate('infopage', { page: item })}>
             <InfosItem
               style={{
                 backgroundColor: getColor(item, index)
               }}>
-              <MovaText style={{fontSize: 40}}>{item.title}</MovaText>
+              <MovaText style={{ fontSize: 40 }}>{item.title}</MovaText>
             </InfosItem>
           </TouchableOpacity>
         )}
@@ -168,7 +173,9 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
                 {t('info')}
               </MovaAnimatedHeadingText>
             }
-            <SearchBar>
+            <SearchBar
+              style={isSearchActive ? { flexGrow: 1 } : {}}
+            >
               <MovaIcon
                 name='search-outline'
                 size={50}
@@ -180,6 +187,15 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
                   onChangeText={onNewSearchKeyword}
                   value={searchKeyword}
                   placeholder={t('search_keyword')}
+                />
+              }
+              {isSearchActive &&
+                <Icon
+                  name={'close'}
+                  size={30}
+                  color='grey'
+                  onPress={() => onNewSearchKeyword('')}
+                  style={{ paddingBottom: 12, paddingLeft: 10 }}
                 />
               }
             </SearchBar>
