@@ -10,6 +10,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from './IPage';
 import {InfopagesStore} from "../../stores/InfopagesStore";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { useIsFocused } from '@react-navigation/native';
 
 const MainContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -69,6 +70,12 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
       subscription.unsubscribe();
     };
   }, []);
+
+  const isFocused = useIsFocused();
+  
+  if (isSearchActive && !isFocused) {
+    setSearching(false);
+  }
 
   function onRefresh() {
     setRefreshing(true);
