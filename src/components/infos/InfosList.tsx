@@ -53,6 +53,14 @@ type NavigationProp = StackNavigationProp<
   'infopage'
 >;
 
+function mainPageFilter(page: IPage) : boolean {
+  return page.sub_page === false;
+}
+
+function mainPages() : IPage[] {
+  return InfopagesStore.get().filter(mainPageFilter);
+}
+
 export default function InfosList({navigation}: {navigation: NavigationProp}) {
   const {t} = useTranslation();
 
@@ -66,9 +74,9 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
 
   // load on mount
   useEffect(() => {
-    setPages(InfopagesStore.get());
+    setPages(mainPages());
     const subscription = InfopagesStore.subscribe((pages: IPage[]) => {
-      setPages(pages);
+      setPages(pages.filter(mainPageFilter));
     })
     InfopagesStore.reload();
     return () => {
@@ -85,7 +93,7 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
   function onRefresh() {
     setRefreshing(true);
     InfopagesStore.reload().then(() => {
-      setPages(InfopagesStore.get());
+      setPages(mainPages());
       setRefreshing(false);
     });
   }
@@ -112,7 +120,7 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
   };
 
   function leaveSearch() {
-    onNewSearchKeyword("");
+    onNewSearchKeyword('');
     setSearching(false);
     animationProgress.setValue(1);
     Animated.timing(animationProgress, {
@@ -125,6 +133,11 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
 
   function onNewSearchKeyword(keyword: string) {
     setSearchKeyword(keyword);
+    if (keyword === '') {
+      setPages(mainPages());
+      return;
+    }
+    // Search shows all pages, including sub pages
     let pages = InfopagesStore.get();
     if (isSearchActive && typeof keyword != 'undefined' && keyword) {
       const sanitized = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

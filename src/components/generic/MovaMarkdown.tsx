@@ -2,6 +2,9 @@ import React, {ReactNode} from 'react';
 import Markdown from 'react-native-markdown-display';
 import {Platform, StyleSheet} from 'react-native';
 import MovaTheme from "../../constants/MovaTheme";
+import { StackNavigationProp } from '@react-navigation/stack';
+import { IPage } from '../infos/IPage';
+import { InfopagesStore } from '../../stores/InfopagesStore';
 
 const fontFamily = Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold';
 
@@ -91,8 +94,34 @@ const styles = StyleSheet.create({
 
 type Props = {
   children: ReactNode;
+  navigation: StackNavigationProp<
+    {infopage: {page: IPage}},
+    'infopage'
+  >;
 };
 
 export default function MovaMarkdown(props: Props) {
-  return <Markdown style={styles}>{props.children}</Markdown>;
+
+  const clickMarkdownLink = (url: string): boolean => {
+    const id = Number(url);
+    if (Number.isNaN(id)) {
+      // return true to open URL as usual
+      return true
+    }
+    const page = InfopagesStore.getPage(id);
+    if (page) {
+      props.navigation.push(
+        'infopage', { page }
+      );
+    }
+    // return false to prevent default
+    return false;
+  }  
+
+  return <Markdown
+    style={styles}
+    onLinkPress={clickMarkdownLink}
+  >
+    {props.children}
+  </Markdown>;
 }

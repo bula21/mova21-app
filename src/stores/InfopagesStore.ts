@@ -27,6 +27,10 @@ export const InfopagesStore = {
 	subscribe: (setState: any) => subject.subscribe(setState),
 	reload: () => {
 		return loadPages();
+	},
+	getPage: (id: number): IPage|null => {
+		const filteredPages = pages.filter(page => page.id === id);
+		return filteredPages.length > 0 ? filteredPages[0] : null;
 	}
 }
 

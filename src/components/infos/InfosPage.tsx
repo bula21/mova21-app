@@ -16,20 +16,16 @@ export default function InfosPage({route, navigation}: Props) {
 
   // load from store on mount
   useEffect(() => {
-    setPage(getPage(route.params.page.id));
+    setPage(InfopagesStore.getPage(route.params.page.id));
     // make sure the page updates, when the store changes
     const subscription = InfopagesStore.subscribe(() => {
-      setPage(getPage(route.params.page.id));
+      setPage(InfopagesStore.getPage(route.params.page.id));
     })
     return () => {
       subscription.unsubscribe();
     };
   }, []);
 
-  function getPage(id: number): IPage|null {
-      let pages = InfopagesStore.get().filter(page => page.id === id);
-      return pages.length > 0 ? pages[0] : null;
-  }
   if (!page) {
     return null;
   }
