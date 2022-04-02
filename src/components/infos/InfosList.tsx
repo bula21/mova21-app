@@ -11,7 +11,7 @@ import {IPage} from './IPage';
 import {InfopagesStore} from "../../stores/InfopagesStore";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useIsFocused } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const MainContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -38,9 +38,10 @@ const SearchBar = styled.View`
 
 const SearchInput = styled.TextInput`
   font-size: 32px;
-  borderBottomWidth: 1px;
-  borderColor: gray;
+  border-bottom-width: 2px;
+  border-color: black;
   margin-top: -10px;
+  margin-left: 10px;
   height: 60px;
   flex-grow: 1;
 `;
@@ -191,9 +192,9 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
               }
               {isSearchActive &&
                 <Icon
-                  name={'close'}
-                  size={30}
-                  color='grey'
+                  name={'close-sharp'}
+                  size={40}
+                  color='black'
                   onPress={() => onNewSearchKeyword('')}
                   style={{ paddingBottom: 12, paddingLeft: 10 }}
                 />
