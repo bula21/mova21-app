@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components/native';
 import MovaHeadingText from '../../generic/MovaHeadingText';
-import {ScrollView, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import IconBack from '../../generic/IconBack';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from '../IPage';
@@ -9,7 +9,8 @@ import MovaMarkdown from '../../generic/MovaMarkdown';
 import MovaText from '../../generic/MovaText';
 import {useTranslation} from 'react-i18next';
 import MovaTheme from '../../../constants/MovaTheme';
-import {InfopagesStore} from "../../../stores/InfopagesStore";
+import {InfopagesStore} from '../../../stores/InfopagesStore';
+import PageRefreshScrollView from "../PageRefreshScrollView";
 
 const PageContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -19,6 +20,7 @@ const PageContainer = styled.SafeAreaView`
 const PageHeader = styled.View`
   padding: 10px;
   margin-top: 10px;
+  background: ${MovaTheme.colorYellow};
 `;
 const PageContent = styled.View`
   padding: 10px;
@@ -71,7 +73,7 @@ export default function BikePage({navigation, page}: Props) {
   }
 
   return (
-    <ScrollView scrollIndicatorInsets={{ right: 1 }}>
+    <PageRefreshScrollView>
       <PageContainer>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <PageHeader>
@@ -96,6 +98,6 @@ export default function BikePage({navigation, page}: Props) {
           <MovaMarkdown>{page.content}</MovaMarkdown>
         </PageContent>
       </PageContainer>
-    </ScrollView>
+    </PageRefreshScrollView>
   );
 }

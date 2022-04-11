@@ -1,0 +1,6 @@
+{
+    "require": {
+        "league/html-to-markdown": "^5.0",
+        "guzzlehttp/guzzle": "^7.4"
+    }
+}

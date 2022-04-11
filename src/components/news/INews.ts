@@ -7,12 +7,9 @@ export interface INews {
   excerpt: string;
   image: {
     // there are more fields here, these are just the ones we might use
+    id: number;
     width: number;
     height: number;
     filename_disk: string;
-    data: {
-      full_url: string;
-      url: string;
-    };
   } | null;
 }

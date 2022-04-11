@@ -1,30 +1,54 @@
 import i18n from 'i18next';
 import {Platform, NativeModules} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {RxEmitter} from 'rxemitter';
+import {Subject} from 'rxjs';
 
 class LanguageManager {
+  private _currentLanguage: string = 'de';
+  public onChange: Subject<string> = new Subject();
+
   public async changeLanguageTo(language: string): Promise<void> {
+    language = this.sanitizeLanguage(language);
+    this._currentLanguage = language;
     await AsyncStorage.setItem('language', language);
     this.applyLanguage(language);
-    RxEmitter.emit('Language_Changed');
-    console.log('set langauge to ' + language);
+    console.log('set language to ' + language);
   }
 
-  public async getCurrentLanguage(): Promise<string> {
-    var storedLanguage = await AsyncStorage.getItem('language');
+  get currentLanguage(): string {
+    return this._currentLanguage;
+  }
+
+  public async getCurrentLanguageAsync(): Promise<string> {
+    let storedLanguage = await AsyncStorage.getItem('language');
+    this._currentLanguage = storedLanguage || 'de';
     return storedLanguage == null ? this.getDeviceLanguage() : storedLanguage;
   }
 
   public async applyLanguageFromStorageOrDevice(): Promise<void> {
-    var currentLanguage = await this.getCurrentLanguage();
-    this.applyLanguage(currentLanguage);
+    let currentLanguage = await this.getCurrentLanguageAsync();
+    this.applyLanguage(this.sanitizeLanguage(currentLanguage));
   }
 
   private applyLanguage(language: string): void {
-    i18n.changeLanguage(language.split('_')[0], () =>
+    this.onChange.next(language);
+    i18n.changeLanguage(language, () =>
       console.log('Changed language to ' + language),
     );
+  }
+
+  private sanitizeLanguage(language: string) {
+    if (!language) {
+      return 'de';
+    }
+    language = language.toLowerCase();
+    if (language.length > 2) {
+      language = language.substring(0, 2);
+    }
+    if (['de', 'fr', 'it', 'en'].indexOf(language) === -1) {
+      return 'de';
+    }
+    return language;
   }
 
   private getDeviceLanguage(): string {
@@ -33,7 +57,7 @@ class LanguageManager {
         ? NativeModules.SettingsManager.settings.AppleLocale ||
           NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
         : NativeModules.I18nManager.localeIdentifier;
-    return deviceLanguage;
+    return this.sanitizeLanguage(deviceLanguage);
   }
 }
 
