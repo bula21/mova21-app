@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import MovaTheme from "../../../constants/MovaTheme";
 import MovaText from "../../generic/MovaText";
 import PageRefreshScrollView from "../PageRefreshScrollView";
+import Geolocation from 'react-native-geolocation-service';
 
 const PageContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -46,6 +47,11 @@ type RootStackParamList = {infospage: {page: IPage}};
 type Props = { navigation: StackNavigationProp<RootStackParamList, 'infospage'>; page: IPage; };
 
 export default function GenericPage({navigation, page}: Props) {
+
+  const initiateCall = () => {
+    console.log('Send location here...');
+    Linking.openURL(`tel:${page.data.phone_number}`)
+  }
   return (
     <PageRefreshScrollView>
       <PageContainer>
@@ -59,7 +65,7 @@ export default function GenericPage({navigation, page}: Props) {
         <PageContent>
           <MovaMarkdown>{page.content}</MovaMarkdown>
           <CallContainer>
-            <TouchableOpacity onPress={() => Linking.openURL(`tel:${page.data.phone_number}`)}>
+            <TouchableOpacity onPress={() => initiateCall()}>
               <CallButtonContent>
                 <Icon name="phone" size={40} color="black" />
                 <MovaText style={{fontSize: 24, paddingLeft: 20}}>{page.data.phone_number}</MovaText>

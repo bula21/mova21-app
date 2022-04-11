@@ -35,8 +35,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Dein Standort wird für die Karte und die Notfall Alarmierung verwendet</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Dein Standort wird für die Karte und die Notfall Alarmierung verwendet</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MS-BoldItalic.otf</string>
