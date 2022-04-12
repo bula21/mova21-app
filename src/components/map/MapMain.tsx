@@ -18,7 +18,7 @@ export default function MapMain() {
       <SafeAreaView style={{flex: 1, alignSelf: 'stretch'}}>
         <WebView
             style={{alignSelf: 'stretch', flex: 1}}
-            source={{ uri: 'https://map.mova.ch/ClientWebApp/?project=movaMap&legend=Public&rotation=0.00&scale=20370&center=2666060,1150607&lang=' + languageManager.currentLanguage }}
+            source={{ uri: 'https://map.mova.ch/ClientWebApp/?project=movaMap&legend=Public&rotation=0.00&scale=20370&mapOnly=true&mapOnlySearch=true&center=2666060,1150607&lang=' + languageManager.currentLanguage }}
         />
       </SafeAreaView>
     </MainContainer>
