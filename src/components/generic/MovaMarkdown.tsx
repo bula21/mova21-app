@@ -12,24 +12,40 @@ const styles = StyleSheet.create({
   body: {
     fontSize: 16,
     fontFamily: fontFamily,
+    lineHeight: 22,
   },
   heading1: {
     fontSize: 40,
+    marginTop: 15,
+    marginBottom: 5,
+    lineHeight: 50,
   },
   heading2: {
     fontSize: 30,
+    marginTop: 15,
+    marginBottom: 5,
+    lineHeight: 40,
   },
   heading3: {
     fontSize: 24,
+    marginTop: 15,
+    marginBottom: 5,
+    lineHeight: 34,
   },
   heading4: {
     fontSize: 20,
+    marginTop: 15,
+    marginBottom: 5,
+    lineHeight: 30,
   },
   heading5: {
     fontSize: 18,
+    marginTop: 10,
+    lineHeight: 28,
   },
   heading6: {
     fontSize: 16,
+    marginTop: 10,
   },
   blockquote: {
     backgroundColor: MovaTheme.colorOrange,
