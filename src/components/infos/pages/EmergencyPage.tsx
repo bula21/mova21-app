@@ -57,7 +57,7 @@ export default function GenericPage({navigation, page}: Props) {
           </PageHeader>
         </TouchableOpacity>
         <PageContent>
-          <MovaMarkdown>{page.content}</MovaMarkdown>
+          <MovaMarkdown>{page.data && page.data.textBeforeButton ? page.data.textBeforeButton : ''}</MovaMarkdown>
           <CallContainer>
             <TouchableOpacity onPress={() => Linking.openURL(`tel:${page.data.phone_number}`)}>
               <CallButtonContent>
@@ -66,7 +66,7 @@ export default function GenericPage({navigation, page}: Props) {
               </CallButtonContent>
             </TouchableOpacity>
           </CallContainer>
-          <MovaMarkdown>{page.data && page.data.textAfterButton ? page.data.textAfterButton : ''}</MovaMarkdown>
+          <MovaMarkdown>{page.content}</MovaMarkdown>
         </PageContent>
       </PageContainer>
     </PageRefreshScrollView>
