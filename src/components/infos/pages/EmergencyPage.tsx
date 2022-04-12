@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components/native';
 import MovaHeadingText from '../../generic/MovaHeadingText';
-import {PermissionsAndroid, TouchableOpacity} from 'react-native';
+import {PermissionsAndroid, Platform, TouchableOpacity} from 'react-native';
 import IconBack from '../../generic/IconBack';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from '../IPage';
@@ -65,16 +65,18 @@ export default function GenericPage({navigation, page}: Props) {
 
     try {
       // wait for user permissions and ignore the result
-      await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: "Standort senden",
-          message: "Deinen Standort an die mova Notfall-Zentrale übermitteln.",
-          buttonNeutral: "Jetzt nicht",
-          buttonNegative: "Abbrechen",
-          buttonPositive: "OK"
-        }
-      );
+      if (Platform.OS === 'android') {
+        await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: "Standort senden",
+            message: "Deinen Standort an die mova Notfall-Zentrale übermitteln.",
+            buttonNeutral: "Jetzt nicht",
+            buttonNegative: "Abbrechen",
+            buttonPositive: "OK"
+          }
+        );
+      }
     } catch (err) {
       // ignore errors
       console.warn(err);
