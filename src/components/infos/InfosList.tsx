@@ -38,7 +38,7 @@ const SearchBar = styled.View`
 
 const SearchInput = styled.TextInput`
   font-size: 32px;
-  border-bottom-width: 2px;
+  border-bottom-width: 3px;
   border-color: black;
   margin-top: -10px;
   margin-left: 10px;
@@ -119,6 +119,14 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
     );
   };
 
+  function clearSearch() {
+    if (searchKeyword === '') {
+      leaveSearch();
+    } else {
+      onNewSearchKeyword('');
+    }
+  }
+
   function leaveSearch() {
     onNewSearchKeyword('');
     setSearching(false);
@@ -182,6 +190,10 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
                     inputRange: [0, 1],
                     outputRange: [40, 1]
                   }),
+                  marginTop: animationProgress.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 25]
+                  }),
                 }]}
               >
                 {t('info')}
@@ -208,7 +220,7 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
                   name={'close-sharp'}
                   size={40}
                   color='black'
-                  onPress={() => onNewSearchKeyword('')}
+                  onPress={() => clearSearch()}
                   style={{ paddingBottom: 12, paddingLeft: 10 }}
                 />
               }

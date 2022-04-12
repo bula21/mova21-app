@@ -31,7 +31,7 @@ const CallContainer = styled.View`
   align-items: center;
   justify-content: center;
   margin-top: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   background: ${MovaTheme.colorOrange};
   height: 80px;
 `;
@@ -63,7 +63,7 @@ export default function GenericPage({navigation, page}: Props) {
           </PageHeader>
         </TouchableOpacity>
         <PageContent>
-          <MovaMarkdown>{page.content}</MovaMarkdown>
+          <MovaMarkdown>{page.data && page.data.textBeforeButton ? page.data.textBeforeButton : ''}</MovaMarkdown>
           <CallContainer>
             <TouchableOpacity onPress={() => initiateCall()}>
               <CallButtonContent>
@@ -72,7 +72,7 @@ export default function GenericPage({navigation, page}: Props) {
               </CallButtonContent>
             </TouchableOpacity>
           </CallContainer>
-          <MovaMarkdown>{page.data && page.data.textAfterButton ? page.data.textAfterButton : ''}</MovaMarkdown>
+          <MovaMarkdown>{page.content}</MovaMarkdown>
         </PageContent>
       </PageContainer>
     </PageRefreshScrollView>
