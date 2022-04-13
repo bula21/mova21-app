@@ -1,7 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
-import MovaHeadingText from '../generic/MovaHeadingText';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import { WebView } from 'react-native-webview';
+import languageManager from '../../helpers/LanguageManager';
+
 
 const MainContainer = styled.View`
   flex: 1;
@@ -11,10 +13,28 @@ const MainContainer = styled.View`
 `;
 
 export default function MapMain() {
+
+  const [language, setLanguage] = useState("de");
+
+  // on mount
+  useEffect(() => {
+    setLanguage(languageManager.currentLanguage);
+    // make sure the map updates, when the language changes
+    const subscription = languageManager.onChange.subscribe(() => {
+      setLanguage(languageManager.currentLanguage);
+    })
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
   return (
     <MainContainer>
-      <SafeAreaView>
-        <MovaHeadingText>Map</MovaHeadingText>
+      <SafeAreaView style={{flex: 1, alignSelf: 'stretch'}}>
+        <WebView
+            style={{alignSelf: 'stretch', flex: 1}}
+            source={{ uri: 'https://map.mova.ch/ClientWebApp/?project=movaMap&legend=Public&rotation=0.00&scale=20370&mapOnly=true&mapOnlySearch=true&center=2666060,1150607&lang=' + language }}
+        />
       </SafeAreaView>
     </MainContainer>
   );
