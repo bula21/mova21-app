@@ -1,0 +1,26 @@
+[
+    {
+        "en": "First element",
+        "it": "Primo elemento",
+        "fr": "Premier élément",
+        "de": "Erstes Element"
+    },
+    {
+        "en": "Second element",
+        "it": "Secondo elemento",
+        "fr": "Deuxième élément",
+        "de": "Zweites Element"
+    },
+    {
+        "en": "Third element",
+        "it": "Terzo elemento",
+        "fr": "Troisième élément",
+        "de": "Drittes Element"
+    },
+    {
+        "en": "P-element",
+        "it": "P-elemento",
+        "fr": "P-élément",
+        "de": "P-Element"
+    }
+]

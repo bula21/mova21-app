@@ -5,6 +5,7 @@ import GenericPage from './pages/GenericPage';
 import BikePage from './pages/BikePage';
 import EmergencyPage from './pages/EmergencyPage';
 import SponsorsPage from './pages/SponsorsPage';
+import LexiconPage from './pages/LexiconPage';
 import {InfopagesStore} from '../../stores/InfopagesStore';
 
 type RootStackParamList = {infospage: {page: IPage}};
@@ -34,6 +35,7 @@ export default function InfosPage({route, navigation}: Props) {
     case 'bike': return <BikePage navigation={navigation} page={page} />;
     case 'emergency': return <EmergencyPage navigation={navigation} page={page} />;
     case 'sponsors': return <SponsorsPage navigation={navigation} page={page} />;
+    case 'lexicon': return <LexiconPage navigation={navigation} page={page} />;
     default: return <GenericPage navigation={navigation} page={page} />;
   }
 }
