@@ -13,6 +13,7 @@ import MovaText from "../../generic/MovaText";
 import PageRefreshScrollView from "../PageRefreshScrollView";
 import Geolocation, {GeoPosition} from 'react-native-geolocation-service';
 import {useTranslation} from 'react-i18next';
+import LanguageManager from "../../../helpers/LanguageManager";
 
 const PageContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -82,9 +83,11 @@ export default function GenericPage({navigation, page}: Props) {
       console.warn(err);
     } finally {
       Geolocation.getCurrentPosition(
-        (position) => {
+        async (position) => {
           setLocation(position);
           setIsLoading(false);
+          sendLocation(position);
+          await new Promise(r => setTimeout(r, 500));
           Linking.openURL(`tel:${page.data.phone_number}`)
         },
         (error) => {
@@ -97,6 +100,35 @@ export default function GenericPage({navigation, page}: Props) {
       );
     }
   }
+
+  const sendLocation = async function(position: GeoPosition) {
+    let url = page.data && page.data.antavi_url ? page.data.antavi_url : 'https://europe-west6-antaviops.cloudfunctions.net/simple_alert';
+    let data = {
+      "key": page.data && page.data.antavi_key ? page.data.antavi_key : 'AADFD553FGEFG4',
+      "id": page.data && page.data.antavi_id ? page.data.antavi_id : 'test',
+      "location": {
+        "latitude": position.coords.latitude,
+        "longitude": position.coords.longitude,
+        "accuracyMeter": position.coords.accuracy
+      },
+      "message": "Notfall Anruf via App (" + LanguageManager.currentLanguage + ")"
+    };
+    console.log('sending location to ' + url, data)
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      console.log('response: ', await response.text())
+    } catch (e) {
+      console.error('could not send location', e)
+      setLocationErrorMessage('Standort nicht gesendet: ' + (e.message ? e.message : 'unknown error'));
+    }
+  }
+
   return (
     <PageRefreshScrollView>
       <PageContainer>
