@@ -41,7 +41,7 @@ export default function MovaAccordion(props:Props) {
             <TouchableOpacity onPress={onHeaderPress}>
                 <AccordionHeader>
                     <AccordionHeaderText>{props.header}</AccordionHeaderText>
-                    <MovaIcon size={40} name={expanded ? 'pause' : 'play'} />
+                    <MovaIcon size={40} name={expanded ? 'minus' : 'plus'} />
                 </AccordionHeader>
             </TouchableOpacity>
             <View/>
