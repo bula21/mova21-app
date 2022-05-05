@@ -1,17 +1,16 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity, View, LayoutAnimation, Platform, UIManager} from 'react-native';
-import MovaTheme from '../../constants/MovaTheme';
 import styled from 'styled-components/native';
 import MovaIcon from './MovaIcon';
 
 type Props = {
     header: string;
+    color: string;
     children: React.ReactNode;
 };
 
 const AccordionContainer = styled.View`
     padding: 10px;
-    background-color: ${MovaTheme.colorOrange};
 `;
 
 const AccordionHeader = styled.View`
@@ -22,6 +21,7 @@ const AccordionHeader = styled.View`
 `;
 
 const AccordionHeaderText = styled.Text`
+    flex: 1;
     font-family: ${Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold'};
     font-size: 32px;
 `;
@@ -37,7 +37,7 @@ export default function MovaAccordion(props:Props) {
         setExpanded(!expanded);
     };
     return (
-        <AccordionContainer>
+        <AccordionContainer style={{backgroundColor: props.color}}>
             <TouchableOpacity onPress={onHeaderPress}>
                 <AccordionHeader>
                     <AccordionHeaderText>{props.header}</AccordionHeaderText>
