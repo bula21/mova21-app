@@ -17,6 +17,7 @@ type Props<T> = {
   getData: () => T[];
   handleSearch: (data: T[]) => void;
   navigation?: StackNavigationProp<RootStackParamList, 'infospage'>;
+  isFocused?: boolean;
 };
 
 const SearchBarHeader = styled.View`
@@ -52,6 +53,12 @@ export default function MovaSearchbarHeading<T>(props: Props<T>) {
   const [searchKeyword, setSearchKeyword] = useState('');
   const animationProgress = useRef(new Animated.Value(0)).current;
 
+  if(props.isFocused) {
+    if (isSearchActive && !props.isFocused) {
+      leaveSearch();
+    }
+  }
+  
   function enterSearch() {
     Animated.timing(animationProgress, {
       toValue: 1,
@@ -88,7 +95,6 @@ export default function MovaSearchbarHeading<T>(props: Props<T>) {
     setSearchKeyword(keyword);
     let objects = props.getData();
     if (keyword === '') {
-      // setPages(mainPages());
       props.handleSearch(objects);
       return;
     }
@@ -105,7 +111,6 @@ export default function MovaSearchbarHeading<T>(props: Props<T>) {
       });
     }
     props.handleSearch(objects);
-    // setPages(pages);
   }
 
   return (
