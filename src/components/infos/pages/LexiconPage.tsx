@@ -108,7 +108,7 @@ export default function LexiconPage({navigation, page}: Props) {
           sections={sections}
           renderItem={({item, index, section}) => (
             <View style={{borderBottomWidth: index == section.elementsCount - 1 ? 0 : 3}}>
-              <MovaAccordion header={item[currentLanguageIndex]}>
+              <MovaAccordion header={item[currentLanguageIndex]} color={MovaTheme.colorOrange}>
                 {otherLanguagesIndex.map(lang => (
                   <MovaText key={lang}>{item[lang as keyof IWord]}</MovaText>
                 ))}
