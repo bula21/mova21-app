@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?2vrbe');
-  src:  url('fonts/icomoon.eot?2vrbe#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?2vrbe') format('truetype'),
-    url('fonts/icomoon.woff?2vrbe') format('woff'),
-    url('fonts/icomoon.svg?2vrbe#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?7b4wj8');
+  src:  url('fonts/icomoon.eot?7b4wj8#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?7b4wj8') format('truetype'),
+    url('fonts/icomoon.woff?7b4wj8') format('woff'),
+    url('fonts/icomoon.svg?7b4wj8#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,45 +25,66 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-pause:before {
+.icon-uhr-textgroesse:before {
   content: "\e900";
 }
-.icon-play:before {
+.icon-sonne:before {
   content: "\e901";
 }
-.icon-search-outline:before {
+.icon-regen:before {
   content: "\e902";
+}
+.icon-arrow:before {
+  content: "\e903";
+}
+.icon-ort-textgroesse:before {
+  content: "\e904";
+}
+.icon-plus:before {
+  content: "\e905";
+}
+.icon-minus:before {
+  content: "\e906";
+}
+.icon-pause:before {
+  content: "\e907";
+}
+.icon-play:before {
+  content: "\e908";
+}
+.icon-search-outline:before {
+  content: "\e909";
 }
 .icon-search:before {
   content: "\e90c";
 }
 .icon-info-outline:before {
-  content: "\e904";
-}
-.icon-info:before {
-  content: "\e905";
-}
-.icon-map-outline:before {
-  content: "\e906";
-}
-.icon-map:before {
-  content: "\e907";
-}
-.icon-news-outline:before {
-  content: "\e908";
-}
-.icon-news:before {
-  content: "\e909";
-}
-.icon-radio-outline:before {
   content: "\e90a";
 }
-.icon-radio:before {
+.icon-info:before {
   content: "\e90b";
 }
+.icon-map-outline:before {
+  content: "\e90d";
+}
+.icon-map:before {
+  content: "\e90e";
+}
+.icon-news-outline:before {
+  content: "\e90f";
+}
+.icon-news:before {
+  content: "\e910";
+}
+.icon-radio-outline:before {
+  content: "\e911";
+}
+.icon-radio:before {
+  content: "\e912";
+}
 .icon-weather-outline:before {
-  content: "\e903";
+  content: "\e913";
 }
 .icon-weather:before {
-  content: "\e90d";
+  content: "\e914";
 }

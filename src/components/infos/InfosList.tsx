@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
-import MovaHeadingText from '../generic/MovaHeadingText';
 import {FlatList, RefreshControl, TouchableOpacity} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import MovaTheme from '../../constants/MovaTheme';
 import MovaText from '../generic/MovaText';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from './IPage';
-import {InfopagesStore} from "../../stores/InfopagesStore";
-import LanguageSwitcher from "./LanguageSwitcher";
+import {InfopagesStore} from '../../stores/InfopagesStore';
+import LanguageSwitcher from './LanguageSwitcher';
+import {useIsFocused} from '@react-navigation/native';
+import MovaSearchbarHeading from '../generic/MovaSearchbarHeading';
 
 const MainContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -20,14 +21,18 @@ const InfosItem = styled.View`
 `;
 
 const InfosHeader = styled.View`
-  padding: 10px;
-  margin-top: 10px;
+  height: 80px;
 `;
 
-type NavigationProp = StackNavigationProp<
-  {infopage: {page: IPage}},
-  'infopage'
->;
+type NavigationProp = StackNavigationProp<{infopage: {page: IPage}}, 'infopage'>;
+
+function mainPageFilter(page: IPage): boolean {
+  return page.sub_page === false;
+}
+
+function mainPages(): IPage[] {
+  return InfopagesStore.get().filter(mainPageFilter);
+}
 
 export default function InfosList({navigation}: {navigation: NavigationProp}) {
   const {t} = useTranslation();
@@ -35,12 +40,17 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
   const [pages, setPages] = useState<IPage[]>([]);
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
 
+  const handleSearch = (pages: IPage[]) => {
+    setPages(pages);
+  };
+  const isFocused = useIsFocused();
+
   // load on mount
   useEffect(() => {
-    setPages(InfopagesStore.get());
+    setPages(mainPages());
     const subscription = InfopagesStore.subscribe((pages: IPage[]) => {
-      setPages(pages);
-    })
+      setPages(pages.filter(mainPageFilter));
+    });
     InfopagesStore.reload();
     return () => {
       subscription.unsubscribe();
@@ -50,7 +60,7 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
   function onRefresh() {
     setRefreshing(true);
     InfopagesStore.reload().then(() => {
-      setPages(InfopagesStore.get());
+      setPages(mainPages());
       setRefreshing(false);
     });
   }
@@ -67,28 +77,28 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
       <FlatList
         data={pages}
         renderItem={({item, index}) => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate('infopage', {page: item})}>
+          <TouchableOpacity onPress={() => navigation.navigate('infopage', {page: item})}>
             <InfosItem
               style={{
-                backgroundColor: getColor(item, index)
+                backgroundColor: getColor(item, index),
               }}>
               <MovaText style={{fontSize: 40}}>{item.title}</MovaText>
             </InfosItem>
           </TouchableOpacity>
         )}
-        keyExtractor={(item) => String(item.id)}
+        keyExtractor={item => String(item.id)}
         ListHeaderComponent={
           <InfosHeader>
-            <MovaHeadingText>{t('info')}</MovaHeadingText>
+            <MovaSearchbarHeading
+              headerText={t('info')}
+              searchableAttributes={['title', 'content']}
+              getData={() => InfopagesStore.get()}
+              handleSearch={handleSearch}
+              isFocused={isFocused}></MovaSearchbarHeading>
           </InfosHeader>
         }
-        ListFooterComponent={
-          <LanguageSwitcher />
-        }
-        refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-        }
+        ListFooterComponent={<LanguageSwitcher />}
+        refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}
       />
     </MainContainer>
   );

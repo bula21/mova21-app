@@ -5,4 +5,5 @@ export interface IPage {
   renderer: string | null;
   data: any;
   list_color: string;
+  sub_page: boolean;
 }

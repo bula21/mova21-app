@@ -5,6 +5,7 @@ import GenericPage from './pages/GenericPage';
 import BikePage from './pages/BikePage';
 import EmergencyPage from './pages/EmergencyPage';
 import SponsorsPage from './pages/SponsorsPage';
+import LexiconPage from './pages/LexiconPage';
 import {InfopagesStore} from '../../stores/InfopagesStore';
 import WalkInPage from "./pages/WalkInPage";
 
@@ -17,20 +18,16 @@ export default function InfosPage({route, navigation}: Props) {
 
   // load from store on mount
   useEffect(() => {
-    setPage(getPage(route.params.page.id));
+    setPage(InfopagesStore.getPage(route.params.page.id));
     // make sure the page updates, when the store changes
     const subscription = InfopagesStore.subscribe(() => {
-      setPage(getPage(route.params.page.id));
+      setPage(InfopagesStore.getPage(route.params.page.id));
     })
     return () => {
       subscription.unsubscribe();
     };
   }, []);
 
-  function getPage(id: number): IPage|null {
-      let pages = InfopagesStore.get().filter(page => page.id === id);
-      return pages.length > 0 ? pages[0] : null;
-  }
   if (!page) {
     return null;
   }
@@ -40,6 +37,7 @@ export default function InfosPage({route, navigation}: Props) {
     case 'emergency': return <EmergencyPage navigation={navigation} page={page} />;
     case 'sponsors': return <SponsorsPage navigation={navigation} page={page} />;
     case 'walk-in': return <WalkInPage navigation={navigation} page={page} />;
+    case 'lexicon': return <LexiconPage navigation={navigation} page={page} />;
     default: return <GenericPage navigation={navigation} page={page} />;
   }
 }

@@ -38,7 +38,7 @@ export default function GenericPage({navigation, page}: Props) {
           </PageHeader>
         </TouchableOpacity>
         <PageContent>
-          <MovaMarkdown>{page.content}</MovaMarkdown>
+          <MovaMarkdown navigation={navigation}>{page.content}</MovaMarkdown>
         </PageContent>
       </PageContainer>
     </PageRefreshScrollView>
