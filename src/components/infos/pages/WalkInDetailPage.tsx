@@ -85,7 +85,7 @@ export default function WalkInDetailPage({route, navigation}: Props) {
         </TouchableOpacity>
         {
           activities.map(activity => (
-            <ActivityListItem>
+            <ActivityListItem key={activity.id}>
               <MovaAccordion header={activity.title_de} color={MovaTheme.colorBlue}>
                 <ActivityDescription>
                   {activity.location_de &&
