@@ -1,18 +1,17 @@
 import {IPage} from '../components/infos/IPage';
-import appConfig from '../appConfig';
 import languageManager from '../helpers/LanguageManager';
 import {Subject} from 'rxjs';
 import LanguageManager from '../helpers/LanguageManager';
+import {BackendProxy} from '../helpers/BackendProxy';
 
 const subject = new Subject();
 
 let pages: IPage[] = [];
 
 async function loadPages(): Promise<void> {
-	fetch(appConfig.backendUrl + '/items/pages?filter[language]=' + (await languageManager.getCurrentLanguageAsync()))
-		.then((response) => response.json())
+	BackendProxy.fetchJson('items/pages?filter[language]=' + (await languageManager.getCurrentLanguageAsync()))
 		.then((json) => {
-			pages = json.data;
+			pages = json ? json.data : [];
 			subject.next(pages);
 		})
 		.catch((error) => {
@@ -21,6 +20,7 @@ async function loadPages(): Promise<void> {
 }
 
 LanguageManager.onChange.subscribe(() => loadPages());
+BackendProxy.subscribe(loadPages);
 
 export const InfopagesStore = {
 	get: () => pages,
