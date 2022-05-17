@@ -21,8 +21,9 @@ class LanguageManager {
 
   public async getCurrentLanguageAsync(): Promise<string> {
     let storedLanguage = await AsyncStorage.getItem('language');
+    storedLanguage = storedLanguage == null ? this.getDeviceLanguage() : storedLanguage;
     this._currentLanguage = storedLanguage || 'de';
-    return storedLanguage == null ? this.getDeviceLanguage() : storedLanguage;
+    return this._currentLanguage;
   }
 
   public async applyLanguageFromStorageOrDevice(): Promise<void> {
@@ -57,7 +58,11 @@ class LanguageManager {
         ? NativeModules.SettingsManager.settings.AppleLocale ||
           NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
         : NativeModules.I18nManager.localeIdentifier;
-    return this.sanitizeLanguage(deviceLanguage);
+    let detectedLanguage = this.sanitizeLanguage(deviceLanguage);
+    if (detectedLanguage === 'en') {
+      detectedLanguage = 'de'; // do not choose EN automatically
+    }
+    return detectedLanguage;
   }
 }
 
