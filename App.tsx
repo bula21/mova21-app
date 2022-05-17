@@ -24,6 +24,8 @@ import './src/i18n';
 import MovaIcon from './src/components/generic/MovaIcon';
 import moment from 'moment';
 import 'moment/locale/de';
+import 'moment/locale/fr';
+import 'moment/locale/it';
 import InfosMain from './src/components/infos/InfosMain';
 import MapMain from './src/components/map/MapMain';
 import languageManager from './src/helpers/LanguageManager';

@@ -5,6 +5,7 @@ export interface IActivity {
   is_permanent: boolean;
   date: string;
   status: string;
+  category: 'walk-in' | 'rover';
   title_de: string;
   title_fr: string;
   title_it: string;

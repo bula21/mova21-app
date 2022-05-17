@@ -10,6 +10,8 @@ import {useTranslation} from 'react-i18next';
 import MovaTheme from '../../../constants/MovaTheme';
 import PageRefreshScrollView from "../PageRefreshScrollView";
 import IconDetailView from "../../generic/IconDetailView";
+import moment from 'moment';
+import languageManager from "../../../helpers/LanguageManager";
 
 const PageContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -60,7 +62,7 @@ const DayIcon = styled.View`
 `;
 
 type RootStackParamList = {
-    walkindetails?: {label: string},
+    walkindetails?: {label: string, filter: string},
     infospage: {page: IPage}
 };
 type Props = { navigation: StackNavigationProp<RootStackParamList, 'infospage'>; page: IPage; };
@@ -68,9 +70,12 @@ type Props = { navigation: StackNavigationProp<RootStackParamList, 'infospage'>;
 export default function WalkInPage({navigation, page}: Props) {
   const {t} = useTranslation();
 
-  let dayRow = (label: string, pillText: string = '') => {
+  let dayRow = (label: string, filter: string = '') => {
+    let pillText: string = '';
+    if (filter == todayISO) { pillText = t('today')}
+    if (filter === tomorrowISO) { pillText = t('tomorrow')}
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('walkindetails', {label: label})}>
+        <TouchableOpacity onPress={() => navigation.navigate('walkindetails', {label: label, filter: filter})} key={filter}>
           <DayView>
             <DayLabel>
               <MovaText style={{fontSize: 20}}>{label}</MovaText>
@@ -90,6 +95,44 @@ export default function WalkInPage({navigation, page}: Props) {
     )
   }
 
+  let dates = [
+      '2022-07-23',
+      '2022-07-24',
+      '2022-07-25',
+      '2022-07-26',
+      '2022-07-27',
+      '2022-07-28',
+      '2022-07-29',
+      '2022-07-30',
+      '2022-07-31',
+      '2022-08-01',
+      '2022-08-02',
+      '2022-08-03',
+      '2022-08-04',
+      '2022-08-05',
+      '2022-08-06',
+  ];
+
+  let toISODate = (date: Date): string => {
+      return date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0')
+  }
+
+  let fromISODate = (date: string): Date => {
+      return new Date(parseInt(date.substring(0,4)), parseInt(date.substring(5,7)) - 1, parseInt(date.substring(8,10)));
+  }
+
+  let formatReadableDate = (date: Date): string => {
+      return moment(date).format('dd, D. MMMM');
+  }
+
+  let today = new Date();
+  let todayISO = toISODate(today);
+  let tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  let tomorrowISO = toISODate(tomorrow);
+
+  moment.locale(languageManager.currentLanguage)
+
   return (
     <PageRefreshScrollView>
       <PageContainer>
@@ -103,20 +146,14 @@ export default function WalkInPage({navigation, page}: Props) {
         <SectionTitle>
           <MovaText style={{color: '#ffffff', fontSize: 30}}>{t('every_day')}</MovaText>
         </SectionTitle>
-        {dayRow(t('walk-in_activities'))}
+        {dayRow(t('walk-in_activities'), 'walk-in')}
+        {dayRow(t('rover_activities'), 'rover')}
         <SectionTitle>
           <MovaText style={{color: '#ffffff', fontSize: 30}}>{t('in_the_next_days')}</MovaText>
         </SectionTitle>
-        {dayRow('So, 26. Juli', t('today'))}
-        {dayRow('Mo, 27. Juli', t('tomorrow'))}
-        {dayRow('Di, 28. Juli')}
-        {dayRow('Mi, 29. Juli')}
-        {dayRow('Do, 30. Juli')}
-        {dayRow('Fr, 31. Juli')}
-        {dayRow('Sa, 1. August')}
-        {dayRow('So, 2. August')}
-        {dayRow('Mo, 3. August')}
-        {dayRow('Di, 4. August')}
+        {dates.filter(date => date >= todayISO).map(date => (
+            dayRow(formatReadableDate(fromISODate(date)), date)
+        ))}
       </PageContainer>
     </PageRefreshScrollView>
   );

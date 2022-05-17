@@ -12,6 +12,7 @@ import moment from 'moment';
 import DateObjectFromDatetime from '../../helpers/DateObjectFromDatetime';
 import MovaMarkdown from '../generic/MovaMarkdown';
 import appConfig from '../../appConfig';
+import languageManager from "../../helpers/LanguageManager";
 
 const PageContainer = styled.SafeAreaView`
   flex: 1;
@@ -51,6 +52,7 @@ type Props = StackScreenProps<RootStackParamList, 'newspage'>;
 export default function NewsPage({route, navigation}: Props) {
   const {news} = route.params;
   const {t} = useTranslation();
+  moment.locale(languageManager.currentLanguage)
 
   return (
     <ScrollView>
