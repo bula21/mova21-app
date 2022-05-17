@@ -107,8 +107,8 @@ export default function WalkInPage({navigation, page}: Props) {
         <SectionTitle>
           <MovaText style={{color: '#ffffff', fontSize: 30}}>{t('in_the_next_days')}</MovaText>
         </SectionTitle>
-        {dayRow('So, 26. Juli', 'Heute')}
-        {dayRow('Mo, 27. Juli', 'Morgen')}
+        {dayRow('So, 26. Juli', t('today'))}
+        {dayRow('Mo, 27. Juli', t('tomorrow'))}
         {dayRow('Di, 28. Juli')}
         {dayRow('Mi, 29. Juli')}
         {dayRow('Do, 30. Juli')}

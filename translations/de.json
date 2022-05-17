@@ -4,8 +4,6 @@
   "radio": "Radio",
   "info": "Info",
   "weather": "Wetter",
-  "help": "Hilfe",
-  "timetable": "Programm",
   "starting_call": "Anruf wird gestartet",
   "location": "Standort",
   "location_accuracy": "Genauigkeit",
@@ -19,6 +17,8 @@
   "language_italian": "Italienisch",
   "language_english": "Englisch",
   "walk-in_activities": "Walk-In Aktivitäten",
+  "today": "Heute",
+  "tomorrow": "Morgen",
   "every_day": "Jeden Tag",
   "in_the_next_days": "In den nächsten Tagen"
 }

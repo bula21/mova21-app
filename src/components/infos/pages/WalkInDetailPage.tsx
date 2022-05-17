@@ -12,6 +12,7 @@ import {ActivitiesStore} from "../../../stores/ActivitiesStore";
 import {IActivity} from "./IActivity";
 import MovaAccordion from "../../generic/MovaAccordion";
 import MovaIcon from "../../generic/MovaIcon";
+import LanguageManager from "../../../helpers/LanguageManager";
 
 const PageContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -32,11 +33,11 @@ const ActivityListItem = styled.View`
 const ActivityDescription = styled.View`
   padding: 15px 0;
 `;
-const ActivityLocation = styled.View`
-  margin-bottom: 15px;
+const ActivityDetails = styled.View`
+  margin-top: 15px;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 type RootStackParamList = {walkindetails: {label: string}};
@@ -68,6 +69,14 @@ export default function WalkInDetailPage({route, navigation}: Props) {
     });
   }
 
+  function getTranslatedProperty(activity: IActivity, property: string): string {
+    let name: string = property + '_' + lang;
+    // @ts-ignore
+    return name in activity ? activity[name] : '';
+  }
+
+  let lang = LanguageManager.currentLanguage;
+
   return (
     <ScrollView
         scrollIndicatorInsets={{ right: 1 }}
@@ -86,15 +95,21 @@ export default function WalkInDetailPage({route, navigation}: Props) {
         {
           activities.map(activity => (
             <ActivityListItem key={activity.id}>
-              <MovaAccordion header={activity.title_de} color={MovaTheme.colorBlue}>
+              <MovaAccordion header={getTranslatedProperty(activity, 'title')} color={MovaTheme.colorBlue}>
                 <ActivityDescription>
-                  {activity.location_de &&
-                    <ActivityLocation>
-                      <MovaIcon name="map" style={{marginRight: 4, fontSize: 18}}/>
-                      <MovaText>{activity.location_de}</MovaText>
-                    </ActivityLocation>
+                  <MovaText>{getTranslatedProperty(activity, 'description')}</MovaText>
+                  {getTranslatedProperty(activity, 'location') &&
+                    <ActivityDetails>
+                      <MovaIcon name="ort-textgroesse" style={{marginTop: -5, marginLeft: -5, fontSize: 28}}/>
+                      <MovaText>{getTranslatedProperty(activity, 'location')}</MovaText>
+                    </ActivityDetails>
                   }
-                  <MovaText>{activity.description_de}</MovaText>
+                  {getTranslatedProperty(activity, 'opening_hours') &&
+                    <ActivityDetails>
+                      <MovaIcon name="uhr-textgroesse" style={{marginTop: -5, marginLeft: -5, fontSize: 28}}/>
+                      <MovaText>{getTranslatedProperty(activity, 'opening_hours')}</MovaText>
+                    </ActivityDetails>
+                  }
                 </ActivityDescription>
               </MovaAccordion>
             </ActivityListItem>
