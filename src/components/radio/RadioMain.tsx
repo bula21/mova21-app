@@ -4,12 +4,22 @@ import MovaHeadingText from '../generic/MovaHeadingText';
 import {SafeAreaView} from 'react-native-safe-area-context';
 // https://github.com/tanguyantoine/react-native-music-control
 import MusicControl, {Command} from 'react-native-music-control';
+// https://www.npmjs.com/package/react-native-video
+import Video from 'react-native-video';
+
 import {Platform, TouchableOpacity} from 'react-native';
 import MovaIcon from '../generic/MovaIcon';
 import MovaTheme from '../../constants/MovaTheme';
 import {Slider} from '@miblanchard/react-native-slider';
 
 const radioImage = require('../../../assets/radio_cover.png');
+
+// Create track interface
+interface ITrack {
+  title: string;
+  artwork: any;
+  artist: string;
+}
 
 const MainContainer = styled.View`
   flex: 1;
@@ -75,67 +85,74 @@ const BandName = styled.Text`
   margin-top: -5px;
 `;
 
-MusicControl.enableControl('play', true);
-MusicControl.enableControl('pause', true);
-MusicControl.enableControl('nextTrack', false);
-
 export default function RadioMain() {
   // Reactive state of the music
-  const [isOnAir, setIsOnAir] = React.useState(true);
+  const [isOnAir, setIsOnAir] = React.useState(false);
   const [isPlaying, setIsPlaying] = React.useState(false);
-  const [currentTrack, setCurrentTrack] = React.useState<any>({
+  const [currentTrack, setCurrentTrack] = React.useState<ITrack>({
     title: 'mova Radio',
     artwork: radioImage, // URL or RN's image require()
     artist: 'mova crew',
-    album: 'Thriller',
-    genre: 'Post-disco, Rhythm and Blues, Funk, Dance-pop',
-    duration: 294, // (Seconds)
-    colorized: true, // Android 8+ Only - Notification Color extracted from the artwork. Set to false to use the color property instead
-    date: '1983-01-02T00:00:00Z', // Release Date (RFC 3339) - Android Only
-    rating: 84, // Android Only (Boolean or Number depending on the type)
-    notificationIcon: 'my_custom_icon', // Android Only (String), Android Drawable resource name for a custom notification icon
-    isLiveStream: true, // iOS Only (Boolean), Show or hide Live Indicator instead of seekbar on lock screen for live streams. Default value is false.
   });
 
-  useEffect(() => {
-    MusicControl.enableBackgroundMode(true);
+  // Declare player reference
+  let player: Video | null;
 
-    // on iOS, pause playback during audio interruptions (incoming calls) and resume afterwards.
-    MusicControl.handleAudioInterruptions(true);
-
-    MusicControl.on(Command.play, () => {
-      MusicControl.updatePlayback({
-        state: MusicControl.STATE_PLAYING,
-      });
-      setIsPlaying(true);
-    });
-
-    MusicControl.on(Command.pause, () => {
-      MusicControl.updatePlayback({
-        state: MusicControl.STATE_PAUSED,
-      });
-      setIsPlaying(false);
-    });
-
-    MusicControl.updatePlayback({
-      state: MusicControl.STATE_PAUSED,
-    });
-  }, []);
-
-  const handlePlayer = () => {
-    if (isPlaying) {
-      MusicControl.updatePlayback({
-        state: MusicControl.STATE_PAUSED,
-      });
-      setIsPlaying(false);
-      return;
-    }
+  const turnMusicOn = () => {
+    setIsPlaying(true);
     MusicControl.updatePlayback({
       state: MusicControl.STATE_PLAYING,
     });
-    MusicControl.setNowPlaying({...currentTrack});
-    setIsPlaying(true);
+    MusicControl.setNowPlaying({...currentTrack, colorized: true, isLiveStream: true});
+    console.log({...currentTrack, colorized: true, isLiveStream: true});
+    MusicControl.enableControl('play', true);
+    MusicControl.enableControl('pause', true);
+    MusicControl.enableControl('nextTrack', false);
+    MusicControl.enableBackgroundMode(true);
+    // on iOS, pause playback during audio interruptions (incoming calls) and resume afterwards.
+    MusicControl.handleAudioInterruptions(true);
   };
+
+  const turnMusicOff = (remote: boolean) => {
+    MusicControl.updatePlayback({
+      state: MusicControl.STATE_PAUSED,
+    });
+    setIsPlaying(false);
+    if(!remote) {
+      MusicControl.resetNowPlaying()
+    }
+  };
+
+  useEffect(() => {
+    MusicControl.on(Command.play, () => {
+      turnMusicOn();
+    });
+
+    MusicControl.on(Command.pause, () => {
+      turnMusicOff(true);
+    });
+  
+    // MusicControl.resetNowPlaying();
+  }, []);
+
+  const handlePlayer = () => {
+    isPlaying ? turnMusicOff(false) : turnMusicOn();
+  };
+
+  const audio = (
+    <Video
+      source={{uri: 'https://stream.srg-ssr.ch/m/drs3/mp3_128'}} // Can be a URL or a local file.
+      ref={ref => {
+        player = ref;
+      }}
+      paused={!isPlaying} // Pauses playback entirely.
+      // onLoad={data => console.log('Loadded !', data)} // Callback when video loads
+      // onProgress={data => console.log('Progress !', data)} // Callback every ~250ms with currentTime
+      playInBackground={true}
+      playWhenInactive={true}
+      ignoreSilentSwitch="ignore"
+    />
+  );
 
   return (
     <MainContainer>
@@ -147,15 +164,16 @@ export default function RadioMain() {
               backgroundColor: isOnAir ? MovaTheme.colorOrange : MovaTheme.colorGrey,
               color: isOnAir ? MovaTheme.colorWhite : MovaTheme.colorBlack,
             }}>
-            On Air
+            {isOnAir ? "On Air" : "Off Line"}
           </RadioStatusIndicator>
         </RadioHeader>
         <RadioContainer>
-          <RadioCover source={radioImage} />
+          <RadioCover source={currentTrack.artwork} />
           <RadioPlayerRow>
             <RadioPlayer>
               <TouchableOpacity onPress={handlePlayer}>
                 <MovaIcon name={isPlaying ? 'pause' : 'play'} size={100} style={{color: MovaTheme.colorWhite}} />
+                {audio}
               </TouchableOpacity>
             </RadioPlayer>
             <RadioDescription>
