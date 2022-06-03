@@ -9,6 +9,7 @@ import LexiconPage from './pages/LexiconPage';
 import {InfopagesStore} from '../../stores/InfopagesStore';
 import WalkInPage from "./pages/WalkInPage";
 import UrlPage from "./pages/UrlPage";
+import WeatherPage from '../weather/WeatherPage';
 
 type RootStackParamList = {infospage: {page: IPage}};
 type Props = StackScreenProps<RootStackParamList, 'infospage'>;
@@ -40,6 +41,7 @@ export default function InfosPage({route, navigation}: Props) {
     case 'sponsors': return <SponsorsPage navigation={navigation} page={page} />;
     case 'walk-in': return <WalkInPage navigation={navigation} page={page} />;
     case 'lexicon': return <LexiconPage navigation={navigation} page={page} />;
+    case 'weather': return <WeatherPage navigation={navigation} page={page} />;
     default: return <GenericPage navigation={navigation} page={page} />;
   }
 }

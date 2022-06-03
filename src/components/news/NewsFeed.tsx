@@ -5,6 +5,7 @@ import NewsFeedItem from './NewsFeedItem';
 import MovaHeadingText from '../generic/MovaHeadingText';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {INews} from './INews';
+import appConfig from '../../appConfig';
 import languageManager from '../../helpers/LanguageManager';
 import LanguageManager from '../../helpers/LanguageManager';
 import { BackendProxy } from '../../helpers/BackendProxy';

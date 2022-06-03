@@ -25,5 +25,9 @@
   "bikes": "Vélos",
   "cargobikes": "Vélos-cargos",
   "biketrailers": "Remorque pour vélo",
-  "bike_closed": "Le service de location de vélos est actuellement fermé."
+  "bike_closed": "Le service de location de vélos est actuellement fermé.",
+  "weather_daytime_night": "Nuit",
+  "weather_daytime_morning": "Matin",
+  "weather_daytime_midday": "Midi",
+  "weather_daytime_evening": "Soir"
 }

@@ -25,5 +25,9 @@
   "bikes": "Biciclette",
   "cargobikes": "Biciclette cargo",
   "biketrailers": "Rimorchio per biciclette",
-  "bike_closed": "Il noleggio di biciclette è attualmente chiuso."
+  "bike_closed": "Il noleggio di biciclette è attualmente chiuso.",
+  "weather_daytime_night": "Notte",
+  "weather_daytime_morning": "Mattina",
+  "weather_daytime_midday": "Mezzogiorno",
+  "weather_daytime_evening": "Sera"
 }
