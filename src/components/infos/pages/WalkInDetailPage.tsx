@@ -55,10 +55,12 @@ export default function WalkInDetailPage({route, navigation}: Props) {
 
   const [activities, setActivities] = useState<IActivity[]>([]);
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(true);
 
   // refresh on mount because data might have changed
   useEffect(() => {
     setActivities(ActivitiesStore.getAll());
+    setLoading(false);
     const subscription = ActivitiesStore.subscribe((act: IActivity[]) => {
       setActivities(act);
     });
@@ -130,7 +132,7 @@ export default function WalkInDetailPage({route, navigation}: Props) {
                 </MovaAccordion>
               </ActivityListItem>
             ))
-              : <NoActivities><MovaText>{t('no_activities')}</MovaText></NoActivities>
+              : <NoActivities><MovaText>{isLoading ? '' : t('no_activities')}</MovaText></NoActivities>
         }
       </PageContainer>
     </ScrollView>
