@@ -1,17 +1,16 @@
-import appConfig from '../appConfig';
 import {Subject} from 'rxjs';
 import LanguageManager from '../helpers/LanguageManager';
 import {IActivity} from "../components/infos/pages/IActivity";
+import {BackendProxy} from '../helpers/BackendProxy';
 
 const subject = new Subject();
 
 let activities: IActivity[] = [];
 
 async function loadActivities(): Promise<void> {
-	fetch(appConfig.backendUrl + '/items/activities')
-		.then((response) => response.json())
+	BackendProxy.fetchJson('/items/activities')
 		.then((json) => {
-			activities = json.data;
+			activities = json ? json.data : [];
 			subject.next(activities);
 		})
 		.catch((error) => {
@@ -20,6 +19,7 @@ async function loadActivities(): Promise<void> {
 }
 
 LanguageManager.onChange.subscribe(() => loadActivities());
+BackendProxy.subscribe(loadActivities);
 
 export const ActivitiesStore = {
 	getAll: () => activities,
