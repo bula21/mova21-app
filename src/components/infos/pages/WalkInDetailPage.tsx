@@ -84,7 +84,13 @@ export default function WalkInDetailPage({route, navigation}: Props) {
 
   let lang = LanguageManager.currentLanguage;
 
-  let filteredActivities = activities.filter(activity => activity.category === route.params.filter || activity.date === route.params.filter);
+  let isCategoryView = ['walk-in', 'rover'].indexOf(route.params.filter) >= 0;
+
+  let filteredActivities = activities.filter(activity =>
+      activity.category === route.params.filter ||
+      activity.date === route.params.filter ||
+      (isCategoryView && activity.category === 'all')
+  );
 
   return (
     <ScrollView

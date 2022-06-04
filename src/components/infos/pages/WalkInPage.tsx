@@ -95,6 +95,7 @@ export default function WalkInPage({navigation, page}: Props) {
     )
   }
 
+  // specific dates to show
   let dates = [
       '2022-07-23',
       '2022-07-24',
@@ -113,10 +114,12 @@ export default function WalkInPage({navigation, page}: Props) {
       '2022-08-06',
   ];
 
+  // from Date Object to YYYY-MM-DD
   let toISODate = (date: Date): string => {
       return date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0')
   }
 
+  // from YYYY-MM-DD to Date Object
   let fromISODate = (date: string): Date => {
       return new Date(parseInt(date.substring(0,4)), parseInt(date.substring(5,7)) - 1, parseInt(date.substring(8,10)));
   }
