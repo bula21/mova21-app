@@ -8,6 +8,7 @@ import SponsorsPage from './pages/SponsorsPage';
 import LexiconPage from './pages/LexiconPage';
 import {InfopagesStore} from '../../stores/InfopagesStore';
 import WalkInPage from "./pages/WalkInPage";
+import UrlPage from "./pages/UrlPage";
 
 type RootStackParamList = {infospage: {page: IPage}};
 type Props = StackScreenProps<RootStackParamList, 'infospage'>;
@@ -33,6 +34,7 @@ export default function InfosPage({route, navigation}: Props) {
   }
 
   switch(page.renderer) {
+    case 'url': return <UrlPage navigation={navigation} page={page} />;
     case 'bike': return <BikePage navigation={navigation} page={page} />;
     case 'emergency': return <EmergencyPage navigation={navigation} page={page} />;
     case 'sponsors': return <SponsorsPage navigation={navigation} page={page} />;
