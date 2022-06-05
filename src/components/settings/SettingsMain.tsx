@@ -3,11 +3,12 @@ import styled from 'styled-components/native';
 import MovaHeadingText from '../generic/MovaHeadingText';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useTranslation} from 'react-i18next';
-import {Button, ScrollView, TextInput, TouchableOpacity} from 'react-native';
+import {Button, ScrollView, TextInput, TouchableOpacity, View} from 'react-native';
 import IconBack from '../generic/IconBack';
 import MovaText from '../generic/MovaText';
 import appConfig from '../../appConfig';
 import languageManager from '../../helpers/LanguageManager';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let pkg = require('../../../package.json');
 
@@ -39,6 +40,10 @@ export default function SettingsMain({route, navigation}: Props) {
     appConfig.backendUrl = newUrl;
   }
 
+  let clearAsyncStorage = async () => {
+    await AsyncStorage.clear();
+  }
+
   return (
     <ScrollView>
       <PageContainer>
@@ -60,6 +65,10 @@ export default function SettingsMain({route, navigation}: Props) {
             <Button onPress={(e) => languageManager.changeLanguageTo("en")} title={t('language_english')} />
           </SettingsSection>
           <SettingsSection>
+            <MovaText style={{fontSize: 24, marginBottom: 10}}>App</MovaText>
+            <View style={{marginBottom: 30}}>
+              <Button onPress={clearAsyncStorage} title="Clear Cache" />
+            </View>
             <TouchableOpacity onPress={() => setShowDev(!showDev)}>
               <MovaText style={{textAlign: 'center'}}>App Version {pkg.version}</MovaText>
             </TouchableOpacity>
