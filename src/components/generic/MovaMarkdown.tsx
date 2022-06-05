@@ -1,15 +1,28 @@
 import React, {ReactNode} from 'react';
-import Markdown, { MarkdownIt } from 'react-native-markdown-display';
+import styled from 'styled-components/native';
+import Markdown, {ASTNode, MarkdownIt} from 'react-native-markdown-display';
 import blockEmbedPlugin from 'markdown-it-block-embed';
-import {Platform, StyleSheet} from 'react-native';
+import containerPlugin from 'markdown-it-container';
+import {Linking, Platform, StyleSheet, TouchableOpacity} from 'react-native';
 import MovaTheme from "../../constants/MovaTheme";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { IPage } from '../infos/IPage';
 import { InfopagesStore } from '../../stores/InfopagesStore';
 import YoutubePlayer from "react-native-youtube-iframe";
 import { useWindowDimensions } from 'react-native';
+import MovaText from "./MovaText";
 
 const fontFamily = Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold';
+
+const ButtonContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  min-height: 50px;
+  background: ${MovaTheme.colorBlue};
+`;
 
 const styles = StyleSheet.create({
   body: {
@@ -115,7 +128,8 @@ const markdownItInstance =
     MarkdownIt({typographer: true})
       .use(blockEmbedPlugin, {
         containerClassName: "video-embed"
-      });
+      })
+      .use(containerPlugin, 'button');
 
 type Props = {
   children: ReactNode;
@@ -143,7 +157,21 @@ export default function MovaMarkdown(props: Props) {
     }
     // return false to prevent default
     return false;
-  }  
+  }
+
+  const clickButton = (url: string): void => {
+    const id = Number(url);
+    if (Number.isNaN(id)) {
+      // open URL as usual
+      Linking.openURL(url);
+    }
+    const page = InfopagesStore.getPage(id);
+    if (page) {
+      props.navigation.push(
+        'infopage', { page }
+      );
+    }
+  }
 
   return <Markdown
     style={styles}
@@ -151,12 +179,39 @@ export default function MovaMarkdown(props: Props) {
     markdownit={markdownItInstance}
     rules={{
         video: (node) =>{
+          // Syntax:
+          //
+          // @[youtube](9xvSsiVLWcc)
           return (
               <YoutubePlayer
                 key={node.key}
                 height={width / 1.78} // 16:9
                 videoId={node.sourceInfo.videoID}
               />
+          );
+        },
+        container_button: (node) =>{
+          // Syntax:
+          //
+          // ::: button
+          // https://mova.ch
+          // Open Browser
+          // :::
+          let url: ASTNode;
+          let newline: ASTNode;
+          let labels: ASTNode[];
+          [url, newline, ...labels] = node.children[0].children[0].children;
+          labels = labels.filter(label => label.sourceType === 'text');
+          return (
+              <TouchableOpacity onPress={() => clickButton(url.content)}>
+                <ButtonContainer>
+                  {
+                    labels.map(label => (
+                      <MovaText>{label.content}</MovaText>
+                    ))
+                  }
+                </ButtonContainer>
+              </TouchableOpacity>
           );
         }
 
