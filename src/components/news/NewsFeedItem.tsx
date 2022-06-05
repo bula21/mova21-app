@@ -8,6 +8,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import moment from 'moment';
 import DateObjectFromDatetime from '../../helpers/DateObjectFromDatetime';
 import appConfig from '../../appConfig';
+import languageManager from "../../helpers/LanguageManager";
 
 const NewsItemContainer = styled.View<{color: string}>`
   padding-bottom: 20px;
@@ -45,6 +46,7 @@ export default function NewsFeedItem({
   news: INews;
   navigation: NavigationProp;
 }) {
+  moment.locale(languageManager.currentLanguage)
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('newspage', {news: news})}>

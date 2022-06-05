@@ -4,8 +4,6 @@
   "radio": "Radio",
   "info": "Info",
   "weather": "Wetter",
-  "help": "Hilfe",
-  "timetable": "Programm",
   "starting_call": "Anruf wird gestartet",
   "location": "Standort",
   "location_accuracy": "Genauigkeit",
@@ -17,5 +15,12 @@
   "language_german": "Deutsch",
   "language_french": "Französisch",
   "language_italian": "Italienisch",
-  "language_english": "Englisch"
+  "language_english": "Englisch",
+  "walk-in_activities": "für Pfadis",
+  "rover_activities": "für Rover",
+  "today": "Heute",
+  "tomorrow": "Morgen",
+  "every_day": "Jeden Tag",
+  "in_the_next_days": "In den nächsten Tagen",
+  "no_activities": "Keine Aktivitäten"
 }
