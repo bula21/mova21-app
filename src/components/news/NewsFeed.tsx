@@ -5,9 +5,9 @@ import NewsFeedItem from './NewsFeedItem';
 import MovaHeadingText from '../generic/MovaHeadingText';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {INews} from './INews';
-import appConfig from '../../appConfig';
 import languageManager from '../../helpers/LanguageManager';
 import LanguageManager from '../../helpers/LanguageManager';
+import { BackendProxy } from '../../helpers/BackendProxy';
 
 const MainContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -20,12 +20,11 @@ const NewsHeader = styled.View`
 `;
 
 async function loadNews(): Promise<INews[]> {
-  return fetch(
-    appConfig.backendUrl + '/items/news?fields=*.*&sort=-date&filter[language]=' + (await languageManager.getCurrentLanguageAsync()),
+  return BackendProxy.fetchJson(
+    'items/news?fields=*.*&sort=-date&filter[language]=' + (await languageManager.getCurrentLanguageAsync()),
   )
-    .then((response) => response.json())
     .then((json) => {
-      return json.data;
+      return json ? json.data : [];
     })
     .catch((error) => {
       console.error(error);
@@ -45,6 +44,7 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
   useEffect(() => {
     loadNews().then((response) => setNews(response));
     LanguageManager.onChange.subscribe(() => onRefresh());
+    BackendProxy.subscribe(onRefresh);
   }, []);
 
   function onRefresh() {
