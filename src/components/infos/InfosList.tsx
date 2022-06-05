@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
-import {FlatList, RefreshControl, TouchableOpacity} from 'react-native';
+import {FlatList, RefreshControl, TouchableOpacity, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import MovaTheme from '../../constants/MovaTheme';
 import MovaText from '../generic/MovaText';
@@ -10,6 +10,7 @@ import {InfopagesStore} from '../../stores/InfopagesStore';
 import LanguageSwitcher from './LanguageSwitcher';
 import {useIsFocused} from '@react-navigation/native';
 import MovaSearchbarHeading from '../generic/MovaSearchbarHeading';
+import MovaLoading from "../generic/MovaLoading";
 
 const MainContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -39,6 +40,7 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
 
   const [pages, setPages] = useState<IPage[]>([]);
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(true);
 
   const handleSearch = (pages: IPage[]) => {
     setPages(pages);
@@ -51,7 +53,9 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
     const subscription = InfopagesStore.subscribe((pages: IPage[]) => {
       setPages(pages.filter(mainPageFilter));
     });
-    InfopagesStore.reload();
+    InfopagesStore.reload().then(() => {
+      setLoading(false)
+    });
     return () => {
       subscription.unsubscribe();
     };
@@ -74,32 +78,37 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
 
   return (
     <MainContainer>
-      <FlatList
-        data={pages}
-        renderItem={({item, index}) => (
-          <TouchableOpacity onPress={() => navigation.navigate('infopage', {page: item})}>
-            <InfosItem
-              style={{
-                backgroundColor: getColor(item, index),
-              }}>
-              <MovaText style={{fontSize: 40}}>{item.title}</MovaText>
-            </InfosItem>
-          </TouchableOpacity>
-        )}
-        keyExtractor={item => String(item.id)}
-        ListHeaderComponent={
-          <InfosHeader>
-            <MovaSearchbarHeading
-              headerText={t('info')}
-              searchableAttributes={['title', 'content']}
-              getData={() => InfopagesStore.get()}
-              handleSearch={handleSearch}
-              isFocused={isFocused}></MovaSearchbarHeading>
-          </InfosHeader>
-        }
-        ListFooterComponent={<LanguageSwitcher />}
-        refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}
-      />
+      { isLoading
+          ?
+          <View style={{marginTop: 150}}><MovaLoading/></View>
+          :
+            <FlatList
+              data={pages}
+              renderItem={({item, index}) => (
+                <TouchableOpacity onPress={() => navigation.navigate('infopage', {page: item})}>
+                  <InfosItem
+                    style={{
+                      backgroundColor: getColor(item, index),
+                    }}>
+                    <MovaText style={{fontSize: 40}}>{item.title}</MovaText>
+                  </InfosItem>
+                </TouchableOpacity>
+              )}
+              keyExtractor={item => String(item.id)}
+              ListHeaderComponent={
+                <InfosHeader>
+                  <MovaSearchbarHeading
+                    headerText={t('info')}
+                    searchableAttributes={['title', 'content']}
+                    getData={() => InfopagesStore.get()}
+                    handleSearch={handleSearch}
+                    isFocused={isFocused}></MovaSearchbarHeading>
+                </InfosHeader>
+              }
+              ListFooterComponent={<LanguageSwitcher />}
+              refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}
+            />
+      }
     </MainContainer>
   );
 }

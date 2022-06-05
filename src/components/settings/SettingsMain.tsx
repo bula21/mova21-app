@@ -3,12 +3,13 @@ import styled from 'styled-components/native';
 import MovaHeadingText from '../generic/MovaHeadingText';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useTranslation} from 'react-i18next';
-import {Button, ScrollView, TextInput, TouchableOpacity, View} from 'react-native';
+import {Button, Image, ScrollView, TextInput, TouchableOpacity, View} from 'react-native';
 import IconBack from '../generic/IconBack';
 import MovaText from '../generic/MovaText';
 import appConfig from '../../appConfig';
 import languageManager from '../../helpers/LanguageManager';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import MovaLoading from "../generic/MovaLoading";
 
 let pkg = require('../../../package.json');
 
@@ -88,6 +89,7 @@ export default function SettingsMain({route, navigation}: Props) {
                 </SettingsSection>
               : null
           }
+          <MovaLoading/>
         </PageContent>
       </PageContainer>
     </ScrollView>

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, RefreshControl} from 'react-native';
+import {FlatList, RefreshControl, View} from 'react-native';
 import styled from 'styled-components/native';
 import NewsFeedItem from './NewsFeedItem';
 import MovaHeadingText from '../generic/MovaHeadingText';
@@ -8,6 +8,7 @@ import {INews} from './INews';
 import languageManager from '../../helpers/LanguageManager';
 import LanguageManager from '../../helpers/LanguageManager';
 import { BackendProxy } from '../../helpers/BackendProxy';
+import MovaLoading from "../generic/MovaLoading";
 
 const MainContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -39,11 +40,15 @@ type NavigationProp = StackNavigationProp<
 export default function NewsMain({navigation}: {navigation: NavigationProp}) {
   const [news, setNews] = useState<INews[]>([]);
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(true);
   const [clickCounter, setClickCounter] = useState<number>(0);
 
   // load on mount
   useEffect(() => {
-    loadNews().then((response) => setNews(response));
+    loadNews().then((response) => {
+      setLoading(false)
+      setNews(response)
+    });
     LanguageManager.onChange.subscribe(() => onRefresh());
     BackendProxy.subscribe(onRefresh);
   }, []);
@@ -67,23 +72,28 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
 
   return (
     <MainContainer>
-      <FlatList
-        data={news}
-        renderItem={({item}) => (
-          <NewsFeedItem news={item} navigation={navigation} />
-        )}
-        keyExtractor={(item) => String(item.id)}
-        ListHeaderComponent={
-          <NewsHeader>
-            <MovaHeadingText onPress={() => onHeaderClick()}>
-              mova-News
-            </MovaHeadingText>
-          </NewsHeader>
-        }
-        refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-        }
-      />
+      {isLoading
+          ?
+            <View style={{marginTop: 150}}><MovaLoading/></View>
+          :
+            <FlatList
+              data={news}
+              renderItem={({item}) => (
+                  <NewsFeedItem news={item} navigation={navigation}/>
+              )}
+              keyExtractor={(item) => String(item.id)}
+              ListHeaderComponent={
+                <NewsHeader>
+                  <MovaHeadingText onPress={() => onHeaderClick()}>
+                    mova-News
+                  </MovaHeadingText>
+                </NewsHeader>
+              }
+              refreshControl={
+                <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh}/>
+              }
+          />
+      }
     </MainContainer>
   );
 }

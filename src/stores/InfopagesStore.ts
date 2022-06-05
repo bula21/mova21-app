@@ -9,7 +9,7 @@ const subject = new Subject();
 let pages: IPage[] = [];
 
 async function loadPages(): Promise<void> {
-	BackendProxy.fetchJson('items/pages?filter[language]=' + (await languageManager.getCurrentLanguageAsync()))
+	return BackendProxy.fetchJson('items/pages?filter[language]=' + (await languageManager.getCurrentLanguageAsync()))
 		.then((json) => {
 			pages = json ? json.data : [];
 			subject.next(pages);
