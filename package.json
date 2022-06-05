@@ -10,6 +10,7 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "build-android": "./build-android.sh",
+    "clean-android": "cd android && ./gradlew clean && cd ..",
     "pod": "yarn install && cd ios && pod install && cd .."
   },
   "dependencies": {

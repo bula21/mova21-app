@@ -221,6 +221,8 @@ dependencies {
         exclude group:'com.facebook.flipper'
     }
 
+    implementation 'com.facebook.fresco:animated-gif:2.6.0'
+
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")
