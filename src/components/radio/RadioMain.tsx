@@ -10,7 +10,9 @@ import Video from 'react-native-video';
 import {Platform, TouchableOpacity} from 'react-native';
 import MovaIcon from '../generic/MovaIcon';
 import MovaTheme from '../../constants/MovaTheme';
-import {Slider} from '@miblanchard/react-native-slider';
+import {BackendProxy} from "../../helpers/BackendProxy";
+import MovaMarkdown from "../generic/MovaMarkdown";
+import {useFocusEffect} from "@react-navigation/native";
 
 const radioImage = require('../../../assets/radio_cover.png');
 
@@ -39,25 +41,36 @@ const RadioStatusIndicator = styled.Text`
   font-weight: 800;
   font-size: 18px;
   font-family: ${Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold'};
+  color: ${MovaTheme.colorWhite}
 `;
 
 const RadioContainer = styled.View`
   flex: 1;
-  padding: 15px;
   background-color: #2c2e34;
   align-items: center;
 `;
 
 const RadioCover = styled.Image`
   max-width: 100%;
-  height: 70%;
+  height: 75%;
 `;
 
 const RadioPlayerRow = styled.View`
-  height: 30%;
+  height: 25%;
   width: 100%;
   align-items: center;
   flex-direction: row;
+  padding: 20px;
+`;
+
+const RadioPlayerOffline = styled.View`
+  height: 25%;
+  width: 100%;
+  align-items: flex-start;
+  flex-direction: row;
+  background: ${MovaTheme.colorOrange};
+  padding: 20px;
+  overflow: hidden;
 `;
 
 const RadioPlayer = styled.View`
@@ -76,6 +89,7 @@ const SongTitle = styled.Text`
   font-size: 24px;
   font-family: ${Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold'};
   color: #fff;
+  margin-bottom: 5px;
 `;
 
 const BandName = styled.Text`
@@ -85,15 +99,55 @@ const BandName = styled.Text`
   margin-top: -5px;
 `;
 
-export default function RadioMain() {
+export default function RadioMain({navigation}: any) {
   // Reactive state of the music
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [offlineText, setOfflineText] = React.useState('');
+  const [currentTitle, setCurrentTitle] = React.useState('Sonar');
+  const [currentArtist, setCurrentArtist] = React.useState('mova Radio');
+  const [streamURL, setStreamURL] = React.useState<string|null>(null);
   const [isOnAir, setIsOnAir] = React.useState(false);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [currentTrack, setCurrentTrack] = React.useState<ITrack>({
-    title: 'mova Radio',
+    title: currentTitle,
     artwork: radioImage, // URL or RN's image require()
-    artist: 'mova crew',
+    artist: currentArtist,
   });
+
+  // on mount
+  useEffect(() => {
+    loadConfig();
+  }, []);
+
+  // on tab focus
+  useFocusEffect(
+    React.useCallback(() => {
+      loadConfig()
+    }, [])
+  );
+
+  const loadConfig = () => {
+    BackendProxy.fetchJson('/items/radio')
+      .then((json) => {
+        if (json) {
+          setIsOnAir(json.data.isOnline)
+          setOfflineText(json.data.offlineText)
+          setCurrentTitle(json.data.currentTitle)
+          setCurrentArtist(json.data.currentArtist)
+          setStreamURL(json.data.streamUrl)
+          setCurrentTrack({
+            title: currentTitle,
+            artwork: radioImage, // URL or RN's image require()
+            artist: currentArtist,
+          });
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setIsLoading(false);
+      });
+  }
 
   // Declare player reference
   let player: Video | null;
@@ -139,9 +193,9 @@ export default function RadioMain() {
     isPlaying ? turnMusicOff(false) : turnMusicOn();
   };
 
-  const audio = (
+  const audio = streamURL ? (
     <Video
-      source={{uri: 'https://stream.srg-ssr.ch/m/drs3/mp3_128'}} // Can be a URL or a local file.
+      source={{uri: streamURL}} // Can be a URL or a local file.
       ref={ref => {
         player = ref;
       }}
@@ -152,42 +206,48 @@ export default function RadioMain() {
       playWhenInactive={true}
       ignoreSilentSwitch="ignore"
     />
-  );
+  ) : null;
 
   return (
     <MainContainer>
       <SafeAreaView style={{flex: 1, alignSelf: 'stretch'}}>
         <RadioHeader>
           <MovaHeadingText>Radio</MovaHeadingText>
-          <RadioStatusIndicator
-            style={{
-              backgroundColor: isOnAir ? MovaTheme.colorOrange : MovaTheme.colorGrey,
-              color: isOnAir ? MovaTheme.colorWhite : MovaTheme.colorBlack,
-            }}>
-            {isOnAir ? "On Air" : "Off Line"}
-          </RadioStatusIndicator>
+          {!isLoading
+              ?
+                <RadioStatusIndicator
+                  style={{
+                    backgroundColor: isOnAir ? MovaTheme.colorOrange : MovaTheme.colorGrey,
+                  }}>
+                  {isOnAir ? "On Air" : "Offline"}
+                </RadioStatusIndicator>
+              : []
+          }
         </RadioHeader>
         <RadioContainer>
           <RadioCover source={currentTrack.artwork} />
-          <RadioPlayerRow>
-            <RadioPlayer>
-              <TouchableOpacity onPress={handlePlayer}>
-                <MovaIcon name={isPlaying ? 'pause' : 'play'} size={100} style={{color: MovaTheme.colorWhite}} />
-                {audio}
-              </TouchableOpacity>
-            </RadioPlayer>
-            <RadioDescription>
-              <Slider
-                maximumTrackTintColor={MovaTheme.colorGrey}
-                minimumTrackTintColor={MovaTheme.colorOrange}
-                thumbTintColor={MovaTheme.colorOrange}
-                value={0.2}
-                disabled={true}
-              />
-              <SongTitle>{currentTrack.title}</SongTitle>
-              <BandName>{currentTrack.artist}</BandName>
-            </RadioDescription>
-          </RadioPlayerRow>
+          { !isLoading
+              ? isOnAir
+                ?
+                  <RadioPlayerRow>
+                    {
+                      audio ?
+                        <RadioPlayer>
+                          <TouchableOpacity onPress={handlePlayer}>
+                            <MovaIcon name={isPlaying ? 'pause' : 'play'} size={100} style={{color: MovaTheme.colorWhite}} />
+                            {audio}
+                          </TouchableOpacity>
+                        </RadioPlayer>
+                      : null
+                    }
+                    <RadioDescription>
+                      <SongTitle>{currentTrack.title}</SongTitle>
+                      <BandName>{currentTrack.artist}</BandName>
+                    </RadioDescription>
+                  </RadioPlayerRow>
+                  : <RadioPlayerOffline><MovaMarkdown navigation={navigation} >{offlineText}</MovaMarkdown></RadioPlayerOffline>
+              : []
+          }
         </RadioContainer>
       </SafeAreaView>
     </MainContainer>
