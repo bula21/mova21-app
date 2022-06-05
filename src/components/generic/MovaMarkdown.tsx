@@ -1,10 +1,13 @@
 import React, {ReactNode} from 'react';
-import Markdown from 'react-native-markdown-display';
+import Markdown, { MarkdownIt } from 'react-native-markdown-display';
+import blockEmbedPlugin from 'markdown-it-block-embed';
 import {Platform, StyleSheet} from 'react-native';
 import MovaTheme from "../../constants/MovaTheme";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { IPage } from '../infos/IPage';
 import { InfopagesStore } from '../../stores/InfopagesStore';
+import YoutubePlayer from "react-native-youtube-iframe";
+import { useWindowDimensions } from 'react-native';
 
 const fontFamily = Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold';
 
@@ -108,6 +111,12 @@ const styles = StyleSheet.create({
   },
 });
 
+const markdownItInstance =
+    MarkdownIt({typographer: true})
+      .use(blockEmbedPlugin, {
+        containerClassName: "video-embed"
+      });
+
 type Props = {
   children: ReactNode;
   navigation: StackNavigationProp<
@@ -117,6 +126,8 @@ type Props = {
 };
 
 export default function MovaMarkdown(props: Props) {
+
+  const { width } = useWindowDimensions();
 
   const clickMarkdownLink = (url: string): boolean => {
     const id = Number(url);
@@ -137,6 +148,19 @@ export default function MovaMarkdown(props: Props) {
   return <Markdown
     style={styles}
     onLinkPress={clickMarkdownLink}
+    markdownit={markdownItInstance}
+    rules={{
+        video: (node) =>{
+          return (
+              <YoutubePlayer
+                key={node.key}
+                height={width / 1.78} // 16:9
+                videoId={node.sourceInfo.videoID}
+              />
+          );
+        }
+
+      }}
   >
     {props.children}
   </Markdown>;
