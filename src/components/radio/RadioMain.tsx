@@ -61,6 +61,7 @@ const RadioPlayerRow = styled.View`
   align-items: center;
   flex-direction: row;
   padding: 20px;
+  overflow: hidden;
 `;
 
 const RadioPlayerOffline = styled.View`
@@ -89,7 +90,7 @@ const SongTitle = styled.Text`
   font-size: 24px;
   font-family: ${Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold'};
   color: #fff;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 `;
 
 const BandName = styled.Text`
@@ -241,8 +242,8 @@ export default function RadioMain({navigation}: any) {
                       : null
                     }
                     <RadioDescription>
-                      <SongTitle>{currentTrack.title}</SongTitle>
-                      <BandName>{currentTrack.artist}</BandName>
+                      <SongTitle>{currentTitle}</SongTitle>
+                      <BandName>{currentArtist}</BandName>
                     </RadioDescription>
                   </RadioPlayerRow>
                   : <RadioPlayerOffline><MovaMarkdown navigation={navigation} >{offlineText}</MovaMarkdown></RadioPlayerOffline>
