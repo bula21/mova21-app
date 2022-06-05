@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import MovaHeadingText from '../generic/MovaHeadingText';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -8,6 +8,8 @@ import IconBack from '../generic/IconBack';
 import MovaText from '../generic/MovaText';
 import appConfig from '../../appConfig';
 import languageManager from '../../helpers/LanguageManager';
+
+let pkg = require('../../../package.json');
 
 const PageContainer = styled.SafeAreaView`
   flex: 1;
@@ -30,7 +32,8 @@ type Props = StackScreenProps<any, 'settings'>;
 
 export default function SettingsMain({route, navigation}: Props) {
   const {t} = useTranslation();
-  const [newUrl, updateNewUrl] = React.useState(appConfig.backendUrl);
+  const [newUrl, updateNewUrl] = useState(appConfig.backendUrl);
+  const [showDev, setShowDev] = useState<boolean>(false);
 
   function applyUrl() {
     appConfig.backendUrl = newUrl;
@@ -42,14 +45,14 @@ export default function SettingsMain({route, navigation}: Props) {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <PageHeader>
             <MovaHeadingText>
-              <IconBack /> {t('settings')}
+              <IconBack /> Hidden Page 🌚
             </MovaHeadingText>
           </PageHeader>
         </TouchableOpacity>
         <PageContent>
           <SettingsSection>
             <MovaText style={{fontSize: 24, marginBottom: 10}}>
-              {t('language')}
+              Sprache
             </MovaText>
             <Button onPress={(e) => languageManager.changeLanguageTo("de")} title={t('language_german')} />
             <Button onPress={(e) => languageManager.changeLanguageTo("fr")} title={t('language_french')} />
@@ -57,17 +60,25 @@ export default function SettingsMain({route, navigation}: Props) {
             <Button onPress={(e) => languageManager.changeLanguageTo("en")} title={t('language_english')} />
           </SettingsSection>
           <SettingsSection>
-            <MovaText style={{fontSize: 24, marginBottom: 10}}>
-              Development Settings
-            </MovaText>
-            <MovaText>Backend URL:</MovaText>
-            <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-              onChangeText={(text) => updateNewUrl(text)}
-              value={newUrl}
-            />
-            <Button onPress={applyUrl} title="Change Backend" />
+            <TouchableOpacity onPress={() => setShowDev(!showDev)}>
+              <MovaText style={{textAlign: 'center'}}>App Version {pkg.version}</MovaText>
+            </TouchableOpacity>
           </SettingsSection>
+          { showDev ?
+                <SettingsSection>
+                  <MovaText style={{fontSize: 24, marginBottom: 10}}>
+                    Development Settings 👷
+                  </MovaText>
+                  <MovaText style={{marginBottom: 10}}>Backend URL:</MovaText>
+                  <TextInput
+                    style={{height: 40, borderColor: 'gray', borderWidth: 1, padding: 10}}
+                    onChangeText={(text) => updateNewUrl(text)}
+                    value={newUrl}
+                  />
+                  <Button onPress={applyUrl} title="Change Backend" />
+                </SettingsSection>
+              : null
+          }
         </PageContent>
       </PageContainer>
     </ScrollView>

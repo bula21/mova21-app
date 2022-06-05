@@ -39,6 +39,7 @@ type NavigationProp = StackNavigationProp<
 export default function NewsMain({navigation}: {navigation: NavigationProp}) {
   const [news, setNews] = useState<INews[]>([]);
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
+  const [clickCounter, setClickCounter] = useState<number>(0);
 
   // load on mount
   useEffect(() => {
@@ -52,7 +53,16 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
     loadNews().then((response) => {
       setNews(response);
       setRefreshing(false);
+      setClickCounter(0)
     });
+  }
+
+  function onHeaderClick() {
+    setClickCounter(clickCounter + 1);
+    if (clickCounter >= 7) {
+      setClickCounter(0);
+      navigation.navigate('settings');
+    }
   }
 
   return (
@@ -65,7 +75,7 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
         keyExtractor={(item) => String(item.id)}
         ListHeaderComponent={
           <NewsHeader>
-            <MovaHeadingText onPress={() => navigation.navigate('settings')}>
+            <MovaHeadingText onPress={() => onHeaderClick()}>
               mova-News
             </MovaHeadingText>
           </NewsHeader>
