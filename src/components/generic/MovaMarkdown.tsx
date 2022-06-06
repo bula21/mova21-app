@@ -212,7 +212,7 @@ export default function MovaMarkdown(props: Props) {
                 <ButtonContainer>
                   {
                     labels.map(label => (
-                      <MovaText>{label.content}</MovaText>
+                      <MovaText key={label.key}>{label.content}</MovaText>
                     ))
                   }
                 </ButtonContainer>

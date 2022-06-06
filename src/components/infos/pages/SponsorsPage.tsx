@@ -46,19 +46,6 @@ const PartnerinnenLabel = styled(MovaHeadingText)`
   font-size: 30px;
 `;
 
-const CoPartnerinnenLabel = styled(MovaHeadingText)`
-  padding: 10px;
-  background-color: ${MovaTheme.colorYellow}
-  font-size: 30px;
-`;
-
-const UnterstutzerLabel = styled(MovaHeadingText)`
-  padding: 10px;
-  background-color: ${MovaTheme.colorBlack}
-  color: white;
-  font-size: 30px;
-`;
-
 const base_url = '../../../../assets/sponsors/';
 const base_url_de = base_url + 'de/';
 const base_url_fr = base_url + 'fr/';
@@ -77,22 +64,22 @@ const partners_data: any = {
     ],
     'Partnerinnen' : [
       { src: require(base_url_de + 'css.png'),
-        url: "https://www.migros.ch"},
+        url: "https://www.css.ch/"},
       { src: require(base_url_de + 'matterhorn.png'),
         url: "https://www.matterhorngotthardbahn.ch/"},
       { src: require(base_url_de + 'postauto.png'),
         url: "https://www.postauto.ch/"},
       { src: require(base_url_de + 'sbb.png'),
         url: "https://www.sbb.ch/"},
-    ],
-    'Co-Partnerinnen' : [
+      { src: require(base_url_de + 'etavis.png'),
+        url: "https://www.etavis.ch/"},
+      { src: require(base_url_de + 'holzbau-schweiz.png'),
+        url: "https://www.holzbau-schweiz.ch/"},
+      { src: require(base_url_de + 'lions-club.png'),
+        url: "https://www.lionsclubs.ch/"},
       { src: require(base_url_de + 'hajk.png'),
-        url: "https://www.hajk.ch/"},
-    ],
-    'Unterstutzer' : [
-      { src: require(base_url_de + 'sps.png'),
-        url: "https://pfadistiftung.ch/"},
-    ],
+        url: "http://www.hajk.ch/"},
+    ]
   },
   'en': {
     'Hauptpartnerinnen' :  [
@@ -105,22 +92,22 @@ const partners_data: any = {
     ],
     'Partnerinnen' : [
       { src: require(base_url_en + 'css.png'),
-        url: "https://www.migros.ch"},
+        url: "https://www.css.ch/"},
       { src: require(base_url_en + 'matterhorn.png'),
         url: "https://www.matterhorngotthardbahn.ch/"},
       { src: require(base_url_en + 'postauto.png'),
         url: "https://www.postauto.ch/"},
       { src: require(base_url_en + 'sbb.png'),
         url: "https://www.sbb.ch/"},
-    ],
-    'Co-Partnerinnen' : [
-      { src: require(base_url_en + 'hajk.png'),
-        url: "https://www.hajk.ch/"},
-    ],
-    'Unterstutzer' : [
-      { src: require(base_url_en + 'sps.png'),
-        url: "https://pfadistiftung.ch/"},
-    ],
+      { src: require(base_url_de + 'etavis.png'),
+        url: "https://www.etavis.ch/"},
+      { src: require(base_url_de + 'holzbau-schweiz.png'),
+        url: "https://www.holzbau-schweiz.ch/"},
+      { src: require(base_url_de + 'lions-club.png'),
+        url: "https://www.lionsclubs.ch/"},
+      { src: require(base_url_de + 'hajk.png'),
+        url: "http://www.hajk.ch/"},
+    ]
   },
   'fr': {
     'Hauptpartnerinnen' :  [
@@ -133,22 +120,22 @@ const partners_data: any = {
     ],
     'Partnerinnen' : [
       { src: require(base_url_fr + 'css.png'),
-        url: "https://www.migros.ch"},
+        url: "https://www.css.ch/"},
       { src: require(base_url_fr + 'matterhorn.png'),
         url: "https://www.matterhorngotthardbahn.ch/"},
       { src: require(base_url_fr + 'postauto.png'),
         url: "https://www.postauto.ch/"},
       { src: require(base_url_fr + 'sbb.png'),
         url: "https://www.sbb.ch/"},
-    ],
-    'Co-Partnerinnen' : [
-      { src: require(base_url_fr + 'hajk.png'),
-        url: "https://www.hajk.ch/"},
-    ],
-    'Unterstutzer' : [
-      { src: require(base_url_fr + 'sps.png'),
-        url: "https://pfadistiftung.ch/"},
-    ],
+      { src: require(base_url_de + 'etavis.png'),
+        url: "https://www.etavis.ch/"},
+      { src: require(base_url_de + 'holzbau-schweiz.png'),
+        url: "https://www.holzbau-schweiz.ch/"},
+      { src: require(base_url_de + 'lions-club.png'),
+        url: "https://www.lionsclubs.ch/"},
+      { src: require(base_url_de + 'hajk.png'),
+        url: "http://www.hajk.ch/"},
+    ]
   },
   'it': {
     'Hauptpartnerinnen' :  [
@@ -161,22 +148,22 @@ const partners_data: any = {
     ],
     'Partnerinnen' : [
       { src: require(base_url_it + 'css.png'),
-        url: "https://www.migros.ch"},
+        url: "https://www.css.ch/"},
       { src: require(base_url_it + 'matterhorn.png'),
         url: "https://www.matterhorngotthardbahn.ch/"},
       { src: require(base_url_it + 'postauto.png'),
         url: "https://www.postauto.ch/"},
       { src: require(base_url_it + 'sbb.png'),
         url: "https://www.sbb.ch/"},
-    ],
-    'Co-Partnerinnen' : [
-      { src: require(base_url_it + 'hajk.png'),
-        url: "https://www.hajk.ch/"},
-    ],
-    'Unterstutzer' : [
-      { src: require(base_url_it + 'sps.png'),
-        url: "https://pfadistiftung.ch/"},
-    ],
+      { src: require(base_url_de + 'etavis.png'),
+        url: "https://www.etavis.ch/"},
+      { src: require(base_url_de + 'holzbau-schweiz.png'),
+        url: "https://www.holzbau-schweiz.ch/"},
+      { src: require(base_url_de + 'lions-club.png'),
+        url: "https://www.lionsclubs.ch/"},
+      { src: require(base_url_de + 'hajk.png'),
+        url: "http://www.hajk.ch/"},
+    ]
   },
 }
 
@@ -221,10 +208,6 @@ export default function SponsorsPage({navigation, page}: Props) {
         { partnerList(Partners['Hauptpartnerinnen']) }
         <PartnerinnenLabel>{t('Partnerinnen')}</PartnerinnenLabel>
         { partnerList(Partners['Partnerinnen']) }
-        <CoPartnerinnenLabel>{t('Co-Partnerinnen')}</CoPartnerinnenLabel>
-        { partnerList(Partners['Co-Partnerinnen']) }
-        <UnterstutzerLabel>{t('Unterstutzer')}</UnterstutzerLabel>
-        { partnerList(Partners['Unterstutzer']) }
       </PageContainer>
     </PageRefreshScrollView>
   );
