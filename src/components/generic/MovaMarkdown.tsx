@@ -122,6 +122,11 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     backgroundColor: MovaTheme.colorYellow
   },
+  image: {
+    marginLeft: -10,
+    marginRight: -10,
+    borderColor: '#ff0000',
+  }
 });
 
 const markdownItInstance =
