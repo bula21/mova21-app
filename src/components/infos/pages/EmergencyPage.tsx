@@ -140,7 +140,7 @@ export default function GenericPage({navigation, page}: Props) {
           </PageHeader>
         </TouchableOpacity>
         <PageContent>
-          <MovaMarkdown>{page.data && page.data.textBeforeButton ? page.data.textBeforeButton : ''}</MovaMarkdown>
+          <MovaMarkdown navigation={navigation}>{page.data && page.data.textBeforeButton ? page.data.textBeforeButton : ''}</MovaMarkdown>
           <CallContainer>
             <TouchableOpacity onPress={() => initiateCall()}>
               <CallButtonContent>
@@ -151,7 +151,7 @@ export default function GenericPage({navigation, page}: Props) {
           </CallContainer>
           {location ? <MovaText style={{fontSize: 10, color: '#ccc', textAlign: 'center'}}>{t('location')}: {location.coords.latitude}, {location.coords.longitude}, {t('location_accuracy')}: {Math.round(location.coords.accuracy)}m</MovaText> : null}
           {locationErrorMessage ? <MovaText style={{fontSize: 10, color: '#c51919', textAlign: 'center'}}>{t('location')}: {locationErrorMessage}</MovaText> : null}
-          <MovaMarkdown>{page.content}</MovaMarkdown>
+          <MovaMarkdown navigation={navigation}>{page.content}</MovaMarkdown>
         </PageContent>
       </PageContainer>
     </PageRefreshScrollView>

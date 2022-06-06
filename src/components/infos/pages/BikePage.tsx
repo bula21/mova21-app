@@ -95,7 +95,7 @@ export default function BikePage({navigation, page}: Props) {
           </StatusContent>
         )}
         <PageContent>
-          <MovaMarkdown>{page.content}</MovaMarkdown>
+          <MovaMarkdown navigation={navigation}>{page.content}</MovaMarkdown>
         </PageContent>
       </PageContainer>
     </PageRefreshScrollView>

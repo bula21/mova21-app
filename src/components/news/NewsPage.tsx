@@ -78,7 +78,7 @@ export default function NewsPage({route, navigation}: Props) {
               </NewsDateText>
             </MovaText>
           </NewsDate>
-          <MovaMarkdown>{news.content}</MovaMarkdown>
+          <MovaMarkdown navigation={navigation}>{news.content}</MovaMarkdown>
         </PageContent>
       </PageContainer>
     </ScrollView>
