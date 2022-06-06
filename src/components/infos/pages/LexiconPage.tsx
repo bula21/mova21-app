@@ -100,6 +100,7 @@ export default function LexiconPage({navigation, page}: Props) {
           headerText={page.title}
           searchableAttributes={['en', 'de', 'fr', 'it']}
           getData={() => WORDS}
+          getDefaultData={() => WORDS}
           handleSearch={handleSearch}
           navigation={navigation}></MovaSearchbarHeading>
       </PageHeader>

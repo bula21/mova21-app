@@ -100,7 +100,8 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
                   <MovaSearchbarHeading
                     headerText={t('info')}
                     searchableAttributes={['title', 'content']}
-                    getData={() => InfopagesStore.get()}
+                    getData={InfopagesStore.get}
+                    getDefaultData={mainPages}
                     handleSearch={handleSearch}
                     isFocused={isFocused}></MovaSearchbarHeading>
                 </InfosHeader>
