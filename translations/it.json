@@ -1,6 +1,31 @@
-{    
-    "language_german": "Tedesco",
-    "language_french": "Francese",
-    "language_italian": "Italiano",
-    "language_english": "Inglese"
-  }
+{
+  "news": "Notizie",
+  "map": "Mappa",
+  "radio": "Radio",
+  "info": "Info",
+  "weather": "Tempo",
+  "starting_call": "La chiamata viene avviata",
+  "location": "Posizione",
+  "location_accuracy": "Accuratezza",
+  "search_keyword": "ricerca",
+  "Hauptpartnerinnen": "Partner principali",
+  "Partnerinnen": "Partner",
+  "Co-Partnerinnen": "Co-partner",
+  "Unterstutzer": "Sostenitori",
+  "language_german": "Tedesco",
+  "language_french": "Francese",
+  "language_italian": "Italiano",
+  "language_english": "Inglese",
+  "walk-in_activities": "per gli scout",
+  "rover_activities": "per Rover",
+  "today": "Oggi",
+  "tomorrow": "Domani",
+  "every_day": "Tutti i giorni",
+  "in_the_next_days": "Nei prossimi giorni",
+  "no_activities": "Nessuna attività",
+  "bike_currently_available": "Attualmente disponibile",
+  "bikes": "Biciclette",
+  "cargobikes": "Biciclette cargo",
+  "biketrailers": "Rimorchio per biciclette",
+  "bike_closed": "Il noleggio di biciclette è attualmente chiuso."
+}

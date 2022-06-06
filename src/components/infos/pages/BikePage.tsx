@@ -84,14 +84,14 @@ export default function BikePage({navigation, page}: Props) {
         </TouchableOpacity>
         {page.data.open ? (
           <StatusContent>
-            <MovaText style={{fontSize: 24, marginBottom: 5}}>{t('Aktuell verfügbar')}</MovaText>
-            {availabilityRow(t('Velos'), page.data.bikes_available ? page.data.bikes_available : 0)}
-            {availabilityRow(t('Cargobikes'), page.data.cargobikes_available ? page.data.cargobikes_available : 0)}
-            {availabilityRow(t('Veloanhänger'), page.data.trailers_available ? page.data.trailers_available : 0)}
+            <MovaText style={{fontSize: 24, marginBottom: 5}}>{t('bike_currently_available')}</MovaText>
+            {availabilityRow(t('bikes'), page.data.bikes_available ? page.data.bikes_available : 0)}
+            {availabilityRow(t('cargobikes'), page.data.cargobikes_available ? page.data.cargobikes_available : 0)}
+            {availabilityRow(t('biketrailers'), page.data.trailers_available ? page.data.trailers_available : 0)}
           </StatusContent>
         ) : (
           <StatusContent>
-            <MovaText>{t('Der Veloverleih ist derzeit geschlossen.')}</MovaText>
+            <MovaText>{t('bike_closed')}</MovaText>
           </StatusContent>
         )}
         <PageContent>

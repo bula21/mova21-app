@@ -22,5 +22,10 @@
   "tomorrow": "Morgen",
   "every_day": "Jeden Tag",
   "in_the_next_days": "In den nächsten Tagen",
-  "no_activities": "Keine Aktivitäten"
+  "no_activities": "Keine Aktivitäten",
+  "bike_currently_available": "Aktuell verfügbar",
+  "bikes": "Velos",
+  "cargobikes": "Cargobikes",
+  "biketrailers": "Veloanhänger",
+  "bike_closed": "Der Veloverleih ist derzeit geschlossen."
 }
