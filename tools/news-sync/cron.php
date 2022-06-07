@@ -102,8 +102,7 @@ foreach ($languages as $lang) {
 			}
 			if ($existingPost) {
 				// update if needed
-				$newContent = html2markdown($entry['content']['rendered']);
-				//$newContent = html2markdown($entry['content']['rendered'] .'<br>'. $entry['content_api']);
+				$newContent = html2markdown($entry['content']['rendered'] .'<br>'. $entry['content_api']);
 				$newExcerpt = html2markdown($entry['excerpt']['rendered']);
 				if (
 					$existingPost['language'] !== $lang or
@@ -122,9 +121,7 @@ foreach ($languages as $lang) {
 						"language" => $lang,
 						"title" => html_entity_decode($entry['title']['rendered']),
 						"content" => $newContent,
-						"excerpt" => $newExcerpt,
-						"image_wp_id" => $entry['featured_media'],
-						"image" => null
+						"excerpt" => $newExcerpt
 					];
 
 					// only update image if needed
@@ -156,7 +153,7 @@ foreach ($languages as $lang) {
 					"wp_post_id" => $entry['id'],
 					"language" => $lang,
 					"title" => html_entity_decode($entry['title']['rendered']),
-					"content" => html2markdown($entry['content']['rendered']),
+					"content" => html2markdown($entry['content']['rendered'] .'<br>'. $entry['content_api']),
 					"excerpt" => html2markdown($entry['excerpt']['rendered']),
 				];
 
