@@ -13,6 +13,7 @@ import { IWeatherDayGroup } from './IWeatherDayGroup';
 import { IPage } from '../infos/IPage';
 import WeatherDayGroup from './WeatherDayGroup';
 import LanguageManager from '../../helpers/LanguageManager';
+import { BackendProxy } from '../../helpers/BackendProxy';
 
 const PageContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -41,10 +42,7 @@ async function loadWeather(): Promise<IWeatherDayGroup[] | void> {
     let dateStartString = dateStart.toISOString().split('T')[0]
     let dateEnd = new Date(new Date().getTime() - (offset*60+1000) + (86400000*3))
     let dateEndString = dateEnd.toISOString().split('T')[0]
-    return fetch(
-      appConfig.backendUrl + `/items/Weather?fields=*.*&sort=-date&filter[date][_between]=[${dateStartString},${dateEndString}]`
-    )
-      .then((response) => response.json())
+    return BackendProxy.fetchJson(`/items/Weather?fields=*.*&sort=-date&filter[date][_between]=[${dateStartString},${dateEndString}]`)
       .then((json) => {
         let weatherEntries: IWeather[];
         weatherEntries = json.data;
