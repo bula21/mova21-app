@@ -14,7 +14,10 @@ type RootStackParamList = {infospage: {page: IPage}};
 type Props<T> = {
   headerText: string;
   searchableAttributes: (keyof T)[];
+  /** All data for which data should be applied. */
   getData: () => T[];
+  /** Default data is displayed when search is inactive. */
+  getDefaultData: () => T[];
   handleSearch: (data: T[]) => void;
   navigation?: StackNavigationProp<RootStackParamList, 'infospage'>;
   isFocused?: boolean;
@@ -93,11 +96,11 @@ export default function MovaSearchbarHeading<T>(props: Props<T>) {
 
   function onNewSearchKeyword(keyword: string) {
     setSearchKeyword(keyword);
-    let objects = props.getData();
     if (keyword === '') {
-      props.handleSearch(objects);
+      props.handleSearch(props.getDefaultData());
       return;
     }
+    let objects = props.getData();
     if (isSearchActive && typeof keyword != 'undefined' && keyword) {
       const sanitized = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const regexp = new RegExp(sanitized, 'i');
