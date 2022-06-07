@@ -205,6 +205,8 @@ export default function RadioMain({navigation}: any) {
       // onProgress={data => console.log('Progress !', data)} // Callback every ~250ms with currentTime
       playInBackground={true}
       playWhenInactive={true}
+      audioOnly={true}
+      poster={radioImage}
       ignoreSilentSwitch="ignore"
     />
   ) : null;
