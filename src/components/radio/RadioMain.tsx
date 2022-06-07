@@ -107,7 +107,7 @@ export default function RadioMain({navigation}: any) {
   const [currentTitle, setCurrentTitle] = React.useState('Sonar');
   const [currentArtist, setCurrentArtist] = React.useState('mova Radio');
   const [streamURL, setStreamURL] = React.useState<string|null>(null);
-  const [posterURL, setPosterURL] = React.useState<string>('');
+  const [posterURL, setPosterURL] = React.useState<string>('https://app-backend.mova.ch/assets/54289b46-6c2b-4fb1-98e9-716b89384ed7');
   const [isOnAir, setIsOnAir] = React.useState(false);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [currentTrack, setCurrentTrack] = React.useState<ITrack>({
@@ -137,7 +137,9 @@ export default function RadioMain({navigation}: any) {
           setCurrentTitle(json.data.currentTitle)
           setCurrentArtist(json.data.currentArtist)
           setStreamURL(json.data.streamUrl)
-          setPosterURL(json.data.posterUrl)
+          if (json.data.posterUrl) {
+            setPosterURL(json.data.posterUrl)
+          }
           setCurrentTrack({
             title: currentTitle,
             artwork: radioImage, // URL or RN's image require()
