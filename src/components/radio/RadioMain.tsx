@@ -46,26 +46,29 @@ const RadioStatusIndicator = styled.Text`
 
 const RadioContainer = styled.View`
   flex: 1;
-  background-color: #2c2e34;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: space-between;
+  background: ${MovaTheme.colorBlue};
 `;
 
 const RadioCover = styled.Image`
   max-width: 100%;
-  height: 75%;
+  align-self: center;
+  justify-content: space-between;
 `;
 
 const RadioPlayerRow = styled.View`
-  height: 25%;
+  height: 130px;
   width: 100%;
   align-items: center;
   flex-direction: row;
-  padding: 20px;
+  padding: 0 20px;
   overflow: hidden;
+  background-color: #2c2e34;
 `;
 
 const RadioPlayerOffline = styled.View`
-  height: 25%;
+  height: 130px;
   width: 100%;
   align-items: flex-start;
   flex-direction: row;
@@ -211,7 +214,7 @@ export default function RadioMain({navigation}: any) {
 
   return (
     <MainContainer>
-      <SafeAreaView style={{flex: 1, alignSelf: 'stretch'}}>
+      <SafeAreaView edges={['top']} style={{flex: 1, alignSelf: 'stretch'}}>
         <RadioHeader>
           <MovaHeadingText>Radio</MovaHeadingText>
           {!isLoading
