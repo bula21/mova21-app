@@ -107,6 +107,7 @@ export default function RadioMain({navigation}: any) {
   const [currentTitle, setCurrentTitle] = React.useState('Sonar');
   const [currentArtist, setCurrentArtist] = React.useState('mova Radio');
   const [streamURL, setStreamURL] = React.useState<string|null>(null);
+  const [posterURL, setPosterURL] = React.useState<string>('');
   const [isOnAir, setIsOnAir] = React.useState(false);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [currentTrack, setCurrentTrack] = React.useState<ITrack>({
@@ -136,6 +137,7 @@ export default function RadioMain({navigation}: any) {
           setCurrentTitle(json.data.currentTitle)
           setCurrentArtist(json.data.currentArtist)
           setStreamURL(json.data.streamUrl)
+          setPosterURL(json.data.posterUrl)
           setCurrentTrack({
             title: currentTitle,
             artwork: radioImage, // URL or RN's image require()
@@ -201,12 +203,10 @@ export default function RadioMain({navigation}: any) {
         player = ref;
       }}
       paused={!isPlaying} // Pauses playback entirely.
-      // onLoad={data => console.log('Loadded !', data)} // Callback when video loads
-      // onProgress={data => console.log('Progress !', data)} // Callback every ~250ms with currentTime
       playInBackground={true}
       playWhenInactive={true}
       audioOnly={true}
-      poster={radioImage}
+      poster={posterURL}
       ignoreSilentSwitch="ignore"
     />
   ) : null;
