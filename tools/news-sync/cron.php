@@ -13,11 +13,12 @@ $log = [];
 
 function logAction($action) {
 	global $log;
+//	echo $action.PHP_EOL;
 	$log[] = $action;
 }
 
 function http_get_json($url) {
-	$client = new GuzzleHttp\Client();
+	$client = new GuzzleHttp\Client(['verify' => false]);
 	$res = $client->request('GET', $url);
 	if ($res->getStatusCode() !== 200) {
 		throw new Exception('Invalid Response from Wordpress: '. $res->getStatusCode() . ' ' . $res->getBody());
@@ -33,7 +34,7 @@ function html2markdown($html) {
 
 function update_news_in_directus($news_id, $data) {
 	logAction('updating news '.$news_id);
-	$client = new GuzzleHttp\Client();
+	$client = new GuzzleHttp\Client(['verify' => false]);
 	$res = $client->patch(DIRECTUS_URL . '/items/news/'.$news_id.'?access_token=' . DIRECTUS_API_TOKEN, [GuzzleHttp\RequestOptions::JSON => $data]);
 	if ($res->getStatusCode() !== 200) {
 		throw new Exception('Update News: Invalid Response from Directus: '. $res->getStatusCode() . ' ' . $res->getBody());
@@ -42,7 +43,7 @@ function update_news_in_directus($news_id, $data) {
 
 function create_news_in_directus($data) {
 	logAction('creating news');
-	$client = new GuzzleHttp\Client();
+	$client = new GuzzleHttp\Client(['verify' => false]);
 	$res = $client->post(DIRECTUS_URL . '/items/news?access_token=' . DIRECTUS_API_TOKEN, [GuzzleHttp\RequestOptions::JSON => $data]);
 	if ($res->getStatusCode() !== 200) {
 		throw new Exception('Create News: Invalid Response from Directus: '. $res->getStatusCode() . ' ' . $res->getBody());
@@ -51,7 +52,7 @@ function create_news_in_directus($data) {
 
 function archive_news_in_directus($news_id) {
 	logAction('archiving news: ' . $news_id);
-	$client = new GuzzleHttp\Client();
+	$client = new GuzzleHttp\Client(['verify' => false]);
 	$res = $client->patch(DIRECTUS_URL . '/items/news/'.$news_id.'?access_token=' . DIRECTUS_API_TOKEN, [GuzzleHttp\RequestOptions::JSON => ['status' => 'archived']]);
 	if ($res->getStatusCode() !== 200) {
 		throw new Exception('Archive News: Invalid Response from Directus: '. $res->getStatusCode() . ' ' . $res->getBody());
@@ -60,7 +61,7 @@ function archive_news_in_directus($news_id) {
 
 function import_image($url, $wp_image_id) {
 	logAction('importing image: '.$url);
-	$client = new GuzzleHttp\Client();
+	$client = new GuzzleHttp\Client(['verify' => false]);
 	$data = [
 		'url' => $url,
 		'data' => [
@@ -102,6 +103,7 @@ foreach ($languages as $lang) {
 			if ($existingPost) {
 				// update if needed
 				$newContent = html2markdown($entry['content']['rendered']);
+				//$newContent = html2markdown($entry['content']['rendered'] .'<br>'. $entry['content_api']);
 				$newExcerpt = html2markdown($entry['excerpt']['rendered']);
 				if (
 					$existingPost['language'] !== $lang or
@@ -154,7 +156,14 @@ foreach ($languages as $lang) {
 
 				// load first featured media image
 				if (isset($entry['_embedded']['wp:featuredmedia'][0]['source_url'])) {
+					// use wp:featuredmedia if possible
 					$image_url = $entry['_embedded']['wp:featuredmedia'][0]['source_url'];
+					$fileId = import_image($image_url, $entry['featured_media']);
+					$data['image'] = $fileId;
+					$data['image_wp_id'] = $entry['featured_media'];
+				} else if (isset($entry['yoast_head_json']['og_image'][0]['url'])) {
+					// fallback: sometimes the api shows 401 for the featuredmedia ¯\_(ツ)_/¯
+					$image_url = $entry['yoast_head_json']['og_image'][0]['url'];
 					$fileId = import_image($image_url, $entry['featured_media']);
 					$data['image'] = $fileId;
 					$data['image_wp_id'] = $entry['featured_media'];
