@@ -135,6 +135,12 @@ foreach ($languages as $lang) {
 							$fileId = import_image($image_url, $entry['featured_media']);
 							$data['image_wp_id'] = $entry['featured_media'];
 							$data['image'] = $fileId;
+						} else if (isset($entry['yoast_head_json']['og_image'][0]['url'])) {
+							// fallback: sometimes the api shows 401 for the featuredmedia ¯\_(ツ)_/¯
+							$image_url = $entry['yoast_head_json']['og_image'][0]['url'];
+							$fileId = import_image($image_url, $entry['featured_media']);
+							$data['image'] = $fileId;
+							$data['image_wp_id'] = $entry['featured_media'];
 						} else {
 							$data['image_wp_id'] = $entry['featured_media'];
 							$data['image'] = null;
