@@ -52,7 +52,7 @@ const RadioContainer = styled.View`
 `;
 
 const RadioCover = styled.Image`
-  max-width: 100%;
+  flex: 1;
   align-self: center;
   justify-content: space-between;
 `;
@@ -62,7 +62,7 @@ const RadioPlayerRow = styled.View`
   width: 100%;
   align-items: center;
   flex-direction: row;
-  padding: 0 20px;
+  padding: 0 15px;
   overflow: hidden;
   background-color: #2c2e34;
 `;
