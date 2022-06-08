@@ -27,6 +27,8 @@ function http_get_json($url) {
 }
 
 function html2markdown($html) {
+	// fix images without src and srcset only
+	$html = preg_replace('/<img srcset="(([^ ]*) )([^"]*)"/i', '<img src="$2"', $html);
 	$converter = new HtmlConverter();
 	$converter->getConfig()->setOption('strip_tags', true);
 	return $converter->convert($html);
