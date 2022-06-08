@@ -3,7 +3,9 @@
   "map": "Karte",
   "radio": "Radio",
   "info": "Info",
-  "weather": "Wetter",
+  "weather": "Meteo",
+  "help": "Hilfe",
+  "timetable": "Programm",
   "starting_call": "Anruf wird gestartet",
   "location": "Standort",
   "location_accuracy": "Genauigkeit",
@@ -25,5 +27,9 @@
   "bikes": "Velos",
   "cargobikes": "Cargobikes",
   "biketrailers": "Veloanhänger",
-  "bike_closed": "Der Veloverleih ist derzeit geschlossen."
+  "bike_closed": "Der Veloverleih ist derzeit geschlossen.",
+  "weather_daytime_night": "Nacht",
+  "weather_daytime_morning": "Morgen",
+  "weather_daytime_midday": "Mittag",
+  "weather_daytime_evening": "Abend"
 }

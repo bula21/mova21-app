@@ -25,5 +25,9 @@
   "bikes": "Bikes",
   "cargobikes": "Cargobikes",
   "biketrailers": "Bike trailers",
-  "bike_closed": "Bike rental is currently closed."
+  "bike_closed": "Bike rental is currently closed.",
+  "weather_daytime_night": "Night",
+  "weather_daytime_morning": "Morning",
+  "weather_daytime_midday": "Midday",
+  "weather_daytime_evening": "Evening"
 }
