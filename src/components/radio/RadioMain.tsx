@@ -193,7 +193,7 @@ export default function RadioMain({navigation}: any) {
     MusicControl.on(Command.pause, () => {
       turnMusicOff(true);
     });
-  
+
     // MusicControl.resetNowPlaying();
   }, []);
 
@@ -254,7 +254,7 @@ export default function RadioMain({navigation}: any) {
                     </RadioDescription>
                   </RadioPlayerRow>
                   : <RadioPlayerOffline><MovaMarkdown navigation={navigation} >{offlineText}</MovaMarkdown></RadioPlayerOffline>
-              : []
+              : <RadioPlayerRow/>
           }
         </RadioContainer>
       </SafeAreaView>
