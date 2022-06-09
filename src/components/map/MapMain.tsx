@@ -34,7 +34,7 @@ export default function MapMain() {
         <WebView
             mediaCapturePermissionGrantType={'grantIfSameHostElsePrompt'}
             style={{alignSelf: 'stretch', flex: 1}}
-            source={{ uri: 'https://map.mova.ch/ClientWebApp/?project=movaMap&legend=Mobile&rotation=0.00&scale=20370&mapOnly=true&mapOnlySearch=true&center=2666060,1150607&lang=' + language }}
+            source={{ uri: 'https://map.mova.ch/ClientWebApp/legend?project=movaMapMobile&legend=Mobile&mapOnly=true&mapOnlySearch=true&lang=' + language }}
         />
       </SafeAreaView>
     </MainContainer>
