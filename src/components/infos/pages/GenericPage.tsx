@@ -10,17 +10,17 @@ import MovaTheme from '../../../constants/MovaTheme';
 import PageRefreshScrollView from "../PageRefreshScrollView";
 
 const PageContainer = styled.SafeAreaView`
-  background-color: #fff;
+  background: ${MovaTheme.colorYellow};
   flex: 1;
 `;
 
 const PageHeader = styled.View`
   padding: 10px;
-  margin-top: 10px;
   background: ${MovaTheme.colorYellow};
 `;
 const PageContent = styled.View`
   padding: 10px;
+  background: #fff;
 `;
 
 type RootStackParamList = {infospage: {page: IPage}};
@@ -28,19 +28,19 @@ type Props = { navigation: StackNavigationProp<RootStackParamList, 'infospage'>;
 
 export default function GenericPage({navigation, page}: Props) {
   return (
-    <PageRefreshScrollView>
-      <PageContainer>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <PageHeader>
-            <MovaHeadingText>
-              <IconBack /> {page.title}
-            </MovaHeadingText>
-          </PageHeader>
-        </TouchableOpacity>
+    <PageContainer>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <PageHeader>
+          <MovaHeadingText>
+            <IconBack /> {page.title}
+          </MovaHeadingText>
+        </PageHeader>
+      </TouchableOpacity>
+      <PageRefreshScrollView>
         <PageContent>
           <MovaMarkdown navigation={navigation}>{page.content}</MovaMarkdown>
         </PageContent>
-      </PageContainer>
-    </PageRefreshScrollView>
+      </PageRefreshScrollView>
+    </PageContainer>
   );
 }

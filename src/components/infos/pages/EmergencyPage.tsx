@@ -16,17 +16,17 @@ import {useTranslation} from 'react-i18next';
 import LanguageManager from "../../../helpers/LanguageManager";
 
 const PageContainer = styled.SafeAreaView`
-  background-color: #fff;
+  background: ${MovaTheme.colorOrange};
   flex: 1;
 `;
 
 const PageHeader = styled.View`
   padding: 10px;
-  margin-top: 10px;
-  background: ${MovaTheme.colorYellow};
+  background: ${MovaTheme.colorOrange};
 `;
 const PageContent = styled.View`
   padding: 10px;
+  background-color: #fff;
 `;
 
 const CallContainer = styled.View`
@@ -130,15 +130,15 @@ export default function GenericPage({navigation, page}: Props) {
   }
 
   return (
-    <PageRefreshScrollView>
-      <PageContainer>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <PageHeader>
-            <MovaHeadingText>
-              <IconBack /> {page.title}
-            </MovaHeadingText>
-          </PageHeader>
-        </TouchableOpacity>
+    <PageContainer>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <PageHeader>
+          <MovaHeadingText>
+            <IconBack /> {page.title}
+          </MovaHeadingText>
+        </PageHeader>
+      </TouchableOpacity>
+      <PageRefreshScrollView>
         <PageContent>
           <MovaMarkdown navigation={navigation}>{page.data && page.data.textBeforeButton ? page.data.textBeforeButton : ''}</MovaMarkdown>
           <CallContainer>
@@ -153,7 +153,7 @@ export default function GenericPage({navigation, page}: Props) {
           {locationErrorMessage ? <MovaText style={{fontSize: 10, color: '#c51919', textAlign: 'center'}}>{t('location')}: {locationErrorMessage}</MovaText> : null}
           <MovaMarkdown navigation={navigation}>{page.content}</MovaMarkdown>
         </PageContent>
-      </PageContainer>
-    </PageRefreshScrollView>
+      </PageRefreshScrollView>
+    </PageContainer>
   );
 }

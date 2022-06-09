@@ -27,7 +27,7 @@ interface ISection {
 const WORDS: IWord[] = untypedWORDS;
 
 const PageContainer = styled.SafeAreaView`
-  background-color: #fff;
+  background: ${MovaTheme.colorYellow}
   flex: 1;
 `;
 
@@ -35,7 +35,10 @@ const PageHeader = styled.View`
   background: ${MovaTheme.colorYellow};
   height: 80px;
 `;
-const PageContent = styled.View``;
+const PageContent = styled.View`
+  background-color: #fff;
+  flex: 1;
+`;
 
 const SectionHeaderText = styled.Text`
   padding: 10px;

@@ -14,14 +14,17 @@ import moment from 'moment';
 import languageManager from "../../../helpers/LanguageManager";
 
 const PageContainer = styled.SafeAreaView`
-  background-color: #fff;
+  background: ${MovaTheme.colorYellow};
   flex: 1;
 `;
 
 const PageHeader = styled.View`
   padding: 10px;
-  margin-top: 10px;
   background: ${MovaTheme.colorYellow};
+`;
+
+const PageContent = styled.View`
+  background-color: #fff;
 `;
 
 const SectionTitle = styled.View`
@@ -137,27 +140,29 @@ export default function WalkInPage({navigation, page}: Props) {
   moment.locale(languageManager.currentLanguage)
 
   return (
-    <PageRefreshScrollView>
-      <PageContainer>
+    <PageContainer>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <PageHeader>
-            <MovaHeadingText>
-              <IconBack /> {page.title}
-            </MovaHeadingText>
-          </PageHeader>
+            <PageHeader>
+                <MovaHeadingText>
+                    <IconBack /> {page.title}
+                </MovaHeadingText>
+            </PageHeader>
         </TouchableOpacity>
-        <SectionTitle>
-          <MovaText style={{color: '#ffffff', fontSize: 30}}>{t('every_day')}</MovaText>
-        </SectionTitle>
-        {dayRow(t('walk-in_activities'), 'walk-in')}
-        {dayRow(t('rover_activities'), 'rover')}
-        <SectionTitle>
-          <MovaText style={{color: '#ffffff', fontSize: 30}}>{t('in_the_next_days')}</MovaText>
-        </SectionTitle>
-        {dates.filter(date => date >= todayISO).map(date => (
-            dayRow(formatReadableDate(fromISODate(date)), date)
-        ))}
-      </PageContainer>
-    </PageRefreshScrollView>
+        <PageRefreshScrollView>
+            <PageContent>
+                <SectionTitle>
+                    <MovaText style={{color: '#ffffff', fontSize: 30}}>{t('every_day')}</MovaText>
+                </SectionTitle>
+                {dayRow(t('walk-in_activities'), 'walk-in')}
+                {dayRow(t('rover_activities'), 'rover')}
+                <SectionTitle>
+                    <MovaText style={{color: '#ffffff', fontSize: 30}}>{t('in_the_next_days')}</MovaText>
+                </SectionTitle>
+                {dates.filter(date => date >= todayISO).map(date => (
+                    dayRow(formatReadableDate(fromISODate(date)), date)
+                ))}
+            </PageContent>
+        </PageRefreshScrollView>
+    </PageContainer>
   );
 }

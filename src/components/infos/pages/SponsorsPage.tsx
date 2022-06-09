@@ -18,6 +18,7 @@ interface ISponsor {
 
 const PageContainer = styled.SafeAreaView`
   background-color: #fff;
+  background: ${MovaTheme.colorYellow};
   flex: 1;
 `;
 
@@ -30,8 +31,11 @@ const ImageContainer = styled.View`
 
 const PageHeader = styled.View`
   padding: 10px;
-  margin-top: 10px;
   background: ${MovaTheme.colorYellow};
+`;
+
+const PageContent = styled.View`
+  background-color: #fff;
 `;
 
 const HauptPartnerinnenLabel = styled(MovaHeadingText)`
@@ -195,20 +199,22 @@ export default function SponsorsPage({navigation, page}: Props) {
   }
 
   return (
-    <PageRefreshScrollView>
-      <PageContainer>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <PageHeader>
-            <MovaHeadingText>
-              <IconBack /> {page.title}
-            </MovaHeadingText>
-          </PageHeader>
-        </TouchableOpacity>
-        <HauptPartnerinnenLabel>{t('Hauptpartnerinnen')}</HauptPartnerinnenLabel>
-        { partnerList(Partners['Hauptpartnerinnen']) }
-        <PartnerinnenLabel>{t('Partnerinnen')}</PartnerinnenLabel>
-        { partnerList(Partners['Partnerinnen']) }
-      </PageContainer>
-    </PageRefreshScrollView>
+    <PageContainer>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <PageHeader>
+          <MovaHeadingText>
+            <IconBack /> {page.title}
+          </MovaHeadingText>
+        </PageHeader>
+      </TouchableOpacity>
+      <PageRefreshScrollView>
+        <PageContent>
+          <HauptPartnerinnenLabel>{t('Hauptpartnerinnen')}</HauptPartnerinnenLabel>
+          { partnerList(Partners['Hauptpartnerinnen']) }
+          <PartnerinnenLabel>{t('Partnerinnen')}</PartnerinnenLabel>
+          { partnerList(Partners['Partnerinnen']) }
+        </PageContent>
+      </PageRefreshScrollView>
+    </PageContainer>
   );
 }

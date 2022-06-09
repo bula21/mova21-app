@@ -9,13 +9,12 @@ import MovaTheme from '../../../constants/MovaTheme';
 import {WebView} from "react-native-webview";
 
 const PageContainer = styled.SafeAreaView`
-  background-color: #fff;
+  background: ${MovaTheme.colorYellow};
   flex: 1;
 `;
 
 const PageHeader = styled.View`
   padding: 10px;
-  margin-top: 10px;
   background: ${MovaTheme.colorYellow};
 `;
 

@@ -14,13 +14,13 @@ import MovaMarkdown from '../generic/MovaMarkdown';
 import appConfig from '../../appConfig';
 import languageManager from "../../helpers/LanguageManager";
 
-const PageContainer = styled.SafeAreaView`
+const PageContainer = styled.SafeAreaView<{color: string}>`
   flex: 1;
+  background-color: ${(props) => MovaTheme.getColorByName(props.color)};
 `;
 
 const PageHeader = styled.View<{color: string}>`
   padding: 10px;
-  padding-top: 20px;
   background-color: ${(props) => MovaTheme.getColorByName(props.color)};
 `;
 
@@ -31,6 +31,7 @@ const NewsTitle = styled.View`
 
 const PageContent = styled.View`
   padding: 10px;
+  background: #fff;
 `;
 
 const NewsImage = styled.Image`
@@ -55,15 +56,15 @@ export default function NewsPage({route, navigation}: Props) {
   moment.locale(languageManager.currentLanguage)
 
   return (
-    <ScrollView>
-      <PageContainer>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <PageHeader color="blue">
-            <MovaHeadingText>
-              <IconBack /> {t('news')}
-            </MovaHeadingText>
-          </PageHeader>
-        </TouchableOpacity>
+    <PageContainer color="blue">
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <PageHeader color="blue">
+          <MovaHeadingText>
+            <IconBack /> {t('news')}
+          </MovaHeadingText>
+        </PageHeader>
+      </TouchableOpacity>
+      <ScrollView>
         {news.image !== null && news.image.filename_disk ? (
           <NewsImage source={{uri: appConfig.backendUrl + '/assets/' + news.image.filename_disk}} />
         ) : null}
@@ -80,7 +81,7 @@ export default function NewsPage({route, navigation}: Props) {
           </NewsDate>
           <MovaMarkdown navigation={navigation}>{news.content}</MovaMarkdown>
         </PageContent>
-      </PageContainer>
-    </ScrollView>
+      </ScrollView>
+    </PageContainer>
   );
 }

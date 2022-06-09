@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import MovaHeadingText from '../../generic/MovaHeadingText';
-import {RefreshControl, ScrollView, TouchableOpacity, View} from 'react-native';
+import {RefreshControl, ScrollView, TouchableOpacity} from 'react-native';
 import IconBack from '../../generic/IconBack';
-import {StackNavigationProp, StackScreenProps} from '@react-navigation/stack';
+import {StackScreenProps} from '@react-navigation/stack';
 import MovaText from '../../generic/MovaText';
 import {useTranslation} from 'react-i18next';
 import MovaTheme from '../../../constants/MovaTheme';
-import PageRefreshScrollView from "../PageRefreshScrollView";
 import {ActivitiesStore} from "../../../stores/ActivitiesStore";
 import {IActivity} from "./IActivity";
 import MovaAccordion from "../../generic/MovaAccordion";
@@ -15,14 +14,12 @@ import MovaIcon from "../../generic/MovaIcon";
 import LanguageManager from "../../../helpers/LanguageManager";
 
 const PageContainer = styled.SafeAreaView`
-  background-color: #fff;
+  background: ${MovaTheme.colorYellow};
   flex: 1;
 `;
 
 const PageHeader = styled.View`
   padding: 10px;
-  margin-top: 10px;
-  background: ${MovaTheme.colorYellow};
 `;
 
 const ActivityListItem = styled.View`
@@ -95,20 +92,20 @@ export default function WalkInDetailPage({route, navigation}: Props) {
   );
 
   return (
-    <ScrollView
-        scrollIndicatorInsets={{ right: 1 }}
-        refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-        }
-    >
-      <PageContainer>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <PageHeader>
-            <MovaHeadingText>
-              <IconBack /> {route.params.label}
-            </MovaHeadingText>
-          </PageHeader>
-        </TouchableOpacity>
+    <PageContainer>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <PageHeader>
+          <MovaHeadingText>
+            <IconBack /> {route.params.label}
+          </MovaHeadingText>
+        </PageHeader>
+      </TouchableOpacity>
+      <ScrollView
+          scrollIndicatorInsets={{ right: 1 }}
+          refreshControl={
+            <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+          }
+      >
         {
           filteredActivities.length
             ? filteredActivities.map(activity => (
@@ -134,7 +131,7 @@ export default function WalkInDetailPage({route, navigation}: Props) {
             ))
               : <NoActivities><MovaText>{isLoading ? '' : t('no_activities')}</MovaText></NoActivities>
         }
-      </PageContainer>
-    </ScrollView>
+      </ScrollView>
+    </PageContainer>
   );
 }

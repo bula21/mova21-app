@@ -13,17 +13,17 @@ import {InfopagesStore} from '../../../stores/InfopagesStore';
 import PageRefreshScrollView from "../PageRefreshScrollView";
 
 const PageContainer = styled.SafeAreaView`
-  background-color: #fff;
+  background: ${MovaTheme.colorYellow};
   flex: 1;
 `;
 
 const PageHeader = styled.View`
   padding: 10px;
-  margin-top: 10px;
   background: ${MovaTheme.colorYellow};
 `;
 const PageContent = styled.View`
   padding: 10px;
+  background-color: #fff;
 `;
 const StatusContent = styled.View`
   padding: 10px;
@@ -73,15 +73,15 @@ export default function BikePage({navigation, page}: Props) {
   }
 
   return (
-    <PageRefreshScrollView>
-      <PageContainer>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <PageHeader>
-            <MovaHeadingText>
-              <IconBack /> {page.title}
-            </MovaHeadingText>
-          </PageHeader>
-        </TouchableOpacity>
+    <PageContainer>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <PageHeader>
+          <MovaHeadingText>
+            <IconBack /> {page.title}
+          </MovaHeadingText>
+        </PageHeader>
+      </TouchableOpacity>
+      <PageRefreshScrollView>
         {page.data.open ? (
           <StatusContent>
             <MovaText style={{fontSize: 24, marginBottom: 5}}>{t('bike_currently_available')}</MovaText>
@@ -97,7 +97,7 @@ export default function BikePage({navigation, page}: Props) {
         <PageContent>
           <MovaMarkdown navigation={navigation}>{page.content}</MovaMarkdown>
         </PageContent>
-      </PageContainer>
-    </PageRefreshScrollView>
+      </PageRefreshScrollView>
+    </PageContainer>
   );
 }
