@@ -55,6 +55,7 @@ const RadioCover = styled.Image`
   flex: 1;
   align-self: center;
   justify-content: space-between;
+  max-width: 100%;
 `;
 
 const RadioPlayerRow = styled.View`
