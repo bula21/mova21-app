@@ -37,6 +37,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Fotos machen fürs Meldeformular</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Dein Standort wird für die Karte und die Notfall Alarmierung verwendet</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

@@ -43,6 +43,7 @@ export default function UrlPage({navigation, page}: Props) {
       <MainContainer>
         <SafeAreaView style={{flex: 1, alignSelf: 'stretch'}}>
           <WebView
+              mediaCapturePermissionGrantType={'grantIfSameHostElsePrompt'}
               style={{alignSelf: 'stretch', flex: 1}}
               source={{ uri: page.data && page.data.url ? page.data.url : 'https://mova.ch' }}
           />
