@@ -208,7 +208,7 @@ export default function MovaMarkdown(props: Props) {
           [url, newline, ...labels] = node.children[0].children[0].children;
           labels = labels.filter(label => label.sourceType === 'text');
           return (
-              <TouchableOpacity onPress={() => clickButton(url.content)}>
+              <TouchableOpacity onPress={() => clickButton(url.content)} key={node.key}>
                 <ButtonContainer>
                   {
                     labels.map(label => (
