@@ -97,23 +97,23 @@ export default function SettingsMain({route, navigation}: Props) {
   }, [position, speed, maxHeight]);
 
   function getEmoij() {
-    if (maxHeight > 10000) { return '🖕'}
+    if (maxHeight > 10000) { return '😡'}
     else if (maxHeight > 1700) { return '🌞' }
     else if (maxHeight > 1600) { return '‍👼' }
     else if (maxHeight > 1500) { return '🧑‍🚀' }
     else if (maxHeight > 1400) { return '🫅' }
     else if (maxHeight > 1350) { return '😻' }
     else if (maxHeight > 1300) { return '🤯' }
-    else if (maxHeight > 1250) { return '🥹' }
-    else if (maxHeight > 1200) { return '🤩' }
+    else if (maxHeight > 1250) { return '🤩' }
+    else if (maxHeight > 1200) { return '🥳' }
     else if (maxHeight > 1150) { return '🤗' }
     else if (maxHeight > 1100) { return '🤭' }
     else if (maxHeight > 1000) { return '😳' }
     else if (maxHeight > 900) { return '😲' }
     else if (maxHeight > 800) { return '🧐' }
     else if (maxHeight > 700) { return '🤓' }
-    else if (maxHeight > 500) { return '🤡' }
-    else if (maxHeight > 300) { return '😵‍💫' }
+    else if (maxHeight > 500) { return '😒' }
+    else if (maxHeight > 300) { return '😵‍' }
     else if (maxHeight > 200) { return '🙄' }
     else if (maxHeight > 0) { return '🥱' }
     return '🌚';
@@ -138,7 +138,7 @@ export default function SettingsMain({route, navigation}: Props) {
               { maxHeight > 0 ?
                 <Scores>
                     <MovaText>{Math.round(position * 2) / 100}m</MovaText>
-                    <MovaText>Max: {Math.round(maxHeight * 2) / 100}m {maxHeight}</MovaText>
+                    <MovaText>Max: {Math.round(maxHeight * 2) / 100}m</MovaText>
                 </Scores>
                 : null
               }
