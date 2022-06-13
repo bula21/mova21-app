@@ -1,13 +1,23 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from "@react-native-community/netinfo";
+import Toast from 'react-native-toast-message';
 import appConfig from '../appConfig';
+import i18next from '../i18n';
 
-const fetchJson = async (url: string) => {
+const fetchJson = async (url: string, showNoInternet: boolean) => {
 	const fullUrl = `${appConfig.backendUrl}/${url}`;
 	const state = await NetInfo.fetch();
 	if (state && state.isConnected) {
 		return fetchJsonOnlineOrOffline(fullUrl);
 	} else {
+		if (showNoInternet) {
+			Toast.show({
+				type: 'info',
+				text1: i18next.t('no_internet'),
+				text2: i18next.t('offline_data_loaded'),
+				visibilityTime: 2000,
+			});
+		}
 		return fetchJsonOffline(fullUrl);
 	}
 }
@@ -38,6 +48,12 @@ const fetchJsonOnlineOrOffline = async (url: string) => {
 		// Display data immediately
 		return json;
 	} else {
+		Toast.show({
+			type: 'error',
+			text1: i18next.t('no_server_connection'),
+			text2: i18next.t('offline_data_loaded'),
+			visibilityTime: 2000,
+		});
 		return fetchJsonOffline(url);
 	}
 };
@@ -46,7 +62,7 @@ export const BackendProxy = {
 	/** Serve requests for the backend server. Whenever possible, requests are sent
 	 * directly to the server. If offline, previously retrieved data is served from
 	 * locally persisted storage. */
-	fetchJson: async (url: string) => fetchJson(url).catch(
+	fetchJson: async (url: string, showNoInternet: boolean = false) => fetchJson(url, showNoInternet).catch(
 		error => console.error(error)
 	),
 	/** Subscribe to arrival of new data. */

@@ -36,13 +36,13 @@ const groupBy = <T, K extends keyof any>(list: T[], getKey: (item: T) => K) =>
   }, {} as Record<K, T[]>);
 
 
-async function loadWeather(): Promise<IWeatherDayGroup[] | void> {
+async function loadWeather(showNoInternet: boolean = false): Promise<IWeatherDayGroup[] | void> {
     const offset = new Date().getTimezoneOffset()
     let dateStart = new Date(new Date().getTime() - (offset*60*1000))
     let dateStartString = dateStart.toISOString().split('T')[0]
     let dateEnd = new Date(new Date().getTime() - (offset*60+1000) + (86400000*3))
     let dateEndString = dateEnd.toISOString().split('T')[0]
-    return BackendProxy.fetchJson(`/items/Weather?fields=*.*&sort=-date&filter[date][_between]=[${dateStartString},${dateEndString}]`)
+    return BackendProxy.fetchJson(`/items/Weather?fields=*.*&sort=-date&filter[date][_between]=[${dateStartString},${dateEndString}]`, showNoInternet)
       .then((json) => {
         let weatherEntries: IWeather[];
         weatherEntries = json.data;
@@ -81,7 +81,7 @@ export default function WeatherPage({navigation, page}: Props) {
 
   function onRefresh() {
     setRefreshing(true);
-    loadWeather().then((response) => {
+    loadWeather(true).then((response) => {
       setWeatherDayGroups(response ?? []);
       setRefreshing(false);
     });

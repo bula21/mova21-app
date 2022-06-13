@@ -30,6 +30,7 @@ import InfosMain from './src/components/infos/InfosMain';
 import MapMain from './src/components/map/MapMain';
 import languageManager from './src/helpers/LanguageManager';
 import SplashScreen from 'react-native-splash-screen';
+import Toast from 'react-native-toast-message';
 
 const Tab = createBottomTabNavigator();
 
@@ -48,6 +49,7 @@ const App = () => {
     <SafeAreaProvider>
       <SafeAreaInsetsContext.Consumer>
         {(insets) => (
+          <>
           <NavigationContainer>
             <Tab.Navigator
               tabBarOptions={{
@@ -126,6 +128,8 @@ const App = () => {
               />
             </Tab.Navigator>
           </NavigationContainer>
+          <Toast />
+          </>
         )}
       </SafeAreaInsetsContext.Consumer>
     </SafeAreaProvider>

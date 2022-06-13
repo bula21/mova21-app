@@ -7,8 +7,8 @@ const subject = new Subject();
 
 let activities: IActivity[] = [];
 
-async function loadActivities(): Promise<void> {
-	BackendProxy.fetchJson('/items/activities')
+async function loadActivities(showNoInternet: boolean = false): Promise<void> {
+	BackendProxy.fetchJson('/items/activities', showNoInternet)
 		.then((json) => {
 			activities = json ? json.data : [];
 			subject.next(activities);
@@ -18,7 +18,7 @@ async function loadActivities(): Promise<void> {
 		});
 }
 
-LanguageManager.onChange.subscribe(() => loadActivities());
+LanguageManager.onChange.subscribe(() => loadActivities(false));
 BackendProxy.subscribe(loadActivities);
 
 export const ActivitiesStore = {
@@ -27,7 +27,7 @@ export const ActivitiesStore = {
 	getNonPermanent: () => activities.filter(a => !a.is_permanent),
 	subscribe: (setState: any) => subject.subscribe(setState),
 	reload: () => {
-		return loadActivities();
+		return loadActivities(true);
 	},
 	getActivity: (id: number): IActivity|null => {
 		const filteredActivities = activities.filter(activity => activity.id === id);

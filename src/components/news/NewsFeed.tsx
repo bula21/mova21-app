@@ -21,9 +21,10 @@ const NewsHeader = styled.View`
   margin-top: 10px;
 `;
 
-async function loadNews(): Promise<INews[]> {
+async function loadNews(showNoInternet: boolean = false): Promise<INews[]> {
   return BackendProxy.fetchJson(
     'items/news?fields=*.*&sort=-date&filter[language]=' + (await languageManager.getCurrentLanguageAsync()),
+    showNoInternet,
   )
     .then((json) => {
       return json ? json.data : [];
@@ -56,7 +57,7 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
 
   function onRefresh() {
     setRefreshing(true);
-    loadNews().then((response) => {
+    loadNews(true).then((response) => {
       setNews(response);
       setRefreshing(false);
       setClickCounter(0)
