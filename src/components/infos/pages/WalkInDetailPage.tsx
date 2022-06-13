@@ -69,7 +69,7 @@ export default function WalkInDetailPage({route, navigation}: Props) {
 
   function onRefresh() {
     setRefreshing(true);
-    ActivitiesStore.reload().then(() => {
+    ActivitiesStore.reload(true).then(() => {
       setActivities(ActivitiesStore.getAll());
       setRefreshing(false);
     });

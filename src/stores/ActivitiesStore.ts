@@ -26,8 +26,8 @@ export const ActivitiesStore = {
 	getPermanent: () => activities.filter(a => a.is_permanent),
 	getNonPermanent: () => activities.filter(a => !a.is_permanent),
 	subscribe: (setState: any) => subject.subscribe(setState),
-	reload: () => {
-		return loadActivities(true);
+	reload: (showNoInternet: boolean = false) => {
+		return loadActivities(showNoInternet);
 	},
 	getActivity: (id: number): IActivity|null => {
 		const filteredActivities = activities.filter(activity => activity.id === id);

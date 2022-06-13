@@ -16,21 +16,21 @@ async function loadPages(showNoInternet: boolean = false): Promise<void> {
 			subject.next(pages);
 
 			// reload activities after reloading pages
-			ActivitiesStore.reload();
+			ActivitiesStore.reload(showNoInternet);
 		})
 		.catch((error) => {
 			console.error(error);
 		});
 }
 
-LanguageManager.onChange.subscribe(() => loadPages());
+LanguageManager.onChange.subscribe(() => loadPages(false));
 BackendProxy.subscribe(loadPages);
 
 export const InfopagesStore = {
 	get: () => pages,
 	subscribe: (setState: any) => subject.subscribe(setState),
-	reload: () => {
-		return loadPages(true);
+	reload: (showNoInternet: boolean = false) => {
+		return loadPages(showNoInternet);
 	},
 	getPage: (id: number): IPage|null => {
 		const filteredPages = pages.filter(page => page.id === id);

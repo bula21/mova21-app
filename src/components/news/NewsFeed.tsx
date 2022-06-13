@@ -55,9 +55,9 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
     BackendProxy.subscribe(onRefresh);
   }, []);
 
-  function onRefresh() {
+  function onRefresh(showNoInternet: boolean = false) {
     setRefreshing(true);
-    loadNews(true).then((response) => {
+    loadNews(showNoInternet).then((response) => {
       setNews(response);
       setRefreshing(false);
       setClickCounter(0)
@@ -92,7 +92,7 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
                 </NewsHeader>
               }
               refreshControl={
-                <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh}/>
+                <RefreshControl refreshing={isRefreshing} onRefresh={()=>onRefresh(true)}/>
               }
           />
       }
