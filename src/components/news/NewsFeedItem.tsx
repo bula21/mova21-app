@@ -52,7 +52,9 @@ export default function NewsFeedItem({
   moment.locale(languageManager.currentLanguage)
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('newspage', {news: news})}>
+      onPress={() => navigation.navigate('newspage', {news: news})}
+      activeOpacity={1}
+    >
       <NewsItemContainer color="blue">
         {news.image !== null && news.image.filename_disk ? (
             <NewsImageContainer>
