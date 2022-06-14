@@ -23,7 +23,7 @@ const NewsItemTitle = styled.View`
 
 const NewsItemDate = styled.View`
   padding: 10px;
-  padding-top: 0;
+  padding-top: 5px;
 `;
 const NewsItemDateText = styled.Text`
   color: ${MovaTheme.colorGrey};

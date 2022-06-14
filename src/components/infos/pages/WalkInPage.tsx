@@ -44,7 +44,7 @@ const DayView = styled.View`
   border-bottom-width: 1px;
 `;
 const DayLabel = styled.View`
-
+  margin-top: 5px;
 `;
 const DayPill = styled.Text`
   padding: 4px 12px;
@@ -54,7 +54,7 @@ const DayPill = styled.Text`
   background: ${MovaTheme.colorBlack};
 `;
 const DaySpacer = styled.View`
-flex: 1;
+  flex: 1;
 `;
 const DayIcon = styled.View`
   width: 10%;

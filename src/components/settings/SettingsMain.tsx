@@ -7,8 +7,9 @@ import IconBack from '../generic/IconBack';
 import MovaText from '../generic/MovaText';
 import appConfig from '../../appConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import MovaLoading from "../generic/MovaLoading";
 import MovaTheme from '../../constants/MovaTheme';
+
+const loadingImage = require('../../../assets/loading.gif');
 
 let pkg = require('../../../package.json');
 
@@ -54,6 +55,11 @@ const Scores = styled.View`
   flex-direction: column;
   text-align: right;
   padding: 10px;
+`;
+
+const DudeImage = styled.Image`
+    height: 100px;
+    width: 100px;
 `;
 
 type Props = StackScreenProps<any, 'settings'>;
@@ -133,7 +139,7 @@ export default function SettingsMain({route, navigation}: Props) {
           <TouchableOpacity onPress={() => tapDude()} activeOpacity={1}>
             <AnimatedDudeContainer>
               <AnimatedDude style={{ top: 300 - position}}>
-                <MovaLoading/>
+                <DudeImage source={loadingImage} />
               </AnimatedDude>
               { maxHeight > 0 ?
                 <Scores>
