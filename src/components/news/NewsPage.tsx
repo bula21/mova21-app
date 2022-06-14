@@ -34,6 +34,10 @@ const PageContent = styled.View`
   background: #fff;
 `;
 
+const NewsImageContainer = styled.View`
+  background: white;
+`;
+
 const NewsImage = styled.Image`
   width: 100%;
   height: 240px;
@@ -66,7 +70,9 @@ export default function NewsPage({route, navigation}: Props) {
       </TouchableOpacity>
       <ScrollView>
         {news.image !== null && news.image.filename_disk ? (
-          <NewsImage source={{uri: appConfig.backendUrl + '/assets/' + news.image.filename_disk}} />
+          <NewsImageContainer>
+            <NewsImage source={{uri: appConfig.backendUrl + '/assets/' + news.image.filename_disk}} />
+          </NewsImageContainer>
         ) : null}
         <PageContent>
           <NewsTitle>

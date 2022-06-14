@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
-import {Platform, SectionList, TouchableOpacity, View} from 'react-native';
+import {Platform, SectionList, View} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {IPage} from '../IPage';
 import MovaTheme from '../../../constants/MovaTheme';
@@ -33,7 +33,7 @@ const PageContainer = styled.SafeAreaView`
 
 const PageHeader = styled.View`
   background: ${MovaTheme.colorYellow};
-  height: 80px;
+  height: 78px;
 `;
 const PageContent = styled.View`
   background-color: #fff;
@@ -85,20 +85,17 @@ export default function LexiconPage({navigation, page}: Props) {
   };
 
   const handleSearch = (words: IWord[]) => {
-    console.log('Searching for: ', words);
     createSectionsFromWords(words);
   };
 
   // Initial sections load
   useEffect(() => {
     createSectionsFromWords(WORDS);
-    console.log(page.title);
   }, []);
 
   return (
     <PageContainer>
       <PageHeader>
-        {/* <IconBack /> {page.title} */}
         <MovaSearchbarHeading
           headerText={page.title}
           searchableAttributes={['en', 'de', 'fr', 'it']}

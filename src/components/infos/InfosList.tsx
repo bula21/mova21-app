@@ -22,7 +22,7 @@ const InfosItem = styled.View`
 `;
 
 const InfosHeader = styled.View`
-  height: 80px;
+  height: 78px;
 `;
 
 type NavigationProp = StackNavigationProp<{infopage: {page: IPage}}, 'infopage'>;

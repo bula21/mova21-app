@@ -85,7 +85,6 @@ export default function SettingsMain({route, navigation}: Props) {
 
   useEffect(() => {
     let intervalId = setInterval(() => {
-      console.log(position, speed)
       if (position > 0 || speed !== 0) {
         setPosition(Math.max(position - speed, 0));
         if (position > maxHeight) {
