@@ -60,9 +60,9 @@ export default function NewsPage({route, navigation}: Props) {
   moment.locale(languageManager.currentLanguage)
 
   return (
-    <PageContainer color="blue">
+    <PageContainer color={news.color ? news.color : 'blue'}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <PageHeader color="blue">
+        <PageHeader color={news.color ? news.color : 'blue'}>
           <MovaHeadingText>
             <IconBack /> {t('news')}
           </MovaHeadingText>
