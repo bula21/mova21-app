@@ -21,7 +21,7 @@ export default function MapMain({route}: Props) {
   const [mapUrl, setMapUrl] = useState('');
 
   function getBaseUrl(): string {
-    return 'https://map.mova.ch/ClientWebApp/legend?project=movaMapMobile&legend=Mobile&mapOnly=true&mapOnlySearch=true&lang=' + language;
+    return 'https://map.mova.ch/ClientWebApp/legend?project=movaMapMobile&legend=Mobile&mapOnly=true&mapOnlySearch=true';
   }
 
   // on mount
@@ -52,7 +52,7 @@ export default function MapMain({route}: Props) {
         {mapUrl ? <WebView
             mediaCapturePermissionGrantType={'grantIfSameHostElsePrompt'}
             style={{alignSelf: 'stretch', flex: 1}}
-            source={{uri: mapUrl}}
+            source={{uri: mapUrl + '&lang=' + language}}
           />
           : null
         }
