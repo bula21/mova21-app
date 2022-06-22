@@ -1,6 +1,6 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import MovaText from './MovaText';
 
 export default function IconBack() {
-  return <Icon name="chevron-left" size={32} color="black" />;
+  return <MovaText style={{fontSize: 45, color: 'black'}}>←</MovaText>;
 }

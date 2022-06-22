@@ -10,8 +10,8 @@ const LoadingView = styled.View`
 `;
 
 const LoadingImage = styled.Image`
-    height: 100px;
-    width: 100px;
+    height: 250px;
+    width: 250px;
 `;
 
 export default function MovaLoading() {

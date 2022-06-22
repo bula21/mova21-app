@@ -3,6 +3,7 @@ import languageManager from '../helpers/LanguageManager';
 import {Subject} from 'rxjs';
 import LanguageManager from '../helpers/LanguageManager';
 import {BackendProxy} from '../helpers/BackendProxy';
+import { ActivitiesStore } from './ActivitiesStore';
 
 const subject = new Subject();
 
@@ -13,6 +14,9 @@ async function loadPages(): Promise<void> {
 		.then((json) => {
 			pages = json ? json.data : [];
 			subject.next(pages);
+
+			// reload activities after reloading pages
+			ActivitiesStore.reload();
 		})
 		.catch((error) => {
 			console.error(error);

@@ -25,13 +25,15 @@ interface ITrack {
 
 const MainContainer = styled.View`
   flex: 1;
+  background: white;
 `;
 
 const RadioHeader = styled.View`
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-  padding: 20px;
+  padding: 10px;
+  margin-top: 10px;
 `;
 
 const RadioStatusIndicator = styled.Text`

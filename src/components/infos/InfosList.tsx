@@ -11,6 +11,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 import {useIsFocused} from '@react-navigation/native';
 import MovaSearchbarHeading from '../generic/MovaSearchbarHeading';
 import MovaLoading from "../generic/MovaLoading";
+import languageManager from '../../helpers/LanguageManager';
 
 const MainContainer = styled.SafeAreaView`
   background-color: #fff;
@@ -22,7 +23,12 @@ const InfosItem = styled.View`
 `;
 
 const InfosHeader = styled.View`
-  height: 80px;
+  height: 78px;
+`;
+
+const EnglishWarning = styled.View`
+  padding: 10px;
+  background: black;
 `;
 
 type NavigationProp = StackNavigationProp<{infopage: {page: IPage}}, 'infopage'>;
@@ -96,15 +102,25 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
               )}
               keyExtractor={item => String(item.id)}
               ListHeaderComponent={
-                <InfosHeader>
-                  <MovaSearchbarHeading
-                    headerText={t('info')}
-                    searchableAttributes={['title', 'content']}
-                    getData={InfopagesStore.get}
-                    getDefaultData={mainPages}
-                    handleSearch={handleSearch}
-                    isFocused={isFocused}></MovaSearchbarHeading>
-                </InfosHeader>
+                <>
+                  <InfosHeader>
+                    <MovaSearchbarHeading
+                      headerText={t('info')}
+                      searchableAttributes={['title', 'content']}
+                      getData={InfopagesStore.get}
+                      getDefaultData={mainPages}
+                      handleSearch={handleSearch}
+                      isFocused={isFocused}></MovaSearchbarHeading>
+                  </InfosHeader>
+                  { languageManager.currentLanguage === 'en' ?
+                    <EnglishWarning>
+                      <MovaText style={{textAlign: 'center', color: 'white', fontSize: 16}}>
+                        Not all information is available in English. Change the language to see everything.
+                      </MovaText>
+                    </EnglishWarning>
+                    : null
+                  }
+                </>
               }
               ListFooterComponent={<LanguageSwitcher />}
               refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}

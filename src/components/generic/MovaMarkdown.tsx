@@ -28,36 +28,36 @@ const styles = StyleSheet.create({
   body: {
     fontSize: 16,
     fontFamily: fontFamily,
-    lineHeight: 22,
+    lineHeight: 21,
   },
   heading1: {
     fontSize: 40,
     marginTop: 15,
     marginBottom: 5,
-    lineHeight: 50,
+    lineHeight: 40,
   },
   heading2: {
     fontSize: 30,
     marginTop: 15,
     marginBottom: 5,
-    lineHeight: 40,
+    lineHeight: 30,
   },
   heading3: {
     fontSize: 24,
     marginTop: 15,
     marginBottom: 5,
-    lineHeight: 34,
+    lineHeight: 26,
   },
   heading4: {
     fontSize: 20,
     marginTop: 15,
     marginBottom: 5,
-    lineHeight: 30,
+    lineHeight: 24,
   },
   heading5: {
     fontSize: 18,
     marginTop: 10,
-    lineHeight: 28,
+    lineHeight: 22,
   },
   heading6: {
     fontSize: 16,
@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
   image: {
     marginLeft: -10,
     marginRight: -10,
+    marginTop: -10,
     borderColor: '#ff0000',
   }
 });
