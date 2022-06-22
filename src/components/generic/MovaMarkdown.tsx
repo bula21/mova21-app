@@ -151,7 +151,7 @@ export default function MovaMarkdown(props: Props) {
 
   const clickMarkdownLink = (url: string): boolean => {
     if (url.toLowerCase().startsWith('map:')) {
-      props.navigation.navigate('map');
+      props.navigation.navigate('map', { id: url.substring(4).trim() });
       return false;
     }
     const id = Number(url);
