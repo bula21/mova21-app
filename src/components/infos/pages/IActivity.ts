@@ -9,6 +9,7 @@ export interface IActivity {
   title_de: string;
   title_fr: string;
   title_it: string;
+  map_location_id: string;
   location_de: string;
   location_fr: string;
   location_it: string;

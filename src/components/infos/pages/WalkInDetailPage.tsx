@@ -12,6 +12,7 @@ import {IActivity} from "./IActivity";
 import MovaAccordion from "../../generic/MovaAccordion";
 import MovaIcon from "../../generic/MovaIcon";
 import LanguageManager from "../../../helpers/LanguageManager";
+import MovaMarkdown from '../../generic/MovaMarkdown';
 
 const PageContainer = styled.SafeAreaView`
   background: ${MovaTheme.colorYellow};
@@ -28,7 +29,7 @@ const ActivityListItem = styled.View`
 `;
 
 const ActivityDescription = styled.View`
-  padding: 15px 0;
+  padding: 0;
 `;
 
 const ActivityDetails = styled.View`
@@ -91,6 +92,12 @@ export default function WalkInDetailPage({route, navigation}: Props) {
       (isCategoryView && activity.category === 'all')
   );
 
+  function openMap(activity: IActivity) {
+    if (activity && activity.map_location_id) {
+      navigation.navigate('map', { id: activity.map_location_id });
+    }
+  }
+
   return (
     <PageContainer>
       <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -112,12 +119,14 @@ export default function WalkInDetailPage({route, navigation}: Props) {
               <ActivityListItem key={activity.id}>
                 <MovaAccordion header={getTranslatedProperty(activity, 'title')} color={MovaTheme.colorBlue}>
                   <ActivityDescription>
-                    <MovaText>{getTranslatedProperty(activity, 'description')}</MovaText>
+                    <MovaMarkdown navigation={navigation}>{getTranslatedProperty(activity, 'description')}</MovaMarkdown>
                     {getTranslatedProperty(activity, 'location') &&
-                        <ActivityDetails>
-                          <MovaIcon name="ort-textgroesse" style={{marginTop: -5, marginLeft: -5, fontSize: 28}}/>
-                          <MovaText>{getTranslatedProperty(activity, 'location')}</MovaText>
-                        </ActivityDetails>
+                        <TouchableOpacity onPress={() => openMap(activity)} activeOpacity={1}>
+                          <ActivityDetails>
+                            <MovaIcon name="ort-textgroesse" style={{marginTop: -5, marginLeft: -5, fontSize: 28}}/>
+                            <MovaText>{getTranslatedProperty(activity, 'location')}</MovaText>
+                          </ActivityDetails>
+                        </TouchableOpacity>
                     }
                     {getTranslatedProperty(activity, 'opening_hours') &&
                         <ActivityDetails>
