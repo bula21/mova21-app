@@ -169,13 +169,6 @@ export default function RadioMain({navigation}: any) {
       state: MusicControl.STATE_PLAYING,
     });
     MusicControl.setNowPlaying({...currentTrack, colorized: true, isLiveStream: true});
-    console.log({...currentTrack, colorized: true, isLiveStream: true});
-    MusicControl.enableControl('play', true);
-    MusicControl.enableControl('pause', true);
-    MusicControl.enableControl('nextTrack', false);
-    MusicControl.enableBackgroundMode(true);
-    // on iOS, pause playback during audio interruptions (incoming calls) and resume afterwards.
-    MusicControl.handleAudioInterruptions(true);
   };
 
   const turnMusicOff = (remote: boolean) => {
@@ -189,6 +182,15 @@ export default function RadioMain({navigation}: any) {
   };
 
   useEffect(() => {
+    // initialize controls only once
+    MusicControl.enableControl('play', true);
+    MusicControl.enableControl('pause', true);
+    MusicControl.enableControl('nextTrack', false);
+    MusicControl.enableBackgroundMode(true);
+    MusicControl.enableControl('closeNotification', true, { when: 'paused' })
+    // on iOS, pause playback during audio interruptions (incoming calls) and resume afterwards.
+    MusicControl.handleAudioInterruptions(true);
+
     MusicControl.on(Command.play, () => {
       turnMusicOn();
     });
