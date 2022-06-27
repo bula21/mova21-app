@@ -4,6 +4,7 @@ import {Subject} from 'rxjs';
 import LanguageManager from '../helpers/LanguageManager';
 import {BackendProxy} from '../helpers/BackendProxy';
 import { ActivitiesStore } from './ActivitiesStore';
+import { BikeAvailabilityStore } from './BikeAvailabilityStore';
 
 const subject = new Subject();
 
@@ -15,8 +16,9 @@ async function loadPages(): Promise<void> {
 			pages = json ? json.data : [];
 			subject.next(pages);
 
-			// reload activities after reloading pages
+			// reload activities and bike after reloading pages
 			ActivitiesStore.reload();
+			BikeAvailabilityStore.reload();
 		})
 		.catch((error) => {
 			console.error(error);
