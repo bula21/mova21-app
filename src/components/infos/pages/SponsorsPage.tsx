@@ -50,6 +50,12 @@ const PartnerinnenLabel = styled(MovaHeadingText)`
   font-size: 30px;
 `;
 
+const UnterstuetzerinnenLabel = styled(MovaHeadingText)`
+  padding: 10px;
+  background-color: ${MovaTheme.colorYellow}
+  font-size: 30px;
+`;
+
 const base_url = '../../../../assets/sponsors/';
 const base_url_de = base_url + 'de/';
 const base_url_fr = base_url + 'fr/';
@@ -83,6 +89,16 @@ const partners_data: any = {
         url: "https://www.lionsclubs.ch/"},
       { src: require(base_url_de + 'hajk.png'),
         url: "http://www.hajk.ch/"},
+    ],
+    'Unterstuetzerinnen' : [
+      { src: require(base_url_de + 'sps.png'),
+        url: "https://pfadistiftung.ch/"},
+      { src: require(base_url_de + 'wallis.png'),
+        url: "https://www.valais.ch/de/home"},
+      { src: require(base_url_de + 'goms.png'),
+        url: "https://www.goms.ch/"},
+      { src: require(base_url_de + 'armee.png'),
+        url: "https://www.vbs.admin.ch/de/home.html"},
     ]
   },
   'en': {
@@ -103,14 +119,24 @@ const partners_data: any = {
         url: "https://www.postauto.ch/"},
       { src: require(base_url_en + 'sbb.png'),
         url: "https://www.sbb.ch/"},
-      { src: require(base_url_de + 'etavis.png'),
+      { src: require(base_url_en + 'etavis.png'),
         url: "https://www.etavis.ch/"},
-      { src: require(base_url_de + 'holzbau-schweiz.png'),
+      { src: require(base_url_en + 'holzbau-schweiz.png'),
         url: "https://www.holzbau-schweiz.ch/"},
-      { src: require(base_url_de + 'lions-club.png'),
+      { src: require(base_url_en + 'lions-club.png'),
         url: "https://www.lionsclubs.ch/"},
-      { src: require(base_url_de + 'hajk.png'),
+      { src: require(base_url_en + 'hajk.png'),
         url: "http://www.hajk.ch/"},
+    ],
+    'Unterstuetzerinnen' : [
+      { src: require(base_url_en + 'sps.png'),
+        url: "https://pfadistiftung.ch/"},
+      { src: require(base_url_en + 'wallis.png'),
+        url: "https://www.valais.ch/de/home"},
+      { src: require(base_url_en + 'goms.png'),
+        url: "https://www.goms.ch/"},
+      { src: require(base_url_en + 'armee.png'),
+        url: "https://www.vbs.admin.ch/de/home.html"},
     ]
   },
   'fr': {
@@ -131,14 +157,24 @@ const partners_data: any = {
         url: "https://www.postauto.ch/"},
       { src: require(base_url_fr + 'sbb.png'),
         url: "https://www.sbb.ch/"},
-      { src: require(base_url_de + 'etavis.png'),
+      { src: require(base_url_fr + 'etavis.png'),
         url: "https://www.etavis.ch/"},
-      { src: require(base_url_de + 'holzbau-schweiz.png'),
+      { src: require(base_url_fr + 'holzbau-schweiz.png'),
         url: "https://www.holzbau-schweiz.ch/"},
-      { src: require(base_url_de + 'lions-club.png'),
+      { src: require(base_url_fr + 'lions-club.png'),
         url: "https://www.lionsclubs.ch/"},
-      { src: require(base_url_de + 'hajk.png'),
+      { src: require(base_url_fr + 'hajk.png'),
         url: "http://www.hajk.ch/"},
+    ],
+    'Unterstuetzerinnen' : [
+      { src: require(base_url_fr + 'sps.png'),
+        url: "https://pfadistiftung.ch/fr/accueil/"},
+      { src: require(base_url_fr + 'wallis.png'),
+        url: "https://www.valais.ch/fr/home"},
+      { src: require(base_url_fr + 'goms.png'),
+        url: "https://www.goms.ch/fr"},
+      { src: require(base_url_fr + 'armee.png'),
+        url: "https://www.vbs.admin.ch/fr/home.html"},
     ]
   },
   'it': {
@@ -159,14 +195,24 @@ const partners_data: any = {
         url: "https://www.postauto.ch/"},
       { src: require(base_url_it + 'sbb.png'),
         url: "https://www.sbb.ch/"},
-      { src: require(base_url_de + 'etavis.png'),
+      { src: require(base_url_it + 'etavis.png'),
         url: "https://www.etavis.ch/"},
-      { src: require(base_url_de + 'holzbau-schweiz.png'),
+      { src: require(base_url_it + 'holzbau-schweiz.png'),
         url: "https://www.holzbau-schweiz.ch/"},
-      { src: require(base_url_de + 'lions-club.png'),
+      { src: require(base_url_it + 'lions-club.png'),
         url: "https://www.lionsclubs.ch/"},
-      { src: require(base_url_de + 'hajk.png'),
+      { src: require(base_url_it + 'hajk.png'),
         url: "http://www.hajk.ch/"},
+    ],
+    'Unterstuetzerinnen' : [
+      { src: require(base_url_it + 'sps.png'),
+        url: "https://pfadistiftung.ch/it/benvenuti/"},
+      { src: require(base_url_it + 'wallis.png'),
+        url: "https://www.valais.ch/it/home"},
+      { src: require(base_url_it + 'goms.png'),
+        url: "https://www.goms.ch/"},
+      { src: require(base_url_it + 'armee.png'),
+        url: "https://www.vbs.admin.ch/it/home.html"},
     ]
   },
 }
@@ -213,6 +259,8 @@ export default function SponsorsPage({navigation, page}: Props) {
           { partnerList(Partners['Hauptpartnerinnen']) }
           <PartnerinnenLabel>{t('Partnerinnen')}</PartnerinnenLabel>
           { partnerList(Partners['Partnerinnen']) }
+          <UnterstuetzerinnenLabel>{t('Unterstuetzerinnen')}</UnterstuetzerinnenLabel>
+          { partnerList(Partners['Unterstuetzerinnen']) }
         </PageContent>
       </PageRefreshScrollView>
     </PageContainer>
