@@ -97,6 +97,7 @@ export default function WalkInDetailPage({route, navigation}: Props) {
     if (activity.date && !activity.is_permanent) {
       dates = activity.date.split(',');
       dates = dates.map(date => date.trim());
+      dates = dates.map(date => date.substring(0,10));
       dates = dates.filter(date => !!date);
     }
     return dates;
