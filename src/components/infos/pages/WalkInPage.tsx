@@ -151,7 +151,7 @@ export default function WalkInPage({navigation, page}: Props) {
         <PageRefreshScrollView>
             <PageContent>
                 <SectionTitle>
-                    <MovaText style={{color: '#ffffff', fontSize: 30}}>{t('every_day')}</MovaText>
+                    <MovaText style={{color: '#ffffff', fontSize: 30}}>{t('all_activities')}</MovaText>
                 </SectionTitle>
                 {dayRow(t('walk-in_activities'), 'walk-in')}
                 {dayRow(t('rover_activities'), 'rover')}

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import MovaHeadingText from '../../generic/MovaHeadingText';
-import {RefreshControl, ScrollView, TouchableOpacity} from 'react-native';
+import { RefreshControl, ScrollView, TouchableOpacity, View } from 'react-native';
 import IconBack from '../../generic/IconBack';
 import {StackScreenProps} from '@react-navigation/stack';
 import MovaText from '../../generic/MovaText';
@@ -13,6 +13,7 @@ import MovaAccordion from "../../generic/MovaAccordion";
 import MovaIcon from "../../generic/MovaIcon";
 import LanguageManager from "../../../helpers/LanguageManager";
 import MovaMarkdown from '../../generic/MovaMarkdown';
+import moment from 'moment';
 
 const PageContainer = styled.SafeAreaView`
   background: ${MovaTheme.colorYellow};
@@ -76,21 +77,61 @@ export default function WalkInDetailPage({route, navigation}: Props) {
     });
   }
 
+  // from YYYY-MM-DD to Date Object
+  let fromISODate = (date: string): Date => {
+    return new Date(parseInt(date.substring(0,4)), parseInt(date.substring(5,7)) - 1, parseInt(date.substring(8,10)));
+  }
+
+  let formatReadableDate = (date: Date): string => {
+    return moment(date).format('dd, D. MMMM');
+  }
+
   function getTranslatedProperty(activity: IActivity, property: string): string {
     let name: string = property + '_' + lang;
     // @ts-ignore
-    return name in activity ? activity[name] : '';
+    return name in activity ? (activity[name] ? activity[name] : '') : '';
+  }
+
+  function getDatesFromActivity(activity: IActivity): string[] {
+    let dates: string[] = [];
+    if (activity.date && !activity.is_permanent) {
+      dates = activity.date.split(',');
+      dates = dates.map(date => date.trim());
+      dates = dates.filter(date => !!date);
+    }
+    return dates;
+  }
+
+  function formatDates(activity: IActivity): string {
+    let dates: string[] = getDatesFromActivity(activity);
+    if (dates.length > 0) {
+      let formattedDates: string[] = dates.map(date => formatReadableDate(fromISODate(date)));
+      return formattedDates.join(' / ');
+    }
+    return '';
   }
 
   let lang = LanguageManager.currentLanguage;
+  moment.locale(lang);
 
+  let isAllView = route.params.filter === 'all';
   let isCategoryView = ['walk-in', 'rover'].indexOf(route.params.filter) >= 0;
 
-  let filteredActivities = activities.filter(activity =>
+  let filteredActivities = activities.filter(activity => {
+    let dates: string[] = getDatesFromActivity(activity);
+    return isAllView ||
       activity.category === route.params.filter ||
-      activity.date === route.params.filter ||
+        (
+          !isCategoryView &&
+          (
+            !activity.date ||
+            dates.indexOf(route.params.filter) >= 0
+          )
+        ) ||
       (isCategoryView && activity.category === 'all')
-  );
+  }).sort((a, b) => {
+    return getTranslatedProperty(a, 'title').localeCompare(getTranslatedProperty(b, 'title'));
+  });
 
   function openMap(activity: IActivity) {
     if (activity && activity.map_location_id) {
@@ -117,7 +158,7 @@ export default function WalkInDetailPage({route, navigation}: Props) {
           filteredActivities.length
             ? filteredActivities.map(activity => (
               <ActivityListItem key={activity.id}>
-                <MovaAccordion header={getTranslatedProperty(activity, 'title')} color={MovaTheme.colorBlue}>
+                <MovaAccordion header={getTranslatedProperty(activity, 'title')} color={activity.category === 'rover' ? MovaTheme.colorOrange : MovaTheme.colorBlue}>
                   <ActivityDescription>
                     <MovaMarkdown navigation={navigation}>{getTranslatedProperty(activity, 'description')}</MovaMarkdown>
                     {getTranslatedProperty(activity, 'location') &&
@@ -128,11 +169,15 @@ export default function WalkInDetailPage({route, navigation}: Props) {
                           </ActivityDetails>
                         </TouchableOpacity>
                     }
-                    {getTranslatedProperty(activity, 'opening_hours') &&
+                    {(getTranslatedProperty(activity, 'opening_hours') || activity.date) ?
                         <ActivityDetails>
                           <MovaIcon name="uhr-textgroesse" style={{marginTop: -5, marginLeft: -5, fontSize: 28}}/>
-                          <MovaText>{getTranslatedProperty(activity, 'opening_hours')}</MovaText>
+                          <View>
+                            <MovaText>{getTranslatedProperty(activity, 'opening_hours')}</MovaText>
+                            <MovaText>{activity.date ? formatDates(activity) : t('every_day')}</MovaText>
+                          </View>
                         </ActivityDetails>
+                        : null
                     }
                   </ActivityDescription>
                 </MovaAccordion>
