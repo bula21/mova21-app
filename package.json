@@ -1,6 +1,6 @@
 {
   "name": "Mova21",
-  "version": "7",
+  "version": "8",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
