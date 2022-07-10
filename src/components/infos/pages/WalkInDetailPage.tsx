@@ -25,16 +25,17 @@ const PageHeader = styled.View`
 `;
 
 const ActivityListItem = styled.View`
-  border-bottom-width: 1px;
+  border-bottom-width: 2px;
   border-color: black;
 `;
 
 const ActivityDescription = styled.View`
   padding: 0;
+  padding-bottom: 10px;
 `;
 
 const ActivityDetails = styled.View`
-  margin-top: 15px;
+  margin-top: 5px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;

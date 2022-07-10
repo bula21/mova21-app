@@ -10,7 +10,7 @@ type Props = {
 };
 
 const AccordionContainer = styled.View`
-    padding: 10px;
+    padding: 8px;
 `;
 
 const AccordionHeader = styled.View`
@@ -23,7 +23,7 @@ const AccordionHeader = styled.View`
 const AccordionHeaderText = styled.Text`
     flex: 1;
     font-family: ${Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold'};
-    font-size: 32px;
+    font-size: 24px;
 `;
 
 
