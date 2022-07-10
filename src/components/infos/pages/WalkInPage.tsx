@@ -114,7 +114,6 @@ export default function WalkInPage({navigation, page}: Props) {
       '2022-08-03',
       '2022-08-04',
       '2022-08-05',
-      '2022-08-06',
   ];
 
   // from Date Object to YYYY-MM-DD
