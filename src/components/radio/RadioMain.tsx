@@ -109,6 +109,7 @@ const BandName = styled.Text`
 export default function RadioMain({navigation}: any) {
   // Reactive state of the music
   const [isLoading, setIsLoading] = React.useState(true);
+  const [isInitialized, setIsInitialized] = React.useState(false);
   const [offlineText, setOfflineText] = React.useState('');
   const [currentTitle, setCurrentTitle] = React.useState('Sonar');
   const [currentArtist, setCurrentArtist] = React.useState('mova Radio');
@@ -164,6 +165,25 @@ export default function RadioMain({navigation}: any) {
   let player: Video | null;
 
   const turnMusicOn = () => {
+    if (!isInitialized) {
+      // initialize controls only once
+      MusicControl.enableControl('play', true);
+      MusicControl.enableControl('pause', true);
+      MusicControl.enableControl('nextTrack', false);
+      MusicControl.enableBackgroundMode(true);
+      MusicControl.enableControl('closeNotification', true, { when: 'paused' })
+      // on iOS, pause playback during audio interruptions (incoming calls) and resume afterwards.
+      MusicControl.handleAudioInterruptions(true);
+
+      MusicControl.on(Command.play, () => {
+        turnMusicOn();
+      });
+
+      MusicControl.on(Command.pause, () => {
+        turnMusicOff(true);
+      });
+      setIsInitialized(true);
+    }
     setIsPlaying(true);
     MusicControl.updatePlayback({
       state: MusicControl.STATE_PLAYING,
@@ -181,26 +201,6 @@ export default function RadioMain({navigation}: any) {
     }
   };
 
-  useEffect(() => {
-    // initialize controls only once
-    MusicControl.enableControl('play', true);
-    MusicControl.enableControl('pause', true);
-    MusicControl.enableControl('nextTrack', false);
-    MusicControl.enableBackgroundMode(true);
-    MusicControl.enableControl('closeNotification', true, { when: 'paused' })
-    // on iOS, pause playback during audio interruptions (incoming calls) and resume afterwards.
-    MusicControl.handleAudioInterruptions(true);
-
-    MusicControl.on(Command.play, () => {
-      turnMusicOn();
-    });
-
-    MusicControl.on(Command.pause, () => {
-      turnMusicOff(true);
-    });
-
-    // MusicControl.resetNowPlaying();
-  }, []);
 
   const handlePlayer = () => {
     isPlaying ? turnMusicOff(false) : turnMusicOn();
