@@ -30,6 +30,7 @@ import InfosMain from './src/components/infos/InfosMain';
 import MapMain from './src/components/map/MapMain';
 import languageManager from './src/helpers/LanguageManager';
 import SplashScreen from 'react-native-splash-screen';
+import Toast, { InfoToast, BaseToastProps, ErrorToast } from 'react-native-toast-message';
 
 const Tab = createBottomTabNavigator();
 
@@ -38,8 +39,8 @@ moment.locale('de');
 
 languageManager.applyLanguageFromStorageOrDevice();
 
-const App = () => {	
-  const {t} = useTranslation();  
+const App = () => {
+  const {t} = useTranslation();
   React.useEffect(() => {
     SplashScreen.hide();
   });
@@ -48,6 +49,7 @@ const App = () => {
     <SafeAreaProvider>
       <SafeAreaInsetsContext.Consumer>
         {(insets) => (
+          <>
           <NavigationContainer>
             <Tab.Navigator
               tabBarOptions={{
@@ -126,6 +128,8 @@ const App = () => {
               />
             </Tab.Navigator>
           </NavigationContainer>
+          <Toast config={toastConfig} />
+          </>
         )}
       </SafeAreaInsetsContext.Consumer>
     </SafeAreaProvider>
@@ -133,3 +137,35 @@ const App = () => {
 };
 
 export default App;
+
+const fontFamily = Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold';
+const toastConfig = {
+  info: (props: BaseToastProps) => (
+    <InfoToast
+      {...props}
+      text1Style={{
+        fontFamily: fontFamily,
+        fontSize: 16
+      }}
+      text2Style={{
+        fontFamily: fontFamily,
+        fontSize: 15
+      }}
+      style={{ borderLeftColor: MovaTheme.colorBlue }}
+    />
+  ),
+  error: (props: BaseToastProps) => (
+    <ErrorToast
+      {...props}
+      text1Style={{
+        fontFamily: fontFamily,
+        fontSize: 16
+      }}
+      text2Style={{
+        fontFamily: fontFamily,
+        fontSize: 15
+      }}
+      style={{ borderLeftColor: MovaTheme.colorOrange }}
+    />
+  )
+};

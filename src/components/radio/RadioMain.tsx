@@ -135,7 +135,7 @@ export default function RadioMain({navigation}: any) {
   );
 
   const loadConfig = () => {
-    BackendProxy.fetchJson('/items/radio')
+    BackendProxy.fetchJson('/items/radio', false)
       .then((json) => {
         if (json) {
           setIsOnAir(json.data.isOnline)

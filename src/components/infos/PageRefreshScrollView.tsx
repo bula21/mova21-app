@@ -10,7 +10,7 @@ export default function PageRefreshScrollView(props: Props) {
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
   function onRefresh() {
     setRefreshing(true);
-    InfopagesStore.reload().then(() => {
+    InfopagesStore.reload(true).then(() => {
       setRefreshing(false);
     });
   }

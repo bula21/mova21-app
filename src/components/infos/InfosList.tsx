@@ -59,7 +59,7 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
     const subscription = InfopagesStore.subscribe((pages: IPage[]) => {
       setPages(pages.filter(mainPageFilter));
     });
-    InfopagesStore.reload().then(() => {
+    InfopagesStore.reload(false).then(() => {
       setLoading(false)
     });
     return () => {
@@ -69,7 +69,7 @@ export default function InfosList({navigation}: {navigation: NavigationProp}) {
 
   function onRefresh() {
     setRefreshing(true);
-    InfopagesStore.reload().then(() => {
+    InfopagesStore.reload(true).then(() => {
       setPages(mainPages());
       setRefreshing(false);
     });
