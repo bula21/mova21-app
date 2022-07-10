@@ -20,6 +20,7 @@ const PageHeader = styled.View`
 `;
 const PageContent = styled.View`
   padding: 10px;
+  padding-top: 0;
   background: #fff;
 `;
 

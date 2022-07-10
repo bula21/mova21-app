@@ -23,12 +23,15 @@ const NewsItemTitle = styled.View`
 
 const NewsItemDate = styled.View`
   padding: 10px;
-  padding-top: 0;
+  padding-top: 5px;
 `;
 const NewsItemDateText = styled.Text`
   color: ${MovaTheme.colorGrey};
 `;
 
+const NewsImageContainer = styled.View`
+  background: white;
+`;
 const NewsImage = styled.Image`
   width: 100%;
   height: 240px;
@@ -49,10 +52,14 @@ export default function NewsFeedItem({
   moment.locale(languageManager.currentLanguage)
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('newspage', {news: news})}>
+      onPress={() => navigation.navigate('newspage', {news: news})}
+      activeOpacity={1}
+    >
       <NewsItemContainer color="blue">
         {news.image !== null && news.image.filename_disk ? (
-          <NewsImage source={{uri: appConfig.backendUrl + '/assets/' + news.image.filename_disk}} />
+            <NewsImageContainer>
+              <NewsImage source={{uri: appConfig.backendUrl + '/assets/' + news.image.filename_disk}} />
+            </NewsImageContainer>
         ) : null}
         <NewsItemTitle>
           <MovaText style={{fontSize: 24}}>{news.title}</MovaText>

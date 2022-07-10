@@ -1,7 +1,6 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import MovaIcon from './MovaIcon';
 
-// TODO: replace with icon from design
 export default function IconDetailView() {
-  return <Icon name="arrow-right" size={32} color="black" />;
+  return <MovaIcon name="arrow" size={32} color="black" />;
 }

@@ -44,7 +44,7 @@ const DayView = styled.View`
   border-bottom-width: 1px;
 `;
 const DayLabel = styled.View`
-
+  margin-top: 5px;
 `;
 const DayPill = styled.Text`
   padding: 4px 12px;
@@ -54,7 +54,7 @@ const DayPill = styled.Text`
   background: ${MovaTheme.colorBlack};
 `;
 const DaySpacer = styled.View`
-flex: 1;
+  flex: 1;
 `;
 const DayIcon = styled.View`
   width: 10%;
@@ -151,7 +151,7 @@ export default function WalkInPage({navigation, page}: Props) {
         <PageRefreshScrollView>
             <PageContent>
                 <SectionTitle>
-                    <MovaText style={{color: '#ffffff', fontSize: 30}}>{t('every_day')}</MovaText>
+                    <MovaText style={{color: '#ffffff', fontSize: 30}}>{t('all_activities')}</MovaText>
                 </SectionTitle>
                 {dayRow(t('walk-in_activities'), 'walk-in')}
                 {dayRow(t('rover_activities'), 'rover')}

@@ -78,6 +78,9 @@ export default function GenericPage({navigation, page}: Props) {
           }
         );
       }
+      if (Platform.OS === 'ios') {
+        await Geolocation.requestAuthorization("whenInUse");
+      }
     } catch (err) {
       // ignore errors
       console.warn(err);

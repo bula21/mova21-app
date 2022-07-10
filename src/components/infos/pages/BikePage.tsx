@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import MovaHeadingText from '../../generic/MovaHeadingText';
 import {TouchableOpacity} from 'react-native';
@@ -9,8 +9,9 @@ import MovaMarkdown from '../../generic/MovaMarkdown';
 import MovaText from '../../generic/MovaText';
 import {useTranslation} from 'react-i18next';
 import MovaTheme from '../../../constants/MovaTheme';
-import {InfopagesStore} from '../../../stores/InfopagesStore';
 import PageRefreshScrollView from "../PageRefreshScrollView";
+import { BikeAvailabilityStore } from '../../../stores/BikeAvailabilityStore';
+import { IBikeAvailability } from './IBikeAvailability';
 
 const PageContainer = styled.SafeAreaView`
   background: ${MovaTheme.colorYellow};
@@ -51,10 +52,16 @@ type Props = { navigation: StackNavigationProp<RootStackParamList, 'infospage'>;
 
 export default function BikePage({navigation, page}: Props) {
   const {t} = useTranslation();
-
+  const [bikeAvailability, setBikeAvailability] = useState<IBikeAvailability | null>(null);
+  
   // refresh on mount because live numbers might have changed
   useEffect(() => {
-    InfopagesStore.reload();
+    setBikeAvailability(BikeAvailabilityStore.get());
+    const subscription = BikeAvailabilityStore.subscribe(() => setBikeAvailability(BikeAvailabilityStore.get()));
+    BikeAvailabilityStore.reload();
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   let availabilityRow = (label: string, count: number) => {
@@ -82,12 +89,12 @@ export default function BikePage({navigation, page}: Props) {
         </PageHeader>
       </TouchableOpacity>
       <PageRefreshScrollView>
-        {page.data.open ? (
+        {bikeAvailability?.is_open ? (
           <StatusContent>
             <MovaText style={{fontSize: 24, marginBottom: 5}}>{t('bike_currently_available')}</MovaText>
-            {availabilityRow(t('bikes'), page.data.bikes_available ? page.data.bikes_available : 0)}
-            {availabilityRow(t('cargobikes'), page.data.cargobikes_available ? page.data.cargobikes_available : 0)}
-            {availabilityRow(t('biketrailers'), page.data.trailers_available ? page.data.trailers_available : 0)}
+            {availabilityRow(t('bikes'), bikeAvailability?.regular_bikes ? bikeAvailability?.regular_bikes : 0)}
+            {availabilityRow(t('cargobikes'), bikeAvailability?.cargo_bikes ? bikeAvailability?.cargo_bikes : 0)}
+            {availabilityRow(t('biketrailers'), bikeAvailability?.bike_trailers ? bikeAvailability?.bike_trailers : 0)}
           </StatusContent>
         ) : (
           <StatusContent>

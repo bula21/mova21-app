@@ -27,6 +27,7 @@ const SearchBarHeader = styled.View`
   flex: 1;
   padding: 10px;
   flex-direction: row;
+  margin-top: 10px;
 `;
 
 const SearchBar = styled.View`
@@ -61,7 +62,7 @@ export default function MovaSearchbarHeading<T>(props: Props<T>) {
       leaveSearch();
     }
   }
-  
+
   function enterSearch() {
     Animated.timing(animationProgress, {
       toValue: 1,
@@ -142,17 +143,17 @@ export default function MovaSearchbarHeading<T>(props: Props<T>) {
           ]}>
           {props.navigation ? (
             <TouchableOpacity style={{marginRight: 12}} onPress={() => props.navigation!.goBack()}>
-              <MovaHeadingText style={{marginTop: 10}}>
+              <MovaHeadingText style={{marginTop: -10}}>
                 <IconBack /> {props.headerText}
               </MovaHeadingText>
             </TouchableOpacity>
-          ) : <MovaHeadingText style={{marginTop: -5}}>{props.headerText}</MovaHeadingText>}
+          ) : <MovaHeadingText style={{marginTop: 0}}>{props.headerText}</MovaHeadingText>}
         </MovaAnimatedHeaderContent>
       )}
       <SearchBar style={isSearchActive ? {flexGrow: 1} : {}}>
         <MovaIcon
           name="search-outline"
-          size={50}
+          size={48}
           color="black"
           onPress={() => (isSearchActive ? leaveSearch() : enterSearch())}
         />

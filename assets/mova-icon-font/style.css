@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?bpuhiw');
-  src:  url('fonts/icomoon.eot?bpuhiw#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?bpuhiw') format('truetype'),
-    url('fonts/icomoon.woff?bpuhiw') format('woff'),
-    url('fonts/icomoon.svg?bpuhiw#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?g0cq5j');
+  src:  url('fonts/icomoon.eot?g0cq5j#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?g0cq5j') format('truetype'),
+    url('fonts/icomoon.woff?g0cq5j') format('woff'),
+    url('fonts/icomoon.svg?g0cq5j#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,90 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-wetter-figuren-blitz-deci:before {
+  content: "\e916";
+}
+.icon-wetter-figuren-blitz-gaudi:before {
+  content: "\e917";
+}
+.icon-wetter-figuren-blitz-vinci-tarantula:before {
+  content: "\e918";
+}
+.icon-wetter-figuren-nebel-gaudi:before {
+  content: "\e919";
+}
+.icon-wetter-figuren-nebel-vinci-tarantula:before {
+  content: "\e93c";
+}
+.icon-wetter-figuren-regen-fidu:before {
+  content: "\e944";
+}
+.icon-wetter-figuren-regen-onesta:before {
+  content: "\e945";
+}
+.icon-wetter-figuren-regen-vinci-tarantula:before {
+  content: "\e946";
+}
+.icon-wetter-figuren-schnee-scumpa:before {
+  content: "\e947";
+}
+.icon-wetter-figuren-schnee-vinci-tarantula:before {
+  content: "\e94f";
+}
+.icon-wetter-figuren-sonne-deci:before {
+  content: "\e956";
+}
+.icon-wetter-figuren-sonne-dispa:before {
+  content: "\e957";
+}
+.icon-wetter-figuren-sonne-scumpa:before {
+  content: "\e958";
+}
+.icon-wetter-figuren-sonne-vinci-tarantula:before {
+  content: "\e959";
+}
+.icon-wetter-figuren-wolke-scumpa:before {
+  content: "\e95a";
+}
+.icon-wetter-figuren-wolke-sonne-fidu:before {
+  content: "\e95b";
+}
+.icon-wetter-figuren-wolke-sonne-gaudi:before {
+  content: "\e95c";
+}
+.icon-wetter-figuren-wolke-sonne-regen-dispa:before {
+  content: "\e95d";
+}
+.icon-wetter-figuren-wolke-sonne-regen-onesta:before {
+  content: "\e95e";
+}
+.icon-wetter-figuren-wolke-sonne-regen-vinci-tarantula:before {
+  content: "\e95f";
+}
+.icon-wetter-figuren-wolke-sonne-valo:before {
+  content: "\e960";
+}
+.icon-wetter-figuren-wolke-sonne-vinci-tarantula:before {
+  content: "\e961";
+}
+.icon-wetter-figuren-wolke-valo:before {
+  content: "\e962";
+}
+.icon-wetter-figuren-wolke-vinci-tarantula:before {
+  content: "\e963";
+}
+.icon-wolke-sonne-regen:before {
+  content: "\e964";
+}
+.icon-wolke-sonne:before {
+  content: "\e965";
+}
+.icon-schnee:before {
+  content: "\e966";
+}
+.icon-nebel:before {
+  content: "\e967";
+}
 .icon-blitz:before {
   content: "\e915";
 }
@@ -89,5 +173,8 @@
   content: "\e913";
 }
 .icon-weather:before {
+  content: "\e914";
+}
+.icon-wolke:before {
   content: "\e914";
 }
