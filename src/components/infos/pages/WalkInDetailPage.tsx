@@ -166,7 +166,7 @@ export default function WalkInDetailPage({route, navigation}: Props) {
                         <TouchableOpacity onPress={() => openMap(activity)} activeOpacity={1}>
                           <ActivityDetails>
                             <MovaIcon name="ort-textgroesse" style={{marginTop: Platform.OS === 'ios' ? -6 : -3, marginLeft: -5, fontSize: 28}}/>
-                            <MovaText>{getTranslatedProperty(activity, 'location')}</MovaText>
+                            <MovaText style={{textDecorationLine: activity.map_location_id ? 'underline' : 'none'}}>{getTranslatedProperty(activity, 'location')}</MovaText>
                           </ActivityDetails>
                         </TouchableOpacity>
                     }
