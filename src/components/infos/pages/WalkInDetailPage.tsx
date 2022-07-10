@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import MovaHeadingText from '../../generic/MovaHeadingText';
-import { RefreshControl, ScrollView, TouchableOpacity, View } from 'react-native';
+import { Platform, RefreshControl, ScrollView, TouchableOpacity, View } from 'react-native';
 import IconBack from '../../generic/IconBack';
 import {StackScreenProps} from '@react-navigation/stack';
 import MovaText from '../../generic/MovaText';
@@ -161,18 +161,18 @@ export default function WalkInDetailPage({route, navigation}: Props) {
               <ActivityListItem key={activity.id}>
                 <MovaAccordion header={getTranslatedProperty(activity, 'title')} color={activity.category === 'rover' ? MovaTheme.colorOrange : MovaTheme.colorBlue}>
                   <ActivityDescription>
-                    <MovaMarkdown navigation={navigation}>{getTranslatedProperty(activity, 'description')}</MovaMarkdown>
+                    <MovaMarkdown navigation={navigation} coloredLinks={false}>{getTranslatedProperty(activity, 'description')}</MovaMarkdown>
                     {getTranslatedProperty(activity, 'location') &&
                         <TouchableOpacity onPress={() => openMap(activity)} activeOpacity={1}>
                           <ActivityDetails>
-                            <MovaIcon name="ort-textgroesse" style={{marginTop: -5, marginLeft: -5, fontSize: 28}}/>
+                            <MovaIcon name="ort-textgroesse" style={{marginTop: Platform.OS === 'ios' ? -6 : -3, marginLeft: -5, fontSize: 28}}/>
                             <MovaText>{getTranslatedProperty(activity, 'location')}</MovaText>
                           </ActivityDetails>
                         </TouchableOpacity>
                     }
                     {(getTranslatedProperty(activity, 'opening_hours') || activity.date) ?
                         <ActivityDetails>
-                          <MovaIcon name="uhr-textgroesse" style={{marginTop: -5, marginLeft: -5, fontSize: 28}}/>
+                          <MovaIcon name="uhr-textgroesse" style={{marginTop: Platform.OS === 'ios' ? -5 : -2, marginLeft: -5, fontSize: 28}}/>
                           <View>
                             <MovaText>{getTranslatedProperty(activity, 'opening_hours')}</MovaText>
                             <MovaText>{activity.date ? formatDates(activity) : t('every_day')}</MovaText>

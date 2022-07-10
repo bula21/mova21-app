@@ -24,7 +24,7 @@ const ButtonContainer = styled.View`
   background: ${MovaTheme.colorBlue};
 `;
 
-const styles = StyleSheet.create({
+let styles = {
   body: {
     fontSize: 16,
     fontFamily: fontFamily,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     marginTop: -10,
     borderColor: '#ff0000',
   }
-});
+};
 
 const markdownItInstance =
     MarkdownIt({typographer: true})
@@ -139,6 +139,7 @@ const markdownItInstance =
 
 type Props = {
   children: ReactNode;
+  coloredLinks?: boolean;
   navigation: StackNavigationProp<
     {infopage: {page: IPage}},
     'infopage'
@@ -170,8 +171,15 @@ export default function MovaMarkdown(props: Props) {
     return false;
   }
 
+  let localStyles = styles;
+  if (props.coloredLinks === false) {
+    localStyles = JSON.parse(JSON.stringify(styles));
+    localStyles.link.color = '#00000f'
+  }
+  let stylesheet = StyleSheet.create(localStyles);
+
   return <Markdown
-    style={styles}
+    style={stylesheet}
     onLinkPress={clickMarkdownLink}
     markdownit={markdownItInstance}
     rules={{
