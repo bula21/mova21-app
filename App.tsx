@@ -30,7 +30,7 @@ import InfosMain from './src/components/infos/InfosMain';
 import MapMain from './src/components/map/MapMain';
 import languageManager from './src/helpers/LanguageManager';
 import SplashScreen from 'react-native-splash-screen';
-import Toast from 'react-native-toast-message';
+import Toast, { InfoToast, BaseToastProps, ErrorToast } from 'react-native-toast-message';
 
 const Tab = createBottomTabNavigator();
 
@@ -128,7 +128,7 @@ const App = () => {
               />
             </Tab.Navigator>
           </NavigationContainer>
-          <Toast />
+          <Toast config={toastConfig} />
           </>
         )}
       </SafeAreaInsetsContext.Consumer>
@@ -137,3 +137,35 @@ const App = () => {
 };
 
 export default App;
+
+const fontFamily = Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold';
+const toastConfig = {
+  info: (props: BaseToastProps) => (
+    <InfoToast
+      {...props}
+      text1Style={{
+        fontFamily: fontFamily,
+        fontSize: 16
+      }}
+      text2Style={{
+        fontFamily: fontFamily,
+        fontSize: 14
+      }}
+      style={{ borderLeftColor: MovaTheme.colorBlue }}
+    />
+  ),
+  error: (props: BaseToastProps) => (
+    <ErrorToast
+      {...props}
+      text1Style={{
+        fontFamily: fontFamily,
+        fontSize: 16
+      }}
+      text2Style={{
+        fontFamily: fontFamily,
+        fontSize: 14
+      }}
+      style={{ borderLeftColor: MovaTheme.colorOrange }}
+    />
+  )
+};
