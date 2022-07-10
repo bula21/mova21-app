@@ -39,8 +39,8 @@ moment.locale('de');
 
 languageManager.applyLanguageFromStorageOrDevice();
 
-const App = () => {	
-  const {t} = useTranslation();  
+const App = () => {
+  const {t} = useTranslation();
   React.useEffect(() => {
     SplashScreen.hide();
   });
@@ -149,7 +149,7 @@ const toastConfig = {
       }}
       text2Style={{
         fontFamily: fontFamily,
-        fontSize: 14
+        fontSize: 15
       }}
       style={{ borderLeftColor: MovaTheme.colorBlue }}
     />
@@ -163,7 +163,7 @@ const toastConfig = {
       }}
       text2Style={{
         fontFamily: fontFamily,
-        fontSize: 14
+        fontSize: 15
       }}
       style={{ borderLeftColor: MovaTheme.colorOrange }}
     />
