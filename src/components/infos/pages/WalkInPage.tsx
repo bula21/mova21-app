@@ -41,7 +41,7 @@ const DayView = styled.View`
   flex-wrap: wrap;
   align-items: stretch;
   border-bottom-color: ${MovaTheme.colorBlack};
-  border-bottom-width: 1px;
+  border-bottom-width: 2px;
 `;
 const DayLabel = styled.View`
   margin-top: 5px;
