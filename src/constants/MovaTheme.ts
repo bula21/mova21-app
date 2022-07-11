@@ -3,6 +3,7 @@ export default {
   colorOrange: '#E6500F',
   colorBlue: '#55C0FF',
   colorGrey: '#0000008C',
+  colorGreyNoTransparent: '#000000FF',
   colorBlack: '#000',
   colorWhite: '#FFF',
   // color helper

@@ -30,6 +30,10 @@ const NewsItemDateText = styled.Text`
   color: ${MovaTheme.colorGrey};
 `;
 
+const NewsItemDateTextNonTransparent = styled.Text`
+  color: ${MovaTheme.colorGreyNoTransparent};
+`;
+
 const NewsImageContainer = styled.View`
   background: white;
 `;
@@ -71,7 +75,7 @@ export default function NewsFeedItem({
             <View>
               <MovaText style={{fontSize: 24, marginTop: 5}}>{news.title}</MovaText>
               <MovaText style={{marginTop: Platform.OS === 'ios' ? 5 : 0}}>
-                <NewsItemDateText>{news.excerpt}</NewsItemDateText>
+                <NewsItemDateText>{news.excerpt}</NewsItemDateText><NewsItemDateTextNonTransparent>{news.excerptNonTransparent}</NewsItemDateTextNonTransparent>
               </MovaText>
             </View>
             <View>

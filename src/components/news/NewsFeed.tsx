@@ -92,12 +92,15 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
       let maxTemp = Math.max(...weatherEntriesOfToday.map(w => w.temperature));
       let title = `${minTemp}° - ${maxTemp}°`;
       let icon = weatherEntriesOfToday.find(e => e.daytime = 'Midday')?.weather ?? weatherEntriesOfToday[0].weather;
-      let exerpt = getFunnyExerpt(weatherEntriesOfToday);
+      let funnyExcept = getFunnyExerpt(weatherEntriesOfToday)
+      let exerpt = funnyExcept.substring(0, funnyExcept.indexOf(':') + 1);
+      let exerptNontTransparent = funnyExcept.substring(funnyExcept.indexOf(':') + 1);
       let meteoNews: INews = {
         title: title,
         content: icon,
         date: new Date().toISOString(),
         excerpt: exerpt,
+        excerptNonTransparent: exerptNontTransparent,
         image: null,
         language: '',
         isMeteo: true,
