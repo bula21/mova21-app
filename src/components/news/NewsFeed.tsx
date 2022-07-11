@@ -170,7 +170,7 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
         }
       }
     }
-    return `${base}:    ${shuffle(addtions).join('    ')}`;
+    return `${base}:   ${shuffle(addtions).join('  ')}`;
   }
 
   function onHeaderClick() {
