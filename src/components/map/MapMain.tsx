@@ -41,7 +41,7 @@ export default function MapMain({route}: Props) {
   useFocusEffect(
     React.useCallback(() => {
       if (route && route.params && route.params.id) {
-        setMapUrl(getBaseUrl() + '&search=1fd9e6fe-75ed-4d2f-a9ae-f5d0696aa314&searchScale=4000&query=' + route.params.id);
+        setMapUrl(getBaseUrl() + '&search=3eb795f9-6a91-4f83-a387-4a89541e7b39&searchScale=4000&query=' + route.params.id);
       }
     }, [mapUrl, route])
   );
