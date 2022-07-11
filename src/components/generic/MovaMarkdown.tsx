@@ -189,6 +189,7 @@ export default function MovaMarkdown(props: Props) {
           // @[youtube](9xvSsiVLWcc)
           return (
               <YoutubePlayer
+                webViewStyle={{opacity: 0.99}}
                 key={node.key}
                 height={width / 1.78} // 16:9
                 videoId={node.sourceInfo.videoID}
