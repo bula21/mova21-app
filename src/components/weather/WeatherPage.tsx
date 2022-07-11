@@ -6,17 +6,15 @@ import {TouchableOpacity} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import MovaTheme from '../../constants/MovaTheme';
 import IconBack from '../generic/IconBack';
-import appConfig from '../../appConfig';
-import {IWeather} from '../weather/IWeather';
-import {StackNavigationProp, StackScreenProps} from '@react-navigation/stack';
+import {IWeather} from './IWeather';
+import { StackScreenProps} from '@react-navigation/stack';
 import { IWeatherDayGroup } from './IWeatherDayGroup';
-import { IPage } from '../infos/IPage';
 import WeatherDayGroup from './WeatherDayGroup';
 import LanguageManager from '../../helpers/LanguageManager';
 import { BackendProxy } from '../../helpers/BackendProxy';
 
-const PageContainer = styled.SafeAreaView`
-  background-color: #fff;
+const PageContainer = styled.SafeAreaView<{color: string}>`
+  background: ${(props) => MovaTheme.getColorByName(props.color)};
   flex: 1;
 `;
 
@@ -29,7 +27,7 @@ const PageHeader = styled.View<{color: string}>`
 const groupBy = <T, K extends keyof any>(list: T[], getKey: (item: T) => K) =>
   list.reduce((previous, currentItem) => {
     const group = getKey(currentItem);
-    if (!previous[group]) 
+    if (!previous[group])
       previous[group] = [];
     previous[group].push(currentItem);
     return previous;
@@ -42,13 +40,13 @@ async function loadWeather(showNoInternet: boolean = false): Promise<IWeatherDay
     let dateStartString = dateStart.toISOString().split('T')[0]
     let dateEnd = new Date(new Date().getTime() - (offset*60+1000) + (86400000*3))
     let dateEndString = dateEnd.toISOString().split('T')[0]
-    return BackendProxy.fetchJson(`/items/Weather?fields=*.*&sort=-date&filter[date][_between]=[${dateStartString},${dateEndString}]`, showNoInternet)
+    return BackendProxy.fetchJson(`/items/Weather?fields=*.*&sort=date&filter[date][_between]=[${dateStartString},${dateEndString}]`, showNoInternet)
       .then((json) => {
         let weatherEntries: IWeather[];
         weatherEntries = json.data;
         let groups = groupBy(weatherEntries, x => x.date);
         let weatherGroups: IWeatherDayGroup[] = [];
-        for (let date in groups) {          
+        for (let date in groups) {
           weatherGroups.push({
             date: date,
             morning: groups[date].find(w => w.daytime == 'Morning'),
@@ -64,11 +62,13 @@ async function loadWeather(showNoInternet: boolean = false): Promise<IWeatherDay
       });
   }
 
-type RootStackParamList = {infospage: {page: IPage}};
-type Props = {navigation: StackNavigationProp<RootStackParamList, 'infospage'>; page: IPage};
+//type RootStackParamList = {infospage: {page: IPage}};
+//type Props = {navigation: StackNavigationProp<RootStackParamList, 'infospage'>; page: IPage};
 
+type RootStackParamList = {weatherPage: {}};
+type Props = StackScreenProps<RootStackParamList, 'weatherPage'>;
 
-export default function WeatherPage({navigation, page}: Props) {
+export default function WeatherPage({navigation}: Props) {
   const [weatherDayGroups, setWeatherDayGroups] = useState<IWeatherDayGroup[]>([]);
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
   const {t} = useTranslation();
@@ -88,7 +88,7 @@ export default function WeatherPage({navigation, page}: Props) {
   }
 
   return (
-    <PageContainer>
+    <PageContainer color="blue">
       <FlatList
         data={weatherDayGroups}
         renderItem={({item, index}) => WeatherDayGroup(item, t, index)}

@@ -36,5 +36,7 @@
   "weather_daytime_night": "Nacht",
   "weather_daytime_morning": "Morgen",
   "weather_daytime_midday": "Mittag",
-  "weather_daytime_evening": "Abend"
+  "weather_daytime_evening": "Abend",
+  "tonight": "Heute Nacht",
+  "thisAfternoon": "Heute Nachmittag"
 }

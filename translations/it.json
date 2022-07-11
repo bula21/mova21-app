@@ -34,5 +34,7 @@
   "weather_daytime_night": "Notte",
   "weather_daytime_morning": "Mattina",
   "weather_daytime_midday": "Mezzogiorno",
-  "weather_daytime_evening": "Sera"
+  "weather_daytime_evening": "Sera",
+  "tonight": "Stanote",
+  "thisAfternoon": "Oggi pomeriggio"
 }

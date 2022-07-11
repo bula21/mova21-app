@@ -34,5 +34,7 @@
   "weather_daytime_night": "Nuit",
   "weather_daytime_morning": "Matin",
   "weather_daytime_midday": "Midi",
-  "weather_daytime_evening": "Soir"
+  "weather_daytime_evening": "Soir",
+  "tonight": "Cette nuit",
+  "thisAfternoon": "Cet après-midi"
 }
