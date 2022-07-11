@@ -29,10 +29,14 @@ function http_get_json($url) {
 function html2markdown($html) {
 	// fix images without src and srcset only
 	$html = preg_replace('/<img srcset="(([^ ]*) )([^"]*)"/i', '<img src="$2"', $html);
-	$html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
+	$html = preg_replace('#<iframe.*src=\".*youtube\.com\/embed\/([a-zA-Z0-9_]*)\?.*\".*><\/iframe>#mU', '@[youtube]($1)', $html);
 	$converter = new HtmlConverter();
 	$converter->getConfig()->setOption('strip_tags', true);
-	return $converter->convert($html);
+	$converter->getConfig()->setOption('remove_nodes', 'meta style script');
+	$converter->getConfig()->setOption('strip_placeholder_links', true);
+	$md = $converter->convert($html);
+	$md = str_replace('@\[youtube\]', '@[youtube]', $md);
+	return $md;
 }
 
 function update_news_in_directus($news_id, $data) {
