@@ -13,6 +13,7 @@ import MovaAccordion from "../../generic/MovaAccordion";
 import MovaIcon from "../../generic/MovaIcon";
 import LanguageManager from "../../../helpers/LanguageManager";
 import MovaMarkdown from '../../generic/MovaMarkdown';
+import MovaSearchbarHeading from '../../generic/MovaSearchbarHeading';
 import moment from 'moment';
 
 const PageContainer = styled.SafeAreaView`
@@ -119,37 +120,54 @@ export default function WalkInDetailPage({route, navigation}: Props) {
   let isAllView = route.params.filter === 'all';
   let isCategoryView = ['walk-in', 'rover'].indexOf(route.params.filter) >= 0;
 
-  let filteredActivities = activities.filter(activity => {
-    let dates: string[] = getDatesFromActivity(activity);
-    return isAllView ||
-      activity.category === route.params.filter ||
-        (
-          !isCategoryView &&
-          (
-            !activity.date ||
-            dates.indexOf(route.params.filter) >= 0
-          )
-        ) ||
-      (isCategoryView && activity.category === 'all')
-  }).sort((a, b) => {
-    return getTranslatedProperty(a, 'title').localeCompare(getTranslatedProperty(b, 'title'));
-  });
-
   function openMap(activity: IActivity) {
     if (activity && activity.map_location_id) {
       navigation.navigate('map', { id: activity.map_location_id });
     }
   }
 
+  const handleSearch = (activities: IActivity[]) => {
+    let filteredActivities = activities.filter(activity => {
+      let dates: string[] = getDatesFromActivity(activity);
+      return isAllView ||
+        activity.category === route.params.filter ||
+          (
+            !isCategoryView &&
+            (
+              !activity.date ||
+              dates.indexOf(route.params.filter) >= 0
+            )
+          ) ||
+        (isCategoryView && activity.category === 'all')
+    }).sort((a, b) => {
+      return getTranslatedProperty(a, 'title').localeCompare(getTranslatedProperty(b, 'title'));
+    });
+    setActivities(filteredActivities);
+  }
+
   return (
     <PageContainer>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
         <PageHeader>
-          <MovaHeadingText>
-            <IconBack /> {route.params.label}
-          </MovaHeadingText>
+            <View style={{ height: 78 }}>
+                <MovaSearchbarHeading
+                  headerText={route.params.label}
+                  searchableAttributes={[
+                    'title_de',
+                    'title_fr',
+                    'title_it',
+                    'location_de',
+                    'location_fr',
+                    'location_it',
+                    'description_de',
+                    'description_fr',
+                    'description_it',
+                  ]}
+                  getData={ActivitiesStore.getAll}
+                  getDefaultData={ActivitiesStore.getAll}
+                  handleSearch={handleSearch}
+                  navigation={navigation}/>
+            </View>
         </PageHeader>
-      </TouchableOpacity>
       <ScrollView
           scrollIndicatorInsets={{ right: 1 }}
           refreshControl={
@@ -157,8 +175,8 @@ export default function WalkInDetailPage({route, navigation}: Props) {
           }
       >
         {
-          filteredActivities.length
-            ? filteredActivities.map(activity => (
+          activities.length
+            ? activities.map(activity => (
               <ActivityListItem key={activity.id}>
                 <MovaAccordion header={getTranslatedProperty(activity, 'title')} color={activity.category === 'rover' ? MovaTheme.colorOrange : MovaTheme.colorBlue}>
                   <ActivityDescription>
