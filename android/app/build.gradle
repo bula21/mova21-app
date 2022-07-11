@@ -143,8 +143,8 @@ android {
         applicationId "ch.mova.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8
-        versionName "8"
+        versionCode 9
+        versionName "9"
     }
     splits {
         abi {
