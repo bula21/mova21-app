@@ -53,6 +53,7 @@ const App = () => {
           <NavigationContainer>
             <Tab.Navigator
               tabBarOptions={{
+                allowFontScaling: false,
                 activeTintColor: MovaTheme.colorBlack,
                 inactiveTintColor: MovaTheme.colorGrey,
                 labelStyle: {
