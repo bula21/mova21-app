@@ -66,7 +66,7 @@ export default function MovaSearchbarHeading<T>(props: Props<T>) {
   function enterSearch() {
     Animated.timing(animationProgress, {
       toValue: 1,
-      duration: 400,
+      duration: 200,
       useNativeDriver: false,
       easing: Easing.out(Easing.circle),
     }).start(() => {
@@ -89,7 +89,7 @@ export default function MovaSearchbarHeading<T>(props: Props<T>) {
     animationProgress.setValue(1);
     Animated.timing(animationProgress, {
       toValue: 0,
-      duration: 400,
+      duration: 200,
       useNativeDriver: false,
       easing: Easing.out(Easing.circle),
     }).start();
