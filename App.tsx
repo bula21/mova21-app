@@ -42,7 +42,7 @@ languageManager.applyLanguageFromStorageOrDevice();
 const App = () => {
   const {t} = useTranslation();
   React.useEffect(() => {
-    SplashScreen.hide();
+    setTimeout(() => SplashScreen.hide(), 1500);
   });
 
   return (
