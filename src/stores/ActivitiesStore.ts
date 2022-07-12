@@ -8,7 +8,7 @@ const subject = new Subject();
 let activities: IActivity[] = [];
 
 async function loadActivities(showNoInternet: boolean = false): Promise<void> {
-	BackendProxy.fetchJson('/items/activities', showNoInternet)
+	BackendProxy.fetchJson('/items/activities?limit=-1', showNoInternet)
 		.then((json) => {
 			activities = json ? json.data : [];
 			subject.next(activities);

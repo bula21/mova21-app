@@ -25,7 +25,7 @@ const NewsHeader = styled.View`
 
 async function loadNews(showNoInternet: boolean = false): Promise<INews[]> {
   return BackendProxy.fetchJson(
-    'items/news?fields=*.*&sort=-date&filter[language]=' + (await languageManager.getCurrentLanguageAsync()),
+    'items/news?fields=*.*&sort=-date&limit=-1&filter[language]=' + (await languageManager.getCurrentLanguageAsync()),
     showNoInternet,
   )
     .then((json) => {
@@ -38,7 +38,7 @@ async function loadNews(showNoInternet: boolean = false): Promise<INews[]> {
 
 async function loadWeatherEntriesOfToday(showNoInternet: boolean = false): Promise<IWeather[]> {
   return BackendProxy.fetchJson(
-    'items/Weather?fields=*.*&sort=-date&filter[date]=' + new Date().toISOString().split('T')[0],
+    'items/Weather?fields=*.*&sort=-date&limit=-1&filter[date]=' + new Date().toISOString().split('T')[0],
     showNoInternet
   )
     .then((json) => {
@@ -66,7 +66,7 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
     loadNews().then((response) => {
       loadWeatherEntriesOfToday().then((weatherEntriesOfToday) => {
         unshiftMeteoToNews(weatherEntriesOfToday, response);
-        setLoading(false);        
+        setLoading(false);
         setNews(response);
       })
     });
@@ -79,7 +79,7 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
     loadNews(showNoInternet).then((response) => {
       loadWeatherEntriesOfToday(showNoInternet).then((weatherEntriesOfToday) => {
         unshiftMeteoToNews(weatherEntriesOfToday, response);
-        setRefreshing(false);        
+        setRefreshing(false);
         setNews(response);
       })
       setClickCounter(0)
@@ -120,21 +120,21 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
       if (weatherOfTonight) {
         if (weatherOfTonight.temperature < 10) {
           if (weatherOfTonight.temperature <= 0)
-            addtions.push(chooseRandom(['🧊'])); 
+            addtions.push(chooseRandom(['🧊']));
           if (weatherOfTonight.temperature < 5)
-            addtions.push(chooseRandom(['🥶🥶🥶'])); 
+            addtions.push(chooseRandom(['🥶🥶🥶']));
           if (weatherOfTonight.temperature < 8)
-            addtions.push(chooseRandom(['🥶🥶'])); 
+            addtions.push(chooseRandom(['🥶🥶']));
           else
-            addtions.push(chooseRandom(['🥶'])); 
+            addtions.push(chooseRandom(['🥶']));
         }
         if (['Sun'].includes(weatherOfTonight.weather)) {
-          addtions.push(chooseRandom(['🌛', '🌃'])); 
+          addtions.push(chooseRandom(['🌛', '🌃']));
         }
         if (['CloudRain', 'CloudSunRain'].includes(weatherOfTonight.weather)) {
-          addtions.push(chooseRandom(['☔'])); 
+          addtions.push(chooseRandom(['☔']));
         }
-        addtions.push(chooseRandom(['😴', '🛌', '⛺', '👻' ]));        
+        addtions.push(chooseRandom(['😴', '🛌', '⛺', '👻' ]));
       }
     }
     else {
@@ -143,12 +143,12 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
       if (weatherOfAfternoon) {
         if (weatherOfAfternoon.temperature > 25) {
           if (weatherOfAfternoon.temperature > 30)
-            addtions.push(chooseRandom(['🔥🔥🔥'])); 
+            addtions.push(chooseRandom(['🔥🔥🔥']));
           else
-            addtions.push(chooseRandom(['🥵', '🌶'])); 
+            addtions.push(chooseRandom(['🥵', '🌶']));
         }
         if (['Cloud', 'CloudSun'].includes(weatherOfAfternoon.weather)) {
-          addtions.push(chooseRandom(['🙄', '🥱', '😔', '🤔'])); 
+          addtions.push(chooseRandom(['🙄', '🥱', '😔', '🤔']));
         }
         if (['Thunderstorm'].includes(weatherOfAfternoon.weather)) {
           addtions.push(chooseRandom(['😲', '😔', '🧊🐈', '⚠', '🚨']));
@@ -169,7 +169,7 @@ export default function NewsMain({navigation}: {navigation: NavigationProp}) {
           addtions.push(chooseRandom(['⛄', '⛷']));
         }
         if (addtions.length == 0) {
-          addtions.push(weatherOfAfternoon.weather); 
+          addtions.push(weatherOfAfternoon.weather);
         }
       }
     }

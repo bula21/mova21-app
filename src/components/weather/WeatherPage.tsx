@@ -40,7 +40,7 @@ async function loadWeather(showNoInternet: boolean = false): Promise<IWeatherDay
     let dateStartString = dateStart.toISOString().split('T')[0]
     let dateEnd = new Date(new Date().getTime() - (offset*60+1000) + (86400000*3))
     let dateEndString = dateEnd.toISOString().split('T')[0]
-    return BackendProxy.fetchJson(`/items/Weather?fields=*.*&sort=date&filter[date][_between]=[${dateStartString},${dateEndString}]`, showNoInternet)
+    return BackendProxy.fetchJson(`/items/Weather?fields=*.*&sort=date&limit=-1&filter[date][_between]=[${dateStartString},${dateEndString}]`, showNoInternet)
       .then((json) => {
         let weatherEntries: IWeather[];
         weatherEntries = json.data;
