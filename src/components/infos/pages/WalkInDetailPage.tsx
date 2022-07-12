@@ -58,12 +58,31 @@ export default function WalkInDetailPage({route, navigation}: Props) {
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(true);
 
+  const updateActivities = (activities: IActivity[]) => {
+    let filteredActivities = activities.filter(activity => {
+      let dates: string[] = getDatesFromActivity(activity);
+      return isAllView ||
+        activity.category === route.params.filter ||
+          (
+            !isCategoryView &&
+            (
+              !activity.date ||
+              dates.indexOf(route.params.filter) >= 0
+            )
+          ) ||
+        (isCategoryView && activity.category === 'all')
+    }).sort((a, b) => {
+      return getTranslatedProperty(a, 'title').localeCompare(getTranslatedProperty(b, 'title'));
+    });
+    setActivities(filteredActivities);
+  }
+
   // refresh on mount because data might have changed
   useEffect(() => {
-    setActivities(ActivitiesStore.getAll());
+    updateActivities(ActivitiesStore.getAll());
     setLoading(false);
     const subscription = ActivitiesStore.subscribe((act: IActivity[]) => {
-      setActivities(act);
+      updateActivities(act);
     });
     ActivitiesStore.reload();
     return () => {
@@ -74,7 +93,7 @@ export default function WalkInDetailPage({route, navigation}: Props) {
   function onRefresh() {
     setRefreshing(true);
     ActivitiesStore.reload(true).then(() => {
-      setActivities(ActivitiesStore.getAll());
+      updateActivities(ActivitiesStore.getAll());
       setRefreshing(false);
     });
   }
@@ -126,25 +145,6 @@ export default function WalkInDetailPage({route, navigation}: Props) {
     }
   }
 
-  const handleSearch = (activities: IActivity[]) => {
-    let filteredActivities = activities.filter(activity => {
-      let dates: string[] = getDatesFromActivity(activity);
-      return isAllView ||
-        activity.category === route.params.filter ||
-          (
-            !isCategoryView &&
-            (
-              !activity.date ||
-              dates.indexOf(route.params.filter) >= 0
-            )
-          ) ||
-        (isCategoryView && activity.category === 'all')
-    }).sort((a, b) => {
-      return getTranslatedProperty(a, 'title').localeCompare(getTranslatedProperty(b, 'title'));
-    });
-    setActivities(filteredActivities);
-  }
-
   return (
     <PageContainer>
         <PageHeader>
@@ -164,7 +164,7 @@ export default function WalkInDetailPage({route, navigation}: Props) {
                   ]}
                   getData={ActivitiesStore.getAll}
                   getDefaultData={ActivitiesStore.getAll}
-                  handleSearch={handleSearch}
+                  handleSearch={updateActivities}
                   navigation={navigation}/>
             </View>
         </PageHeader>
