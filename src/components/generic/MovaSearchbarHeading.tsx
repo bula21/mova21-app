@@ -147,7 +147,7 @@ export default function MovaSearchbarHeading<T>(props: Props<T>) {
                 <IconBack /> {props.headerText}
               </MovaHeadingText>
             </TouchableOpacity>
-          ) : <MovaHeadingText style={{marginTop: 0}}>{props.headerText}</MovaHeadingText>}
+          ) : <MovaHeadingText style={{marginTop: 0,flexDirection:'row',flex:1}}>{props.headerText}</MovaHeadingText>}
         </MovaAnimatedHeaderContent>
       )}
       <SearchBar style={isSearchActive ? {flexGrow: 1} : {}}>
