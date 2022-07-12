@@ -143,11 +143,12 @@ export default function MovaSearchbarHeading<T>(props: Props<T>) {
           ]}>
           {props.navigation ? (
             <TouchableOpacity style={{marginRight: 12}} onPress={() => props.navigation!.goBack()}>
-              <MovaHeadingText style={{marginTop: -10}}>
-                <IconBack /> {props.headerText}
+              <MovaHeadingText numberOfLines={1} ellipsizeMode={"tail"} style={{marginTop: -10, flex: 1, flexDirection: "row"}}>
+                <IconBack />
+                {props.headerText}
               </MovaHeadingText>
             </TouchableOpacity>
-          ) : <MovaHeadingText style={{marginTop: 0,flexDirection:'row',flex:1}}>{props.headerText}</MovaHeadingText>}
+          ) : <MovaHeadingText style={{marginTop: 0}}>{props.headerText}</MovaHeadingText>}
         </MovaAnimatedHeaderContent>
       )}
       <SearchBar style={isSearchActive ? {flexGrow: 1} : {}}>
