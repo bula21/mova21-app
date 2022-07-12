@@ -11,6 +11,7 @@ type Props = {
 
 const AccordionContainer = styled.View`
     padding: 8px;
+    overflow: hidden;
 `;
 
 const AccordionHeader = styled.View`
