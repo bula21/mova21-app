@@ -11,7 +11,7 @@ const subject = new Subject();
 let pages: IPage[] = [];
 
 async function loadPages(showNoInternet: boolean = false): Promise<void> {
-	return BackendProxy.fetchJson('items/pages?filter[language]=' + (await languageManager.getCurrentLanguageAsync()), showNoInternet)
+	return BackendProxy.fetchJson('items/pages?limit=-1&filter[language]=' + (await languageManager.getCurrentLanguageAsync()), showNoInternet)
 		.then((json) => {
 			pages = json ? json.data : [];
 			subject.next(pages);

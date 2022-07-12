@@ -3,7 +3,7 @@
   "map": "Mappa",
   "radio": "Radio",
   "info": "Info",
-  "weather": "Tempo",
+  "weather": "Meteo",
   "starting_call": "La chiamata viene avviata",
   "location": "Posizione",
   "location_accuracy": "Precisione",
@@ -33,7 +33,7 @@
   "bike_closed": "Il noleggio di biciclette è attualmente chiuso.",
   "weather_daytime_night": "Notte",
   "weather_daytime_morning": "Mattina",
-  "weather_daytime_midday": "Mezzogiorno",
+  "weather_daytime_midday": "Mezzog.",
   "weather_daytime_evening": "Sera",
   "tonight": "Stanote",
   "thisAfternoon": "Oggi pomeriggio"
