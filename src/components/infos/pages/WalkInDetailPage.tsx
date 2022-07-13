@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
-import MovaHeadingText from '../../generic/MovaHeadingText';
 import { Platform, RefreshControl, ScrollView, TouchableOpacity, View } from 'react-native';
-import IconBack from '../../generic/IconBack';
 import {StackScreenProps} from '@react-navigation/stack';
 import MovaText from '../../generic/MovaText';
 import {useTranslation} from 'react-i18next';
@@ -22,7 +20,7 @@ const PageContainer = styled.SafeAreaView`
 `;
 
 const PageHeader = styled.View`
-  padding: 10px;
+  height: 78px
 `;
 
 const ActivityListItem = styled.View`
@@ -148,25 +146,23 @@ export default function WalkInDetailPage({route, navigation}: Props) {
   return (
     <PageContainer>
         <PageHeader>
-            <View style={{ height: 78 }}>
-                <MovaSearchbarHeading
-                  headerText={route.params.label}
-                  searchableAttributes={[
-                    'title_de',
-                    'title_fr',
-                    'title_it',
-                    'location_de',
-                    'location_fr',
-                    'location_it',
-                    'description_de',
-                    'description_fr',
-                    'description_it',
-                  ]}
-                  getData={ActivitiesStore.getAll}
-                  getDefaultData={ActivitiesStore.getAll}
-                  handleSearch={updateActivities}
-                  navigation={navigation}/>
-            </View>
+            <MovaSearchbarHeading
+              headerText={route.params.label}
+              searchableAttributes={[
+                'title_de',
+                'title_fr',
+                'title_it',
+                'location_de',
+                'location_fr',
+                'location_it',
+                'description_de',
+                'description_fr',
+                'description_it',
+              ]}
+              getData={ActivitiesStore.getAll}
+              getDefaultData={ActivitiesStore.getAll}
+              handleSearch={updateActivities}
+              navigation={navigation}/>
         </PageHeader>
       <ScrollView
           scrollIndicatorInsets={{ right: 1 }}

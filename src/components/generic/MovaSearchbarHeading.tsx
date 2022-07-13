@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Animated, Easing, Platform, TouchableOpacity} from 'react-native';
+import { Animated, Easing, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import MovaHeadingText from './MovaHeadingText';
 import {useTranslation} from 'react-i18next';
@@ -144,8 +144,7 @@ export default function MovaSearchbarHeading<T>(props: Props<T>) {
           {props.navigation ? (
             <TouchableOpacity style={{marginRight: 12}} onPress={() => props.navigation!.goBack()}>
               <MovaHeadingText numberOfLines={1} ellipsizeMode={"tail"} style={{marginTop: -10, flex: 1, flexDirection: "row"}}>
-                <IconBack />
-                {props.headerText}
+                <IconBack/>{props.headerText}
               </MovaHeadingText>
             </TouchableOpacity>
           ) : <MovaHeadingText style={{marginTop: 0}}>{props.headerText}</MovaHeadingText>}
