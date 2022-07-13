@@ -47,7 +47,7 @@ Remote Debugging starten:
 Version erhöhen:
 
 - `android/app/build.gradle:146`
-- `package.json`
+- `package.json:3`
 - `ios/Mova21/Info.plist:22` CFBundleVersion und CFBundleShortVersionString
 
 ### Android
