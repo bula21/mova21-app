@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Animated, Easing, Platform, TouchableOpacity} from 'react-native';
+import { Animated, Easing, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import MovaHeadingText from './MovaHeadingText';
 import {useTranslation} from 'react-i18next';
@@ -66,7 +66,7 @@ export default function MovaSearchbarHeading<T>(props: Props<T>) {
   function enterSearch() {
     Animated.timing(animationProgress, {
       toValue: 1,
-      duration: 400,
+      duration: 200,
       useNativeDriver: false,
       easing: Easing.out(Easing.circle),
     }).start(() => {
@@ -89,7 +89,7 @@ export default function MovaSearchbarHeading<T>(props: Props<T>) {
     animationProgress.setValue(1);
     Animated.timing(animationProgress, {
       toValue: 0,
-      duration: 400,
+      duration: 200,
       useNativeDriver: false,
       easing: Easing.out(Easing.circle),
     }).start();
@@ -143,8 +143,8 @@ export default function MovaSearchbarHeading<T>(props: Props<T>) {
           ]}>
           {props.navigation ? (
             <TouchableOpacity style={{marginRight: 12}} onPress={() => props.navigation!.goBack()}>
-              <MovaHeadingText style={{marginTop: -10}}>
-                <IconBack /> {props.headerText}
+              <MovaHeadingText numberOfLines={1} ellipsizeMode={"tail"} style={{marginTop: -10, flex: 1, flexDirection: "row"}}>
+                <IconBack/>{props.headerText}
               </MovaHeadingText>
             </TouchableOpacity>
           ) : <MovaHeadingText style={{marginTop: 0}}>{props.headerText}</MovaHeadingText>}
