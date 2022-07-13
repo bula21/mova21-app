@@ -56,7 +56,7 @@ Für Android wird das Secrets File `android/app/signing.gradle` und `android/app
 
 Android APK builden:
 
-    ./build_android.sh
+    ./build-android.sh
 
 ### iOS
 
