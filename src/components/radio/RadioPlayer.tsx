@@ -132,7 +132,7 @@ export default function RadioPlayer({navigation}: any) {
   const [pageLinkText, setLinkText] = React.useState('...');
   const [streamURL, setStreamURL] = React.useState<string|null>(null);
   const [posterURL, setPosterURL] = React.useState<string>('https://app-backend.mova.ch/assets/54289b46-6c2b-4fb1-98e9-716b89384ed7');
-  const [isOnAir, setIsOnAir] = React.useState(true);
+  const [isOnAir, setIsOnAir] = React.useState(false);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [currentTrack, setCurrentTrack] = React.useState<ITrack>({
     title: currentTitle,
@@ -156,7 +156,7 @@ export default function RadioPlayer({navigation}: any) {
     BackendProxy.fetchJson('/items/radio', false)
       .then((json) => {
         if (json) {
-          //setIsOnAir(json.data.isOnline)
+          setIsOnAir(json.data.isOnline)
           setOfflineText(json.data.offlineText)
           setCurrentTitle(json.data.currentTitle)
           setCurrentArtist(json.data.currentArtist)
