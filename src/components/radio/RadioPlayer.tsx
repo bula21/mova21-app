@@ -242,7 +242,6 @@ export default function RadioPlayer({navigation}: any) {
     if (pageId) {
       const page = InfopagesStore.getPage(parseInt(pageId));
       if (page) {
-        console.log(navigation)
         navigation.push(
           'infopage', { page }
         );
