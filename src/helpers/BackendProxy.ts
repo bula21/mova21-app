@@ -22,7 +22,7 @@ const fetchJson = async (url: string, showNoInternet: boolean) => {
 	}
 }
 
-const fetchJsonOffline = async (url: string) => AsyncStorage.getItem(url).then(s => {
+export const fetchJsonOffline = async (url: string) => AsyncStorage.getItem(url).then(s => {
 	if (s) {
 		return JSON.parse(s);
 	}
@@ -32,7 +32,7 @@ const fetchJsonOffline = async (url: string) => AsyncStorage.getItem(url).then(s
 });
 
 /** Attempt to fetch data online. Fall back to offline storage if reading online fails. */
-const fetchJsonOnlineOrOffline = async (url: string) => {
+export const fetchJsonOnlineOrOffline = async (url: string) => {
 	const response = await fetch(url).catch(
 		error => {
 			// Ignore error, offline data will be used.

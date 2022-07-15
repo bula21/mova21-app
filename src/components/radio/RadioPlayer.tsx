@@ -17,6 +17,7 @@ import MovaText from '../generic/MovaText';
 import IconDetailView from '../generic/IconDetailView';
 import { InfopagesStore } from '../../stores/InfopagesStore';
 import LanguageManager from '../../helpers/LanguageManager';
+import {RadioProxy} from '../../helpers/RadioProxy';
 
 const radioImage = require('../../../assets/radio_cover.png');
 
@@ -52,16 +53,31 @@ const RadioStatusIndicator = styled.Text`
 
 const RadioContainer = styled.View`
   flex: 1;
-  align-items: flex-end;
   justify-content: space-between;
   background: ${MovaTheme.colorBlue};
 `;
 
-const RadioCover = styled.Image`
-  flex: 1;
+const RadioCoverWrapper = styled.View`
+  background: #000;
+  justify-content: center;
+  flex-grow: 1;
+  flex-shrink: 1;
+  background-color: ${MovaTheme.colorBlack};
+  padding: 15px;
+`;
+
+const RadioCover = styled.View`
+  aspect-ratio: 1;
+  flex-grow: 0;
+  flex-shrink: 1;
   align-self: center;
   justify-content: space-between;
-  max-width: 100%;
+  width: 100%;
+`;
+
+const RadioCoverImage = styled.Image`
+  width: 100%;
+  height: 100%;
 `;
 
 const RadioPlayerInfoLink = styled.TouchableOpacity`
@@ -72,26 +88,26 @@ const RadioPlayerInfoLink = styled.TouchableOpacity`
   justify-content: space-between;
   padding: 0 15px;
   overflow: hidden;
-  background-color: ${MovaTheme.colorYellow};
+  background-color: ${MovaTheme.colorBlue};
 `;
 
 const RadioPlayerRow = styled.View`
-  height: 130px;
+  min-height: 110px;
   width: 100%;
   align-items: center;
   flex-direction: row;
-  padding: 0 15px;
+  padding: 10px;
   overflow: hidden;
   background-color: #2c2e34;
 `;
 
 const RadioPlayerOffline = styled.View`
-  height: 130px;
+  flex-grow: 0;
   width: 100%;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: row;
-  background: ${MovaTheme.colorOrange};
-  padding: 20px;
+  background: ${MovaTheme.colorBlue};
+  padding: 10px 15px;
   overflow: hidden;
 `;
 
@@ -108,17 +124,15 @@ const RadioDescription = styled.View`
 `;
 
 const SongTitle = styled.Text`
-  font-size: 24px;
+  font-size: 22px;
   font-family: ${Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold'};
   color: #fff;
-  margin-bottom: 8px;
 `;
 
 const BandName = styled.Text`
-  font-size: 24px;
-  font-family: ${Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold'};
+  font-size: 18px;
+  font-family: ${Platform.OS === 'ios' ? 'MessinaSans-Regular' : 'MS-Regular'};
   color: #afb0b3;
-  margin-top: -5px;
 `;
 
 export default function RadioPlayer({navigation}: any) {
@@ -126,13 +140,15 @@ export default function RadioPlayer({navigation}: any) {
   const [isLoading, setIsLoading] = React.useState(true);
   const [isInitialized, setIsInitialized] = React.useState(false);
   const [offlineText, setOfflineText] = React.useState('');
-  const [currentTitle, setCurrentTitle] = React.useState('Sonar');
-  const [currentArtist, setCurrentArtist] = React.useState('mova Radio');
+  const [currentTitle, setCurrentTitle] = React.useState('mova live');
+  const [currentArtist, setCurrentArtist] = React.useState('Radio Sonar');
   const [pageId, setPageId] = React.useState('');
   const [pageLinkText, setLinkText] = React.useState('...');
-  const [streamURL, setStreamURL] = React.useState<string|null>(null);
+  const [streamURL, setStreamURL] = React.useState<string | null>(null);
   const [posterURL, setPosterURL] = React.useState<string>('https://app-backend.mova.ch/assets/54289b46-6c2b-4fb1-98e9-716b89384ed7');
+  const [isEnabled, setIsEnabled] = React.useState(false);
   const [isOnAir, setIsOnAir] = React.useState(false);
+  const [rawTitle, setRawTitle] = React.useState<string>('mova live - Radio Sonar');
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [currentTrack, setCurrentTrack] = React.useState<ITrack>({
     title: currentTitle,
@@ -143,23 +159,27 @@ export default function RadioPlayer({navigation}: any) {
   // on mount
   useEffect(() => {
     loadConfig();
+    loadInfo();
   }, []);
 
   // on tab focus
   useFocusEffect(
     React.useCallback(() => {
-      loadConfig()
-    }, [])
+      loadConfig();
+      loadInfo();
+      const timerID = setInterval(() => loadInfo(), 15000);
+      return () => {
+        clearInterval(timerID);
+      };
+    }, [rawTitle, isOnAir]),
   );
 
   const loadConfig = () => {
     BackendProxy.fetchJson('/items/radio', false)
       .then((json) => {
         if (json) {
-          setIsOnAir(json.data.isOnline)
+          setIsEnabled(json.data.isOnline)
           setOfflineText(json.data.offlineText)
-          setCurrentTitle(json.data.currentTitle)
-          setCurrentArtist(json.data.currentArtist)
           setStreamURL(json.data.streamUrl)
           switch (LanguageManager.currentLanguage) {
             case 'fr':
@@ -176,14 +196,6 @@ export default function RadioPlayer({navigation}: any) {
                 setLinkText(json.data.pageLinkText_de)
                 break;
           }
-          if (json.data.posterUrl) {
-            setPosterURL(json.data.posterUrl)
-          }
-          setCurrentTrack({
-            title: currentTitle,
-            artwork: radioImage, // URL or RN's image require()
-            artist: currentArtist,
-          });
         }
         setIsLoading(false);
       })
@@ -191,7 +203,37 @@ export default function RadioPlayer({navigation}: any) {
         console.error(error);
         setIsLoading(false);
       });
-  }
+  };
+
+  const loadInfo = () => {
+    if (isEnabled) {
+      RadioProxy.fetchJson('https://sonar.42m.ch/song/info.json', false)
+        .then(info => {
+          if (info) {
+            setIsOnAir(info.online);
+            if (isEnabled && isOnAir && rawTitle !== info.title) {
+              setRawTitle(() => info.title);
+              setCurrentTitle(info.song);
+              setCurrentArtist(info.artist);
+              if (info.cover) {
+                const uri = `https://sonar.42m.ch${info.cover}?t=` + Date.now().toString();
+                setPosterURL(uri);
+                setCurrentTrack({
+                  title: currentTitle,
+                  artwork: {uri}, // URL or RN's image require()
+                  artist: currentArtist,
+                });
+              }
+            }
+          }
+          setIsLoading(false);
+        })
+        .catch(error => {
+          console.error(error);
+          setIsLoading(false);
+        });
+    }
+  };
 
   // Declare player reference
   let player: Video | null;
@@ -273,47 +315,61 @@ export default function RadioPlayer({navigation}: any) {
               ?
                 <RadioStatusIndicator
                   style={{
-                    backgroundColor: isOnAir ? MovaTheme.colorOrange : MovaTheme.colorGrey,
+                    backgroundColor: isEnabled && isOnAir ? MovaTheme.colorOrange : MovaTheme.colorGrey,
                   }}>
-                  {isOnAir ? "On Air" : "Offline"}
+                  {isEnabled && isOnAir ? "On Air" : "Offline"}
                 </RadioStatusIndicator>
               : []
           }
         </RadioHeader>
         <RadioContainer>
-          <RadioCover source={currentTrack.artwork} />
-          { !isLoading
-              ? isOnAir
-                ?
-                  <>
-                    {
-                      pageId ?
-                      <RadioPlayerInfoLink onPress={openRadioPage}>
-                        <MovaText>{pageLinkText}</MovaText>
-                        <IconDetailView/>
-                      </RadioPlayerInfoLink>
-                      : null
-                    }
-                  <RadioPlayerRow>
-                    {
-                      audio ?
-                        <RadioPlayerControls>
-                          <TouchableOpacity onPress={handlePlayer}>
-                            <MovaIcon name={isPlaying ? 'pause' : 'play'} size={100} style={{color: MovaTheme.colorWhite}} />
-                            {audio}
-                          </TouchableOpacity>
-                        </RadioPlayerControls>
-                      : null
-                    }
-                    <RadioDescription>
-                      <SongTitle>{currentTitle}</SongTitle>
-                      <BandName>{currentArtist}</BandName>
-                    </RadioDescription>
-                  </RadioPlayerRow>
-                  </>
-                  : <RadioPlayerOffline><MovaMarkdown navigation={navigation} >{offlineText}</MovaMarkdown></RadioPlayerOffline>
-              : <RadioPlayerRow/>
-          }
+          {!isLoading ? (
+            isEnabled && isOnAir ? (
+              <>
+                <RadioCoverWrapper>
+                  <RadioCover>
+                    <RadioCoverImage source={currentTrack.artwork} />
+                  </RadioCover>
+                </RadioCoverWrapper>
+                {
+                  pageId ?
+                    <RadioPlayerInfoLink onPress={openRadioPage}>
+                      <MovaText>{pageLinkText}</MovaText>
+                      <IconDetailView/>
+                    </RadioPlayerInfoLink>
+                    : null
+                }
+                <RadioPlayerRow>
+                  {audio ? (
+                    <RadioPlayerControls>
+                      <TouchableOpacity onPress={handlePlayer}>
+                        <MovaIcon name={isPlaying ? 'pause' : 'play'} size={72} style={{color: MovaTheme.colorWhite}} />
+                        {audio}
+                      </TouchableOpacity>
+                    </RadioPlayerControls>
+                  ) : null}
+                  <RadioDescription>
+                    <SongTitle>{currentTitle}</SongTitle>
+                    <BandName>{currentArtist}</BandName>
+                  </RadioDescription>
+                </RadioPlayerRow>
+              </>
+            ) : (
+              <>
+                <RadioCoverImage source={radioImage} style={{flexGrow: 1, flexShrink:1}}/>
+                <RadioPlayerOffline>
+                  <MovaMarkdown navigation={navigation}>
+                    {offlineText}
+                  </MovaMarkdown>
+                </RadioPlayerOffline>
+              </>
+            )
+          ) : (
+            <>
+              <RadioCoverImage source={radioImage} style={{flexGrow: 1, flexShrink:1}}/>
+              <RadioPlayerRow />
+            </>
+          )}
         </RadioContainer>
       </SafeAreaView>
     </MainContainer>
