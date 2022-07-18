@@ -72,7 +72,7 @@ const RadioPlayerInfoLink = styled.TouchableOpacity`
   justify-content: space-between;
   padding: 0 15px;
   overflow: hidden;
-  background-color: ${MovaTheme.colorYellow};
+  background-color: ${MovaTheme.colorBlue};
 `;
 
 const RadioPlayerRow = styled.View`
