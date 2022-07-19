@@ -131,8 +131,8 @@ const SongTitle = styled.Text`
 
 const BandName = styled.Text`
   font-size: 18px;
-  font-family: ${Platform.OS === 'ios' ? 'MessinaSans-Regular' : 'MS-Regular'};
-  color: #afb0b3;
+  font-family: ${Platform.OS === 'ios' ? 'MessinaSans-Bold' : 'MS-Bold'};
+  color: #999999;
 `;
 
 export default function RadioPlayer({navigation}: any) {
