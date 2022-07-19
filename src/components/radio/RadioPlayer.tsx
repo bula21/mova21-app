@@ -140,38 +140,26 @@ export default function RadioPlayer({navigation}: any) {
   const [isLoading, setIsLoading] = React.useState(true);
   const [isInitialized, setIsInitialized] = React.useState(false);
   const [offlineText, setOfflineText] = React.useState('');
-  const [currentTitle, setCurrentTitle] = React.useState('mova live');
-  const [currentArtist, setCurrentArtist] = React.useState('Radio Sonar');
   const [pageId, setPageId] = React.useState('');
   const [pageLinkText, setLinkText] = React.useState('...');
   const [streamURL, setStreamURL] = React.useState<string | null>(null);
-  const [posterURL, setPosterURL] = React.useState<string>('https://app-backend.mova.ch/assets/54289b46-6c2b-4fb1-98e9-716b89384ed7');
   const [isEnabled, setIsEnabled] = React.useState(false);
   const [isOnAir, setIsOnAir] = React.useState(false);
+  const [updateIntervalId, setUpdateIntervalId] = React.useState<unknown>(0);
   const [rawTitle, setRawTitle] = React.useState<string>('mova live - Radio Sonar');
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [currentTrack, setCurrentTrack] = React.useState<ITrack>({
-    title: currentTitle,
-    artwork: radioImage, // URL or RN's image require()
-    artist: currentArtist,
+    title: 'mova live',
+    artwork: radioImage,
+    artist: 'Radio Sonar',
   });
-
-  // on mount
-  useEffect(() => {
-    loadConfig();
-    loadInfo();
-  }, []);
 
   // on tab focus
   useFocusEffect(
     React.useCallback(() => {
       loadConfig();
-      loadInfo();
-      const timerID = setInterval(() => loadInfo(), 15000);
-      return () => {
-        clearInterval(timerID);
-      };
-    }, [rawTitle, isOnAir]),
+      loadInfo(true);
+    }, []),
   );
 
   const loadConfig = () => {
@@ -205,35 +193,48 @@ export default function RadioPlayer({navigation}: any) {
       });
   };
 
-  const loadInfo = () => {
+  const loadInfo = (onlyOnAirStatus = false) => {
     if (isEnabled) {
-      RadioProxy.fetchJson('https://sonar.42m.ch/song/info.json', false)
-        .then(info => {
+        RadioProxy.fetchJson('https://sonar.42m.ch/song/info.json', false).then((info) => {
           if (info) {
             setIsOnAir(info.online);
-            if (isEnabled && isOnAir && rawTitle !== info.title) {
+            if (!onlyOnAirStatus && info.online && rawTitle !== info.title) {
               setRawTitle(() => info.title);
-              setCurrentTitle(info.song);
-              setCurrentArtist(info.artist);
               if (info.cover) {
-                const uri = `https://sonar.42m.ch${info.cover}?t=` + Date.now().toString();
-                setPosterURL(uri);
+                const uri = `https://sonar.42m.ch${info.cover}`;
                 setCurrentTrack({
-                  title: currentTitle,
+                  title: info.song,
                   artwork: {uri}, // URL or RN's image require()
-                  artist: currentArtist,
+                  artist: info.artist,
+                });
+                MusicControl.setNowPlaying({
+                  title: info.title,
+                  artwork: uri,
+                  artist: info.artist,
+                  colorized: true,
+                  isLiveStream: true,
                 });
               }
             }
           }
+        })
+        .catch((e) => {
+          console.error(e)
+        }).finally(() => {
           setIsLoading(false);
         })
-        .catch(error => {
-          console.error(error);
-          setIsLoading(false);
-        });
     }
   };
+
+  const startInfoInterval = () => {
+    loadInfo();
+    const intervalId = setInterval(() => loadInfo(), 15000);
+    setUpdateIntervalId(intervalId)
+  }
+
+  const stopInfoInterval = () => {
+    clearInterval(updateIntervalId as number)
+  }
 
   // Declare player reference
   let player: Video | null;
@@ -251,24 +252,27 @@ export default function RadioPlayer({navigation}: any) {
 
       MusicControl.on(Command.play, () => {
         turnMusicOn();
+        startInfoInterval();
       });
 
       MusicControl.on(Command.pause, () => {
         turnMusicOff(true);
+        stopInfoInterval();
       });
       setIsInitialized(true);
     }
+    startInfoInterval();
     setIsPlaying(true);
     MusicControl.updatePlayback({
       state: MusicControl.STATE_PLAYING,
     });
-    MusicControl.setNowPlaying({...currentTrack, colorized: true, isLiveStream: true});
   };
 
   const turnMusicOff = (remote: boolean) => {
     MusicControl.updatePlayback({
       state: MusicControl.STATE_PAUSED,
     });
+    stopInfoInterval();
     setIsPlaying(false);
     if(!remote) {
       MusicControl.resetNowPlaying()
@@ -301,7 +305,6 @@ export default function RadioPlayer({navigation}: any) {
       playInBackground={true}
       playWhenInactive={true}
       audioOnly={true}
-      poster={posterURL}
       ignoreSilentSwitch="ignore"
     />
   ) : null;
@@ -324,7 +327,7 @@ export default function RadioPlayer({navigation}: any) {
         </RadioHeader>
         <RadioContainer>
           {!isLoading ? (
-            isEnabled && isOnAir ? (
+            isEnabled ? (
               <>
                 <RadioCoverWrapper>
                   <RadioCover>
@@ -349,8 +352,8 @@ export default function RadioPlayer({navigation}: any) {
                     </RadioPlayerControls>
                   ) : null}
                   <RadioDescription>
-                    <SongTitle>{currentTitle}</SongTitle>
-                    <BandName>{currentArtist}</BandName>
+                    <SongTitle>{currentTrack.title}</SongTitle>
+                    <BandName>{currentTrack.artist}</BandName>
                   </RadioDescription>
                 </RadioPlayerRow>
               </>
