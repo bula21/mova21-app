@@ -1,0 +1,144 @@
+@font-face {
+    font-family: 'Messina Sans Book';
+    src: url('MessinaSans-Book.eot');
+    src: local('Messina Sans Book'), local('MessinaSans-Book'),
+        url('MessinaSans-Book.eot?#iefix') format('embedded-opentype'),
+        url('MessinaSans-Book.woff2') format('woff2'),
+        url('MessinaSans-Book.woff') format('woff'),
+        url('MessinaSans-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Messina Sans';
+    src: url('MessinaSans-BlackItalic.eot');
+    src: local('Messina Sans Black Italic'), local('MessinaSans-BlackItalic'),
+        url('MessinaSans-BlackItalic.eot?#iefix') format('embedded-opentype'),
+        url('MessinaSans-BlackItalic.woff2') format('woff2'),
+        url('MessinaSans-BlackItalic.woff') format('woff'),
+        url('MessinaSans-BlackItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Messina Sans';
+    src: url('MessinaSans-SemiBold.eot');
+    src: local('Messina Sans SemiBold'), local('MessinaSans-SemiBold'),
+        url('MessinaSans-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('MessinaSans-SemiBold.woff2') format('woff2'),
+        url('MessinaSans-SemiBold.woff') format('woff'),
+        url('MessinaSans-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Messina Sans';
+    src: url('MessinaSans-Black.eot');
+    src: local('Messina Sans Black'), local('MessinaSans-Black'),
+        url('MessinaSans-Black.eot?#iefix') format('embedded-opentype'),
+        url('MessinaSans-Black.woff2') format('woff2'),
+        url('MessinaSans-Black.woff') format('woff'),
+        url('MessinaSans-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Messina Sans';
+    src: url('MessinaSans-Bold.eot');
+    src: local('Messina Sans Bold'), local('MessinaSans-Bold'),
+        url('MessinaSans-Bold.eot?#iefix') format('embedded-opentype'),
+        url('MessinaSans-Bold.woff2') format('woff2'),
+        url('MessinaSans-Bold.woff') format('woff'),
+        url('MessinaSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Messina Sans';
+    src: url('MessinaSans-SemiBoldItalic.eot');
+    src: local('Messina Sans SemiBold Italic'), local('MessinaSans-SemiBoldItalic'),
+        url('MessinaSans-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('MessinaSans-SemiBoldItalic.woff2') format('woff2'),
+        url('MessinaSans-SemiBoldItalic.woff') format('woff'),
+        url('MessinaSans-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Messina Sans';
+    src: url('MessinaSans-Regular.eot');
+    src: local('Messina Sans Regular'), local('MessinaSans-Regular'),
+        url('MessinaSans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('MessinaSans-Regular.woff2') format('woff2'),
+        url('MessinaSans-Regular.woff') format('woff'),
+        url('MessinaSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Messina Sans';
+    src: url('MessinaSans-LightItalic.eot');
+    src: local('Messina Sans Light Italic'), local('MessinaSans-LightItalic'),
+        url('MessinaSans-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('MessinaSans-LightItalic.woff2') format('woff2'),
+        url('MessinaSans-LightItalic.woff') format('woff'),
+        url('MessinaSans-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Messina Sans';
+    src: url('MessinaSans-BoldItalic.eot');
+    src: local('Messina Sans Bold Italic'), local('MessinaSans-BoldItalic'),
+        url('MessinaSans-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('MessinaSans-BoldItalic.woff2') format('woff2'),
+        url('MessinaSans-BoldItalic.woff') format('woff'),
+        url('MessinaSans-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Messina Sans Book';
+    src: url('MessinaSans-BookItalic.eot');
+    src: local('Messina Sans Book Italic'), local('MessinaSans-BookItalic'),
+        url('MessinaSans-BookItalic.eot?#iefix') format('embedded-opentype'),
+        url('MessinaSans-BookItalic.woff2') format('woff2'),
+        url('MessinaSans-BookItalic.woff') format('woff'),
+        url('MessinaSans-BookItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Messina Sans';
+    src: url('MessinaSans-RegularItalic.eot');
+    src: local('Messina Sans Regular Italic'), local('MessinaSans-RegularItalic'),
+        url('MessinaSans-RegularItalic.eot?#iefix') format('embedded-opentype'),
+        url('MessinaSans-RegularItalic.woff2') format('woff2'),
+        url('MessinaSans-RegularItalic.woff') format('woff'),
+        url('MessinaSans-RegularItalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Messina Sans';
+    src: url('MessinaSans-Light.eot');
+    src: local('Messina Sans Light'), local('MessinaSans-Light'),
+        url('MessinaSans-Light.eot?#iefix') format('embedded-opentype'),
+        url('MessinaSans-Light.woff2') format('woff2'),
+        url('MessinaSans-Light.woff') format('woff'),
+        url('MessinaSans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
