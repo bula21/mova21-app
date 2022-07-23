@@ -1,0 +1,66 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style>
+      .accordion-item {
+        color: #000 !important; /*schriftfarbe header */
+      }
+      .accordion-button:not(.collapsed) {
+        color: #000 !important; /*schriftfarbe header ausgeklappt */
+      }
+      .accordion-header, .accordion-button, .accordion-button .collapsed {
+        background-color: orange !important; /* background header */
+      }
+      .accordion-button:focus {
+        box-shadow: none !important; /* keine box-shadow bei focus */
+      }
+      .accordion-item {
+        border-width: 0px !important; /* keine border */
+      }
+      .accordion-button:not(.collapsed)::after {
+        background-image: /*hier - icon von mova einfügen*/ !important;
+      }
+      .accordion-button::after {
+        background-image: /*hier + icon von mova einfügen*/ !important;
+      }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>    
+<body>
+  <h1>Pocket-Card…<br />
+    … On y parle !</h1>
+  <h2><strong>D</strong></h2>
+  <div class="accordion accordion-flush" id="dAccordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          DE
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#dAccordion">
+        <div class="accordion-body">
+          FR
+          <br />
+          IT
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Daten
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#dAccordion">
+        <div class="accordion-body">
+          Le data
+          <br />
+          La data
+        </div>
+      </div>
+    </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>
