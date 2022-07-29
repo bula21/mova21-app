@@ -36,6 +36,13 @@ function html2markdown($html) {
 	$converter->getConfig()->setOption('strip_placeholder_links', true);
 	$md = $converter->convert($html);
 	$md = str_replace('@\[youtube\]', '@[youtube]', $md);
+	$md = str_replace("
+   
+=
+", "\n\n", $md);
+	$md = str_replace("
+
+    ![](", "\n![](", $md);
 	return $md;
 }
 
@@ -69,6 +76,8 @@ function archive_news_in_directus($news_id) {
 function import_image($url, $wp_image_id) {
 	logAction('importing image: '.$url);
 	$client = new GuzzleHttp\Client(['verify' => false]);
+	$basename = basename($url);
+	$url = str_replace($basename, urlencode($basename), $url);
 	$data = [
 		'url' => $url,
 		'data' => [
@@ -93,7 +102,7 @@ $updated_count = 0;
 $archived_count = 0;
 
 foreach ($languages as $lang) {
-	$data = http_get_json(MOVA_WP_URL . '?_embed=true&lang=' . $lang);
+	$data = http_get_json(MOVA_WP_URL . '?_embed=true&per_page=50&lang=' . $lang);
 	$directus_posts_response = http_get_json(DIRECTUS_URL . '/items/news?access_token=' . DIRECTUS_API_TOKEN . '&filter[language][_eq]=' .$lang);
 	$existing_posts = $directus_posts_response['data'];
 	$all_wp_post_ids = [];
