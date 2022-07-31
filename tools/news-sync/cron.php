@@ -30,6 +30,7 @@ function html2markdown($html) {
 	// fix images without src and srcset only
 	$html = preg_replace('/<img srcset="(([^ ]*) )([^"]*)"/i', '<img src="$2"', $html);
 	$html = preg_replace('#<iframe.*src=\".*youtube\.com\/embed\/([a-zA-Z0-9_]*)\?.*\".*><\/iframe>#mU', '@[youtube]($1)', $html);
+	$html = preg_replace('/<h1>[\s]*<\/h1>/i', '', $html); // remove empty h1 tags
 	$converter = new HtmlConverter();
 	$converter->getConfig()->setOption('strip_tags', true);
 	$converter->getConfig()->setOption('remove_nodes', 'meta style script');
@@ -102,7 +103,7 @@ $updated_count = 0;
 $archived_count = 0;
 
 foreach ($languages as $lang) {
-	$data = http_get_json(MOVA_WP_URL . '?_embed=true&per_page=50&lang=' . $lang);
+	$data = http_get_json(MOVA_WP_URL . '?_embed=true&per_page=70&lang=' . $lang);
 	$directus_posts_response = http_get_json(DIRECTUS_URL . '/items/news?access_token=' . DIRECTUS_API_TOKEN . '&filter[language][_eq]=' .$lang);
 	$existing_posts = $directus_posts_response['data'];
 	$all_wp_post_ids = [];
