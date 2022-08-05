@@ -104,7 +104,7 @@ $archived_count = 0;
 
 foreach ($languages as $lang) {
 	$data = http_get_json(MOVA_WP_URL . '?_embed=true&per_page=70&lang=' . $lang);
-	$directus_posts_response = http_get_json(DIRECTUS_URL . '/items/news?access_token=' . DIRECTUS_API_TOKEN . '&filter[language][_eq]=' .$lang);
+	$directus_posts_response = http_get_json(DIRECTUS_URL . '/items/news?access_token=' . DIRECTUS_API_TOKEN . '&limit=-1&filter[language][_eq]=' .$lang);
 	$existing_posts = $directus_posts_response['data'];
 	$all_wp_post_ids = [];
 	if (count($data)) {
